@@ -100,8 +100,7 @@ function Textarea({
           data-slot="textarea"
           disabled={disabled}
           maxLength={maxLength}
-          value={isControlled ? value : undefined}
-          defaultValue={!isControlled ? defaultValue : undefined}
+          value={currentValue}
           onChange={handleChange}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}

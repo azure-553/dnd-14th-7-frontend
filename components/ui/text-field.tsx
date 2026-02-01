@@ -87,8 +87,7 @@ function TextField({
         <input
           data-slot="text-field-input"
           disabled={disabled}
-          value={isControlled ? value : undefined}
-          defaultValue={!isControlled ? defaultValue : undefined}
+          value={currentValue}
           onChange={handleChange}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
