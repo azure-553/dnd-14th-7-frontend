@@ -14,9 +14,14 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -195,13 +200,18 @@
   --secondary-foreground: var(--dnd-label-normal);
   --muted: var(--dnd-bg-alternative);
   --muted-foreground: var(--dnd-label-alternative);
-  --accent: var(--dnd-bg-alternative);
+  --accent: var(--dnd-fill-normal);
   --accent-foreground: var(--dnd-label-normal);
   --destructive: var(--dnd-status-negative);
+  --destructive-foreground: var(--dnd-static-white);
   --border: var(--dnd-line-normal);
   --input: var(--dnd-line-normal);
   --ring: var(--dnd-primary);
   --radius: 0.5rem;
+  --card: var(--dnd-bg-normal);
+  --card-foreground: var(--dnd-label-normal);
+  --popover: var(--dnd-bg-normal);
+  --popover-foreground: var(--dnd-label-normal);
 }
 
 @layer base {
