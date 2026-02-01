@@ -1,6 +1,6 @@
 "use client"
 
-import { Check, X } from "lucide-react"
+import { Check, CircleX } from "lucide-react"
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
@@ -53,7 +53,7 @@ function TextField({
 
   const displayMessage = error ? errorMessage : success ? successMessage : helperText
   const showStatusIcon = error || success
-  const showClearButton = hasValue && !disabled && !error && !success
+  const showClearButton = hasValue && !disabled && isFocused
 
   return (
     <div className={cn("flex flex-col gap-2 w-full", className)}>
@@ -104,10 +104,10 @@ function TextField({
           <button
             type="button"
             onClick={handleClear}
-            className="flex items-center justify-center shrink-0 text-dnd-label-alternative hover:text-dnd-label-normal transition-colors"
+            className="flex items-center justify-center shrink-0 text-dnd-label-assistive hover:text-dnd-label-alternative transition-colors"
             aria-label="입력 지우기"
           >
-            <X className="size-6" />
+            <CircleX className="size-6" fill="currentColor" stroke="white" strokeWidth={2.5} />
           </button>
         )}
 
