@@ -162,99 +162,45 @@ export const IconButtons: Story = {
 };
 
 // 전체 조합
+const DND_VARIANTS = [
+  { value: "solid", label: "Solid" },
+  { value: "solid-secondary", label: "Solid Secondary" },
+  { value: "solid-assistive", label: "Solid Assistive" },
+  { value: "outlined", label: "Outlined" },
+  { value: "outlined-secondary", label: "Outlined Secondary" },
+  { value: "outlined-assistive", label: "Outlined Assistive" },
+  { value: "text", label: "Text" },
+  { value: "text-secondary", label: "Text Secondary" },
+  { value: "text-assistive", label: "Text Assistive" },
+] as const;
+
+const DND_SIZES = [
+  { value: "dnd-small", label: "Small" },
+  { value: "dnd-medium", label: "Medium" },
+  { value: "dnd-large", label: "Large" },
+] as const;
+
 export const AllDNDVariants: Story = {
   render: () => (
     <div className="space-y-8">
-      <div>
-        <h3 className="typo-heading-2 font-semibold mb-4">Solid</h3>
-        <div className="flex flex-wrap gap-4">
-          <Button variant="solid" size="dnd-small">Small</Button>
-          <Button variant="solid" size="dnd-medium">Medium</Button>
-          <Button variant="solid" size="dnd-large">Large</Button>
-          <Button variant="solid" size="dnd-medium" disabled>Disabled</Button>
-          <Button variant="solid" size="dnd-medium" loading>Loading</Button>
+      {DND_VARIANTS.map(({ value: variant, label }) => (
+        <div key={variant}>
+          <h3 className="typo-heading-2 font-semibold mb-4">{label}</h3>
+          <div className="flex flex-wrap items-center gap-4">
+            {DND_SIZES.map(({ value: size, label: sizeLabel }) => (
+              <Button key={size} variant={variant} size={size}>
+                {sizeLabel}
+              </Button>
+            ))}
+            <Button variant={variant} size="dnd-medium" disabled>
+              Disabled
+            </Button>
+            <Button variant={variant} size="dnd-medium" loading>
+              Loading
+            </Button>
+          </div>
         </div>
-      </div>
-      <div>
-        <h3 className="typo-heading-2 font-semibold mb-4">Solid Secondary</h3>
-        <div className="flex flex-wrap gap-4">
-          <Button variant="solid-secondary" size="dnd-small">Small</Button>
-          <Button variant="solid-secondary" size="dnd-medium">Medium</Button>
-          <Button variant="solid-secondary" size="dnd-large">Large</Button>
-          <Button variant="solid-secondary" size="dnd-medium" disabled>Disabled</Button>
-          <Button variant="solid-secondary" size="dnd-medium" loading>Loading</Button>
-        </div>
-      </div>
-      <div>
-        <h3 className="typo-heading-2 font-semibold mb-4">Solid Assistive</h3>
-        <div className="flex flex-wrap gap-4">
-          <Button variant="solid-assistive" size="dnd-small">Small</Button>
-          <Button variant="solid-assistive" size="dnd-medium">Medium</Button>
-          <Button variant="solid-assistive" size="dnd-large">Large</Button>
-          <Button variant="solid-assistive" size="dnd-medium" disabled>Disabled</Button>
-          <Button variant="solid-assistive" size="dnd-medium" loading>Loading</Button>
-        </div>
-      </div>
-      <div>
-        <h3 className="typo-heading-2 font-semibold mb-4">Outlined</h3>
-        <div className="flex flex-wrap gap-4">
-          <Button variant="outlined" size="dnd-small">Small</Button>
-          <Button variant="outlined" size="dnd-medium">Medium</Button>
-          <Button variant="outlined" size="dnd-large">Large</Button>
-          <Button variant="outlined" size="dnd-medium" disabled>Disabled</Button>
-          <Button variant="outlined" size="dnd-medium" loading>Loading</Button>
-        </div>
-      </div>
-      <div>
-        <h3 className="typo-heading-2 font-semibold mb-4">Outlined Secondary</h3>
-        <div className="flex flex-wrap gap-4">
-          <Button variant="outlined-secondary" size="dnd-small">Small</Button>
-          <Button variant="outlined-secondary" size="dnd-medium">Medium</Button>
-          <Button variant="outlined-secondary" size="dnd-large">Large</Button>
-          <Button variant="outlined-secondary" size="dnd-medium" disabled>Disabled</Button>
-          <Button variant="outlined-secondary" size="dnd-medium" loading>Loading</Button>
-        </div>
-      </div>
-      <div>
-        <h3 className="typo-heading-2 font-semibold mb-4">Outlined Assistive</h3>
-        <div className="flex flex-wrap gap-4">
-          <Button variant="outlined-assistive" size="dnd-small">Small</Button>
-          <Button variant="outlined-assistive" size="dnd-medium">Medium</Button>
-          <Button variant="outlined-assistive" size="dnd-large">Large</Button>
-          <Button variant="outlined-assistive" size="dnd-medium" disabled>Disabled</Button>
-          <Button variant="outlined-assistive" size="dnd-medium" loading>Loading</Button>
-        </div>
-      </div>
-      <div>
-        <h3 className="typo-heading-2 font-semibold mb-4">Text</h3>
-        <div className="flex flex-wrap gap-4">
-          <Button variant="text" size="dnd-small">Small</Button>
-          <Button variant="text" size="dnd-medium">Medium</Button>
-          <Button variant="text" size="dnd-large">Large</Button>
-          <Button variant="text" size="dnd-medium" disabled>Disabled</Button>
-          <Button variant="text" size="dnd-medium" loading>Loading</Button>
-        </div>
-      </div>
-      <div>
-        <h3 className="typo-heading-2 font-semibold mb-4">Text Secondary</h3>
-        <div className="flex flex-wrap gap-4">
-          <Button variant="text-secondary" size="dnd-small">Small</Button>
-          <Button variant="text-secondary" size="dnd-medium">Medium</Button>
-          <Button variant="text-secondary" size="dnd-large">Large</Button>
-          <Button variant="text-secondary" size="dnd-medium" disabled>Disabled</Button>
-          <Button variant="text-secondary" size="dnd-medium" loading>Loading</Button>
-        </div>
-      </div>
-      <div>
-        <h3 className="typo-heading-2 font-semibold mb-4">Text Assistive</h3>
-        <div className="flex flex-wrap gap-4">
-          <Button variant="text-assistive" size="dnd-small">Small</Button>
-          <Button variant="text-assistive" size="dnd-medium">Medium</Button>
-          <Button variant="text-assistive" size="dnd-large">Large</Button>
-          <Button variant="text-assistive" size="dnd-medium" disabled>Disabled</Button>
-          <Button variant="text-assistive" size="dnd-medium" loading>Loading</Button>
-        </div>
-      </div>
+      ))}
     </div>
   ),
   parameters: {
