@@ -1,48 +1,26 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
 @theme inline {
+  /* shadcn compatibility */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
 
   /* DND Design System - Primary */
   --color-dnd-primary: var(--dnd-primary);
@@ -95,42 +73,67 @@
   --shadow-dnd-emphasize: var(--dnd-shadow-emphasize);
   --shadow-dnd-strong: var(--dnd-shadow-strong);
   --shadow-dnd-heavy: var(--dnd-shadow-heavy);
+
+  /* DND Design System - Font Family */
+  --font-pretendard: var(--font-pretendard), -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+
+  /* DND Design System - Font Size */
+  --font-size-display-1: 3.5rem;
+  --font-size-display-2: 2.5rem;
+  --font-size-title-1: 2.25rem;
+  --font-size-title-2: 1.75rem;
+  --font-size-title-3: 1.5rem;
+  --font-size-heading-1: 1.375rem;
+  --font-size-heading-2: 1.25rem;
+  --font-size-headline-1: 1.125rem;
+  --font-size-headline-2: 1.0625rem;
+  --font-size-body-1: 1rem;
+  --font-size-body-2: 0.9375rem;
+  --font-size-label-1: 0.875rem;
+  --font-size-label-2: 0.8125rem;
+  --font-size-caption-1: 0.75rem;
+  --font-size-caption-2: 0.6875rem;
+
+  /* DND Design System - Line Height */
+  --line-height-display-1: 1.286;
+  --line-height-display-2: 1.3;
+  --line-height-title-1: 1.334;
+  --line-height-title-2: 1.358;
+  --line-height-title-3: 1.334;
+  --line-height-heading-1: 1.364;
+  --line-height-heading-2: 1.4;
+  --line-height-headline-1: 1.445;
+  --line-height-headline-2: 1.412;
+  --line-height-body-1-normal: 1.5;
+  --line-height-body-1-reading: 1.625;
+  --line-height-body-2-normal: 1.467;
+  --line-height-body-2-reading: 1.6;
+  --line-height-label-1-normal: 1.429;
+  --line-height-label-1-reading: 1.571;
+  --line-height-label-2: 1.385;
+  --line-height-caption-1: 1.334;
+  --line-height-caption-2: 1.273;
+
+  /* DND Design System - Letter Spacing */
+  --letter-spacing-display-1: -0.0319em;
+  --letter-spacing-display-2: -0.0282em;
+  --letter-spacing-title-1: -0.027em;
+  --letter-spacing-title-2: -0.0236em;
+  --letter-spacing-title-3: -0.023em;
+  --letter-spacing-heading-1: -0.0194em;
+  --letter-spacing-heading-2: -0.012em;
+  --letter-spacing-headline-1: -0.002em;
+  --letter-spacing-headline-2: 0em;
+  --letter-spacing-body-1: 0.0057em;
+  --letter-spacing-body-2: 0.0096em;
+  --letter-spacing-label-1: 0.0145em;
+  --letter-spacing-label-2: 0.0194em;
+  --letter-spacing-caption-1: 0.0252em;
+  --letter-spacing-caption-2: 0.0311em;
+
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: #51CCBD;
-  --primary-foreground: #ffffff;
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: #FF4242;
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.546 0.245 262.881);
-  --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-
   /* DND Design System - Primary */
   --dnd-primary: #51CCBD;
   --dnd-primary-strong: #43BFB0;
@@ -182,13 +185,67 @@
   --dnd-shadow-emphasize: 0px 0px 1px 0px rgba(0, 0, 0, 0.08), 0px 1px 4px 0px rgba(0, 0, 0, 0.08), 0px 2px 8px 0px rgba(0, 0, 0, 0.12);
   --dnd-shadow-strong: 0px 0px 4px 0px rgba(0, 0, 0, 0.08), 0px 4px 8px 0px rgba(0, 0, 0, 0.08), 0px 6px 12px 0px rgba(0, 0, 0, 0.12);
   --dnd-shadow-heavy: 0px 0px 8px 0px rgba(0, 0, 0, 0.08), 0px 8px 16px 0px rgba(0, 0, 0, 0.08), 0px 16px 20px 0px rgba(0, 0, 0, 0.12);
+
+  /* shadcn compatibility - mapped to DND Design System */
+  --background: var(--dnd-bg-normal);
+  --foreground: var(--dnd-label-normal);
+  --primary: var(--dnd-primary);
+  --primary-foreground: var(--dnd-static-white);
+  --secondary: var(--dnd-bg-alternative);
+  --secondary-foreground: var(--dnd-label-normal);
+  --muted: var(--dnd-bg-alternative);
+  --muted-foreground: var(--dnd-label-alternative);
+  --accent: var(--dnd-bg-alternative);
+  --accent-foreground: var(--dnd-label-normal);
+  --destructive: var(--dnd-status-negative);
+  --border: var(--dnd-line-normal);
+  --input: var(--dnd-line-normal);
+  --ring: var(--dnd-primary);
+  --radius: 0.5rem;
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--border);
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-pretendard);
   }
+}
+
+/* DND Typography Utility Classes */
+@layer utilities {
+  /* Display */
+  .typo-display-1 { font-size: var(--font-size-display-1); line-height: var(--line-height-display-1); letter-spacing: var(--letter-spacing-display-1); }
+  .typo-display-2 { font-size: var(--font-size-display-2); line-height: var(--line-height-display-2); letter-spacing: var(--letter-spacing-display-2); }
+
+  /* Title */
+  .typo-title-1 { font-size: var(--font-size-title-1); line-height: var(--line-height-title-1); letter-spacing: var(--letter-spacing-title-1); }
+  .typo-title-2 { font-size: var(--font-size-title-2); line-height: var(--line-height-title-2); letter-spacing: var(--letter-spacing-title-2); }
+  .typo-title-3 { font-size: var(--font-size-title-3); line-height: var(--line-height-title-3); letter-spacing: var(--letter-spacing-title-3); }
+
+  /* Heading */
+  .typo-heading-1 { font-size: var(--font-size-heading-1); line-height: var(--line-height-heading-1); letter-spacing: var(--letter-spacing-heading-1); }
+  .typo-heading-2 { font-size: var(--font-size-heading-2); line-height: var(--line-height-heading-2); letter-spacing: var(--letter-spacing-heading-2); }
+
+  /* Headline */
+  .typo-headline-1 { font-size: var(--font-size-headline-1); line-height: var(--line-height-headline-1); letter-spacing: var(--letter-spacing-headline-1); }
+  .typo-headline-2 { font-size: var(--font-size-headline-2); line-height: var(--line-height-headline-2); letter-spacing: var(--letter-spacing-headline-2); }
+
+  /* Body */
+  .typo-body-1 { font-size: var(--font-size-body-1); line-height: var(--line-height-body-1-normal); letter-spacing: var(--letter-spacing-body-1); }
+  .typo-body-1-reading { font-size: var(--font-size-body-1); line-height: var(--line-height-body-1-reading); letter-spacing: var(--letter-spacing-body-1); }
+  .typo-body-2 { font-size: var(--font-size-body-2); line-height: var(--line-height-body-2-normal); letter-spacing: var(--letter-spacing-body-2); }
+  .typo-body-2-reading { font-size: var(--font-size-body-2); line-height: var(--line-height-body-2-reading); letter-spacing: var(--letter-spacing-body-2); }
+
+  /* Label */
+  .typo-label-1 { font-size: var(--font-size-label-1); line-height: var(--line-height-label-1-normal); letter-spacing: var(--letter-spacing-label-1); }
+  .typo-label-1-reading { font-size: var(--font-size-label-1); line-height: var(--line-height-label-1-reading); letter-spacing: var(--letter-spacing-label-1); }
+  .typo-label-2 { font-size: var(--font-size-label-2); line-height: var(--line-height-label-2); letter-spacing: var(--letter-spacing-label-2); }
+
+  /* Caption */
+  .typo-caption-1 { font-size: var(--font-size-caption-1); line-height: var(--line-height-caption-1); letter-spacing: var(--letter-spacing-caption-1); }
+  .typo-caption-2 { font-size: var(--font-size-caption-2); line-height: var(--line-height-caption-2); letter-spacing: var(--letter-spacing-caption-2); }
 }
