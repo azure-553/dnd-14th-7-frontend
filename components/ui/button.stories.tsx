@@ -152,11 +152,11 @@ export const Loading: Story = {
 export const IconButtons: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-4">
-      <Button variant="solid" size="icon"><Check /></Button>
-      <Button variant="solid" size="icon-sm"><Check /></Button>
-      <Button variant="solid" size="icon-xs"><Check /></Button>
-      <Button variant="outlined" size="icon"><Check /></Button>
-      <Button variant="text" size="icon"><Check /></Button>
+      <Button variant="solid" size="icon" aria-label="확인"><Check /></Button>
+      <Button variant="solid" size="icon-sm" aria-label="확인"><Check /></Button>
+      <Button variant="solid" size="icon-xs" aria-label="확인"><Check /></Button>
+      <Button variant="outlined" size="icon" aria-label="확인"><Check /></Button>
+      <Button variant="text" size="icon" aria-label="확인"><Check /></Button>
     </div>
   ),
 };
