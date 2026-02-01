@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import { Check } from "lucide-react";
 import { Button } from "./button";
 
 const meta: Meta<typeof Button> = {
@@ -151,11 +152,11 @@ export const Loading: Story = {
 export const IconButtons: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-4">
-      <Button variant="solid" size="icon">✓</Button>
-      <Button variant="solid" size="icon-sm">✓</Button>
-      <Button variant="solid" size="icon-xs">✓</Button>
-      <Button variant="outlined" size="icon">✓</Button>
-      <Button variant="text" size="icon">✓</Button>
+      <Button variant="solid" size="icon"><Check /></Button>
+      <Button variant="solid" size="icon-sm"><Check /></Button>
+      <Button variant="solid" size="icon-xs"><Check /></Button>
+      <Button variant="outlined" size="icon"><Check /></Button>
+      <Button variant="text" size="icon"><Check /></Button>
     </div>
   ),
 };
