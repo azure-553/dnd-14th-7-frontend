@@ -13,6 +13,11 @@
 			"includes": ["components/ui/**"],
 			"linter": { "enabled": false },
 			"formatter": { "enabled": false }
+		},
+		{
+			"includes": [".claude/**"],
+			"linter": { "enabled": false },
+			"formatter": { "enabled": false }
 		}
 	],
 	"formatter": {
