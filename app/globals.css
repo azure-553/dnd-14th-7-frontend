@@ -2,260 +2,358 @@
 @import "tw-animate-css";
 
 @theme inline {
-  /* shadcn compatibility */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+	/* shadcn compatibility */
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-primary: var(--primary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-destructive: var(--destructive);
+	--color-destructive-foreground: var(--destructive-foreground);
+	--color-border: var(--border);
+	--color-input: var(--input);
+	--color-ring: var(--ring);
+	--color-card: var(--card);
+	--color-card-foreground: var(--card-foreground);
+	--color-popover: var(--popover);
+	--color-popover-foreground: var(--popover-foreground);
+	--radius-sm: calc(var(--radius) - 4px);
+	--radius-md: calc(var(--radius) - 2px);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) + 4px);
 
-  /* DND Design System - Primary */
-  --color-dnd-primary: var(--dnd-primary);
-  --color-dnd-primary-strong: var(--dnd-primary-strong);
-  --color-dnd-primary-heavy: var(--dnd-primary-heavy);
+	/* DND Design System - Primary */
+	--color-dnd-primary: var(--dnd-primary);
+	--color-dnd-primary-strong: var(--dnd-primary-strong);
+	--color-dnd-primary-heavy: var(--dnd-primary-heavy);
 
-  /* DND Design System - Label */
-  --color-dnd-label-normal: var(--dnd-label-normal);
-  --color-dnd-label-strong: var(--dnd-label-strong);
-  --color-dnd-label-neutral: var(--dnd-label-neutral);
-  --color-dnd-label-alternative: var(--dnd-label-alternative);
-  --color-dnd-label-assistive: var(--dnd-label-assistive);
-  --color-dnd-label-disable: var(--dnd-label-disable);
+	/* DND Design System - Label */
+	--color-dnd-label-normal: var(--dnd-label-normal);
+	--color-dnd-label-strong: var(--dnd-label-strong);
+	--color-dnd-label-neutral: var(--dnd-label-neutral);
+	--color-dnd-label-alternative: var(--dnd-label-alternative);
+	--color-dnd-label-assistive: var(--dnd-label-assistive);
+	--color-dnd-label-disable: var(--dnd-label-disable);
 
-  /* DND Design System - Background */
-  --color-dnd-bg-normal: var(--dnd-bg-normal);
-  --color-dnd-bg-alternative: var(--dnd-bg-alternative);
-  --color-dnd-bg-elevated: var(--dnd-bg-elevated);
-  --color-dnd-bg-elevated-alternative: var(--dnd-bg-elevated-alternative);
+	/* DND Design System - Background */
+	--color-dnd-bg-normal: var(--dnd-bg-normal);
+	--color-dnd-bg-alternative: var(--dnd-bg-alternative);
+	--color-dnd-bg-elevated: var(--dnd-bg-elevated);
+	--color-dnd-bg-elevated-alternative: var(--dnd-bg-elevated-alternative);
 
-  /* DND Design System - Interaction */
-  --color-dnd-interaction-inactive: var(--dnd-interaction-inactive);
-  --color-dnd-interaction-disable: var(--dnd-interaction-disable);
+	/* DND Design System - Interaction */
+	--color-dnd-interaction-inactive: var(--dnd-interaction-inactive);
+	--color-dnd-interaction-disable: var(--dnd-interaction-disable);
 
-  /* DND Design System - Line */
-  --color-dnd-line-normal: var(--dnd-line-normal);
-  --color-dnd-line-neutral: var(--dnd-line-neutral);
-  --color-dnd-line-alternative: var(--dnd-line-alternative);
-  --color-dnd-line-strong: var(--dnd-line-strong);
+	/* DND Design System - Line */
+	--color-dnd-line-normal: var(--dnd-line-normal);
+	--color-dnd-line-neutral: var(--dnd-line-neutral);
+	--color-dnd-line-alternative: var(--dnd-line-alternative);
+	--color-dnd-line-strong: var(--dnd-line-strong);
 
-  /* DND Design System - Status */
-  --color-dnd-status-positive: var(--dnd-status-positive);
-  --color-dnd-status-cautionary: var(--dnd-status-cautionary);
-  --color-dnd-status-negative: var(--dnd-status-negative);
+	/* DND Design System - Status */
+	--color-dnd-status-positive: var(--dnd-status-positive);
+	--color-dnd-status-cautionary: var(--dnd-status-cautionary);
+	--color-dnd-status-negative: var(--dnd-status-negative);
 
-  /* DND Design System - Static */
-  --color-dnd-static-white: var(--dnd-static-white);
-  --color-dnd-static-black: var(--dnd-static-black);
+	/* DND Design System - Static */
+	--color-dnd-static-white: var(--dnd-static-white);
+	--color-dnd-static-black: var(--dnd-static-black);
 
-  /* DND Design System - Fill */
-  --color-dnd-fill-normal: var(--dnd-fill-normal);
-  --color-dnd-fill-strong: var(--dnd-fill-strong);
-  --color-dnd-fill-alternative: var(--dnd-fill-alternative);
+	/* DND Design System - Fill */
+	--color-dnd-fill-normal: var(--dnd-fill-normal);
+	--color-dnd-fill-strong: var(--dnd-fill-strong);
+	--color-dnd-fill-alternative: var(--dnd-fill-alternative);
 
-  /* DND Design System - Material */
-  --color-dnd-material-dimmer: var(--dnd-material-dimmer);
+	/* DND Design System - Material */
+	--color-dnd-material-dimmer: var(--dnd-material-dimmer);
 
-  /* DND Design System - Shadow */
-  --shadow-dnd-normal: var(--dnd-shadow-normal);
-  --shadow-dnd-emphasize: var(--dnd-shadow-emphasize);
-  --shadow-dnd-strong: var(--dnd-shadow-strong);
-  --shadow-dnd-heavy: var(--dnd-shadow-heavy);
+	/* DND Design System - Shadow */
+	--shadow-dnd-normal: var(--dnd-shadow-normal);
+	--shadow-dnd-emphasize: var(--dnd-shadow-emphasize);
+	--shadow-dnd-strong: var(--dnd-shadow-strong);
+	--shadow-dnd-heavy: var(--dnd-shadow-heavy);
 
-  /* DND Design System - Font Family */
-  --font-pretendard: var(--font-pretendard), -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+	/* DND Design System - Font Family */
+	--font-pretendard:
+		var(--font-pretendard), -apple-system, BlinkMacSystemFont, system-ui,
+		Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+		"Malgun Gothic", sans-serif;
 
-  /* DND Design System - Font Size */
-  --font-size-display-1: 3.5rem;
-  --font-size-display-2: 2.5rem;
-  --font-size-title-1: 2.25rem;
-  --font-size-title-2: 1.75rem;
-  --font-size-title-3: 1.5rem;
-  --font-size-heading-1: 1.375rem;
-  --font-size-heading-2: 1.25rem;
-  --font-size-headline-1: 1.125rem;
-  --font-size-headline-2: 1.0625rem;
-  --font-size-body-1: 1rem;
-  --font-size-body-2: 0.9375rem;
-  --font-size-label-1: 0.875rem;
-  --font-size-label-2: 0.8125rem;
-  --font-size-caption-1: 0.75rem;
-  --font-size-caption-2: 0.6875rem;
+	/* DND Design System - Font Size */
+	--font-size-display-1: 3.5rem;
+	--font-size-display-2: 2.5rem;
+	--font-size-title-1: 2.25rem;
+	--font-size-title-2: 1.75rem;
+	--font-size-title-3: 1.5rem;
+	--font-size-heading-1: 1.375rem;
+	--font-size-heading-2: 1.25rem;
+	--font-size-headline-1: 1.125rem;
+	--font-size-headline-2: 1.0625rem;
+	--font-size-body-1: 1rem;
+	--font-size-body-2: 0.9375rem;
+	--font-size-label-1: 0.875rem;
+	--font-size-label-2: 0.8125rem;
+	--font-size-caption-1: 0.75rem;
+	--font-size-caption-2: 0.6875rem;
 
-  /* DND Design System - Line Height */
-  --line-height-display-1: 1.286;
-  --line-height-display-2: 1.3;
-  --line-height-title-1: 1.334;
-  --line-height-title-2: 1.358;
-  --line-height-title-3: 1.334;
-  --line-height-heading-1: 1.364;
-  --line-height-heading-2: 1.4;
-  --line-height-headline-1: 1.445;
-  --line-height-headline-2: 1.412;
-  --line-height-body-1-normal: 1.5;
-  --line-height-body-1-reading: 1.625;
-  --line-height-body-2-normal: 1.467;
-  --line-height-body-2-reading: 1.6;
-  --line-height-label-1-normal: 1.429;
-  --line-height-label-1-reading: 1.571;
-  --line-height-label-2: 1.385;
-  --line-height-caption-1: 1.334;
-  --line-height-caption-2: 1.273;
+	/* DND Design System - Line Height */
+	--line-height-display-1: 1.286;
+	--line-height-display-2: 1.3;
+	--line-height-title-1: 1.334;
+	--line-height-title-2: 1.358;
+	--line-height-title-3: 1.334;
+	--line-height-heading-1: 1.364;
+	--line-height-heading-2: 1.4;
+	--line-height-headline-1: 1.445;
+	--line-height-headline-2: 1.412;
+	--line-height-body-1-normal: 1.5;
+	--line-height-body-1-reading: 1.625;
+	--line-height-body-2-normal: 1.467;
+	--line-height-body-2-reading: 1.6;
+	--line-height-label-1-normal: 1.429;
+	--line-height-label-1-reading: 1.571;
+	--line-height-label-2: 1.385;
+	--line-height-caption-1: 1.334;
+	--line-height-caption-2: 1.273;
 
-  /* DND Design System - Letter Spacing */
-  --letter-spacing-display-1: -0.0319em;
-  --letter-spacing-display-2: -0.0282em;
-  --letter-spacing-title-1: -0.027em;
-  --letter-spacing-title-2: -0.0236em;
-  --letter-spacing-title-3: -0.023em;
-  --letter-spacing-heading-1: -0.0194em;
-  --letter-spacing-heading-2: -0.012em;
-  --letter-spacing-headline-1: -0.002em;
-  --letter-spacing-headline-2: 0em;
-  --letter-spacing-body-1: 0.0057em;
-  --letter-spacing-body-2: 0.0096em;
-  --letter-spacing-label-1: 0.0145em;
-  --letter-spacing-label-2: 0.0194em;
-  --letter-spacing-caption-1: 0.0252em;
-  --letter-spacing-caption-2: 0.0311em;
-
+	/* DND Design System - Letter Spacing */
+	--letter-spacing-display-1: -0.0319em;
+	--letter-spacing-display-2: -0.0282em;
+	--letter-spacing-title-1: -0.027em;
+	--letter-spacing-title-2: -0.0236em;
+	--letter-spacing-title-3: -0.023em;
+	--letter-spacing-heading-1: -0.0194em;
+	--letter-spacing-heading-2: -0.012em;
+	--letter-spacing-headline-1: -0.002em;
+	--letter-spacing-headline-2: 0em;
+	--letter-spacing-body-1: 0.0057em;
+	--letter-spacing-body-2: 0.0096em;
+	--letter-spacing-label-1: 0.0145em;
+	--letter-spacing-label-2: 0.0194em;
+	--letter-spacing-caption-1: 0.0252em;
+	--letter-spacing-caption-2: 0.0311em;
 }
 
 :root {
-  /* DND Design System - Primary */
-  --dnd-primary: #51CCBD;
-  --dnd-primary-strong: #43BFB0;
-  --dnd-primary-heavy: #36B2A3;
+	/* DND Design System - Primary */
+	--dnd-primary: #51ccbd;
+	--dnd-primary-strong: #43bfb0;
+	--dnd-primary-heavy: #36b2a3;
 
-  /* DND Design System - Label */
-  --dnd-label-normal: #171719;
-  --dnd-label-strong: #000000;
-  --dnd-label-neutral: rgba(46, 47, 51, 0.88);
-  --dnd-label-alternative: rgba(55, 56, 60, 0.61);
-  --dnd-label-assistive: rgba(55, 56, 60, 0.28);
-  --dnd-label-disable: rgba(55, 56, 60, 0.16);
+	/* DND Design System - Label */
+	--dnd-label-normal: #171719;
+	--dnd-label-strong: #000000;
+	--dnd-label-neutral: rgba(46, 47, 51, 0.88);
+	--dnd-label-alternative: rgba(55, 56, 60, 0.61);
+	--dnd-label-assistive: rgba(55, 56, 60, 0.28);
+	--dnd-label-disable: rgba(55, 56, 60, 0.16);
 
-  /* DND Design System - Background */
-  --dnd-bg-normal: #ffffff;
-  --dnd-bg-alternative: #f7f7f8;
-  --dnd-bg-elevated: #ffffff;
-  --dnd-bg-elevated-alternative: #f7f7f8;
+	/* DND Design System - Background */
+	--dnd-bg-normal: #ffffff;
+	--dnd-bg-alternative: #f7f7f8;
+	--dnd-bg-elevated: #ffffff;
+	--dnd-bg-elevated-alternative: #f7f7f8;
 
-  /* DND Design System - Interaction */
-  --dnd-interaction-inactive: #989BA2;
-  --dnd-interaction-disable: #F4F4F5;
+	/* DND Design System - Interaction */
+	--dnd-interaction-inactive: #989ba2;
+	--dnd-interaction-disable: #f4f4f5;
 
-  /* DND Design System - Line */
-  --dnd-line-normal: rgba(112, 115, 124, 0.22);
-  --dnd-line-neutral: rgba(112, 115, 124, 0.16);
-  --dnd-line-alternative: rgba(112, 115, 124, 0.08);
-  --dnd-line-strong: rgba(112, 115, 124, 0.52);
+	/* DND Design System - Line */
+	--dnd-line-normal: rgba(112, 115, 124, 0.22);
+	--dnd-line-neutral: rgba(112, 115, 124, 0.16);
+	--dnd-line-alternative: rgba(112, 115, 124, 0.08);
+	--dnd-line-strong: rgba(112, 115, 124, 0.52);
 
-  /* DND Design System - Status */
-  --dnd-status-positive: #00BF40;
-  --dnd-status-cautionary: #FF9200;
-  --dnd-status-negative: #FF4242;
+	/* DND Design System - Status */
+	--dnd-status-positive: #00bf40;
+	--dnd-status-cautionary: #ff9200;
+	--dnd-status-negative: #ff4242;
 
-  /* DND Design System - Static */
-  --dnd-static-white: #ffffff;
-  --dnd-static-black: #000000;
+	/* DND Design System - Static */
+	--dnd-static-white: #ffffff;
+	--dnd-static-black: #000000;
 
-  /* DND Design System - Fill */
-  --dnd-fill-normal: rgba(112, 115, 124, 0.08);
-  --dnd-fill-strong: rgba(112, 115, 124, 0.16);
-  --dnd-fill-alternative: rgba(112, 115, 124, 0.05);
+	/* DND Design System - Fill */
+	--dnd-fill-normal: rgba(112, 115, 124, 0.08);
+	--dnd-fill-strong: rgba(112, 115, 124, 0.16);
+	--dnd-fill-alternative: rgba(112, 115, 124, 0.05);
 
-  /* DND Design System - Material */
-  --dnd-material-dimmer: rgba(23, 23, 25, 0.52);
+	/* DND Design System - Material */
+	--dnd-material-dimmer: rgba(23, 23, 25, 0.52);
 
-  /* DND Design System - Shadow */
-  --dnd-shadow-normal: 0px 0px 1px 0px rgba(0, 0, 0, 0.08), 0px 0px 1px 0px rgba(0, 0, 0, 0.08), 0px 1px 2px 0px rgba(0, 0, 0, 0.12);
-  --dnd-shadow-emphasize: 0px 0px 1px 0px rgba(0, 0, 0, 0.08), 0px 1px 4px 0px rgba(0, 0, 0, 0.08), 0px 2px 8px 0px rgba(0, 0, 0, 0.12);
-  --dnd-shadow-strong: 0px 0px 4px 0px rgba(0, 0, 0, 0.08), 0px 4px 8px 0px rgba(0, 0, 0, 0.08), 0px 6px 12px 0px rgba(0, 0, 0, 0.12);
-  --dnd-shadow-heavy: 0px 0px 8px 0px rgba(0, 0, 0, 0.08), 0px 8px 16px 0px rgba(0, 0, 0, 0.08), 0px 16px 20px 0px rgba(0, 0, 0, 0.12);
+	/* DND Design System - Shadow */
+	--dnd-shadow-normal:
+		0px 0px 1px 0px rgba(0, 0, 0, 0.08), 0px 0px 1px 0px rgba(0, 0, 0, 0.08), 0px 1px 2px 0px rgba(
+			0,
+			0,
+			0,
+			0.12
+		);
+	--dnd-shadow-emphasize:
+		0px 0px 1px 0px rgba(0, 0, 0, 0.08), 0px 1px 4px 0px rgba(0, 0, 0, 0.08), 0px 2px 8px 0px rgba(
+			0,
+			0,
+			0,
+			0.12
+		);
+	--dnd-shadow-strong:
+		0px 0px 4px 0px rgba(0, 0, 0, 0.08), 0px 4px 8px 0px rgba(0, 0, 0, 0.08), 0px 6px 12px 0px rgba(
+			0,
+			0,
+			0,
+			0.12
+		);
+	--dnd-shadow-heavy:
+		0px 0px 8px 0px rgba(0, 0, 0, 0.08), 0px 8px 16px 0px rgba(0, 0, 0, 0.08), 0px 16px 20px 0px rgba(
+			0,
+			0,
+			0,
+			0.12
+		);
 
-  /* shadcn compatibility - mapped to DND Design System */
-  --background: var(--dnd-bg-normal);
-  --foreground: var(--dnd-label-normal);
-  --primary: var(--dnd-primary);
-  --primary-foreground: var(--dnd-static-white);
-  --secondary: var(--dnd-bg-alternative);
-  --secondary-foreground: var(--dnd-label-normal);
-  --muted: var(--dnd-bg-alternative);
-  --muted-foreground: var(--dnd-label-alternative);
-  --accent: var(--dnd-fill-normal);
-  --accent-foreground: var(--dnd-label-normal);
-  --destructive: var(--dnd-status-negative);
-  --destructive-foreground: var(--dnd-static-white);
-  --border: var(--dnd-line-normal);
-  --input: var(--dnd-line-normal);
-  --ring: var(--dnd-primary);
-  --radius: 0.5rem;
-  --card: var(--dnd-bg-normal);
-  --card-foreground: var(--dnd-label-normal);
-  --popover: var(--dnd-bg-normal);
-  --popover-foreground: var(--dnd-label-normal);
+	/* shadcn compatibility - mapped to DND Design System */
+	--background: var(--dnd-bg-normal);
+	--foreground: var(--dnd-label-normal);
+	--primary: var(--dnd-primary);
+	--primary-foreground: var(--dnd-static-white);
+	--secondary: var(--dnd-bg-alternative);
+	--secondary-foreground: var(--dnd-label-normal);
+	--muted: var(--dnd-bg-alternative);
+	--muted-foreground: var(--dnd-label-alternative);
+	--accent: var(--dnd-fill-normal);
+	--accent-foreground: var(--dnd-label-normal);
+	--destructive: var(--dnd-status-negative);
+	--destructive-foreground: var(--dnd-static-white);
+	--border: var(--dnd-line-normal);
+	--input: var(--dnd-line-normal);
+	--ring: var(--dnd-primary);
+	--radius: 0.5rem;
+	--card: var(--dnd-bg-normal);
+	--card-foreground: var(--dnd-label-normal);
+	--popover: var(--dnd-bg-normal);
+	--popover-foreground: var(--dnd-label-normal);
 }
 
 @layer base {
-  * {
-    border-color: var(--border);
-  }
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-pretendard);
-  }
+	* {
+		border-color: var(--border);
+	}
+	body {
+		background-color: var(--background);
+		color: var(--foreground);
+		font-family: var(--font-pretendard);
+	}
 }
 
 /* DND Typography Utility Classes */
 @layer utilities {
-  /* Display */
-  .typo-display-1 { font-size: var(--font-size-display-1); line-height: var(--line-height-display-1); letter-spacing: var(--letter-spacing-display-1); }
-  .typo-display-2 { font-size: var(--font-size-display-2); line-height: var(--line-height-display-2); letter-spacing: var(--letter-spacing-display-2); }
+	/* Display */
+	.typo-display-1 {
+		font-size: var(--font-size-display-1);
+		line-height: var(--line-height-display-1);
+		letter-spacing: var(--letter-spacing-display-1);
+	}
+	.typo-display-2 {
+		font-size: var(--font-size-display-2);
+		line-height: var(--line-height-display-2);
+		letter-spacing: var(--letter-spacing-display-2);
+	}
 
-  /* Title */
-  .typo-title-1 { font-size: var(--font-size-title-1); line-height: var(--line-height-title-1); letter-spacing: var(--letter-spacing-title-1); }
-  .typo-title-2 { font-size: var(--font-size-title-2); line-height: var(--line-height-title-2); letter-spacing: var(--letter-spacing-title-2); }
-  .typo-title-3 { font-size: var(--font-size-title-3); line-height: var(--line-height-title-3); letter-spacing: var(--letter-spacing-title-3); }
+	/* Title */
+	.typo-title-1 {
+		font-size: var(--font-size-title-1);
+		line-height: var(--line-height-title-1);
+		letter-spacing: var(--letter-spacing-title-1);
+	}
+	.typo-title-2 {
+		font-size: var(--font-size-title-2);
+		line-height: var(--line-height-title-2);
+		letter-spacing: var(--letter-spacing-title-2);
+	}
+	.typo-title-3 {
+		font-size: var(--font-size-title-3);
+		line-height: var(--line-height-title-3);
+		letter-spacing: var(--letter-spacing-title-3);
+	}
 
-  /* Heading */
-  .typo-heading-1 { font-size: var(--font-size-heading-1); line-height: var(--line-height-heading-1); letter-spacing: var(--letter-spacing-heading-1); }
-  .typo-heading-2 { font-size: var(--font-size-heading-2); line-height: var(--line-height-heading-2); letter-spacing: var(--letter-spacing-heading-2); }
+	/* Heading */
+	.typo-heading-1 {
+		font-size: var(--font-size-heading-1);
+		line-height: var(--line-height-heading-1);
+		letter-spacing: var(--letter-spacing-heading-1);
+	}
+	.typo-heading-2 {
+		font-size: var(--font-size-heading-2);
+		line-height: var(--line-height-heading-2);
+		letter-spacing: var(--letter-spacing-heading-2);
+	}
 
-  /* Headline */
-  .typo-headline-1 { font-size: var(--font-size-headline-1); line-height: var(--line-height-headline-1); letter-spacing: var(--letter-spacing-headline-1); }
-  .typo-headline-2 { font-size: var(--font-size-headline-2); line-height: var(--line-height-headline-2); letter-spacing: var(--letter-spacing-headline-2); }
+	/* Headline */
+	.typo-headline-1 {
+		font-size: var(--font-size-headline-1);
+		line-height: var(--line-height-headline-1);
+		letter-spacing: var(--letter-spacing-headline-1);
+	}
+	.typo-headline-2 {
+		font-size: var(--font-size-headline-2);
+		line-height: var(--line-height-headline-2);
+		letter-spacing: var(--letter-spacing-headline-2);
+	}
 
-  /* Body */
-  .typo-body-1 { font-size: var(--font-size-body-1); line-height: var(--line-height-body-1-normal); letter-spacing: var(--letter-spacing-body-1); }
-  .typo-body-1-reading { font-size: var(--font-size-body-1); line-height: var(--line-height-body-1-reading); letter-spacing: var(--letter-spacing-body-1); }
-  .typo-body-2 { font-size: var(--font-size-body-2); line-height: var(--line-height-body-2-normal); letter-spacing: var(--letter-spacing-body-2); }
-  .typo-body-2-reading { font-size: var(--font-size-body-2); line-height: var(--line-height-body-2-reading); letter-spacing: var(--letter-spacing-body-2); }
+	/* Body */
+	.typo-body-1 {
+		font-size: var(--font-size-body-1);
+		line-height: var(--line-height-body-1-normal);
+		letter-spacing: var(--letter-spacing-body-1);
+	}
+	.typo-body-1-reading {
+		font-size: var(--font-size-body-1);
+		line-height: var(--line-height-body-1-reading);
+		letter-spacing: var(--letter-spacing-body-1);
+	}
+	.typo-body-2 {
+		font-size: var(--font-size-body-2);
+		line-height: var(--line-height-body-2-normal);
+		letter-spacing: var(--letter-spacing-body-2);
+	}
+	.typo-body-2-reading {
+		font-size: var(--font-size-body-2);
+		line-height: var(--line-height-body-2-reading);
+		letter-spacing: var(--letter-spacing-body-2);
+	}
 
-  /* Label */
-  .typo-label-1 { font-size: var(--font-size-label-1); line-height: var(--line-height-label-1-normal); letter-spacing: var(--letter-spacing-label-1); }
-  .typo-label-1-reading { font-size: var(--font-size-label-1); line-height: var(--line-height-label-1-reading); letter-spacing: var(--letter-spacing-label-1); }
-  .typo-label-2 { font-size: var(--font-size-label-2); line-height: var(--line-height-label-2); letter-spacing: var(--letter-spacing-label-2); }
+	/* Label */
+	.typo-label-1 {
+		font-size: var(--font-size-label-1);
+		line-height: var(--line-height-label-1-normal);
+		letter-spacing: var(--letter-spacing-label-1);
+	}
+	.typo-label-1-reading {
+		font-size: var(--font-size-label-1);
+		line-height: var(--line-height-label-1-reading);
+		letter-spacing: var(--letter-spacing-label-1);
+	}
+	.typo-label-2 {
+		font-size: var(--font-size-label-2);
+		line-height: var(--line-height-label-2);
+		letter-spacing: var(--letter-spacing-label-2);
+	}
 
-  /* Caption */
-  .typo-caption-1 { font-size: var(--font-size-caption-1); line-height: var(--line-height-caption-1); letter-spacing: var(--letter-spacing-caption-1); }
-  .typo-caption-2 { font-size: var(--font-size-caption-2); line-height: var(--line-height-caption-2); letter-spacing: var(--letter-spacing-caption-2); }
+	/* Caption */
+	.typo-caption-1 {
+		font-size: var(--font-size-caption-1);
+		line-height: var(--line-height-caption-1);
+		letter-spacing: var(--letter-spacing-caption-1);
+	}
+	.typo-caption-2 {
+		font-size: var(--font-size-caption-2);
+		line-height: var(--line-height-caption-2);
+		letter-spacing: var(--letter-spacing-caption-2);
+	}
 }
