@@ -5,11 +5,21 @@ function getBaseUrl() {
 	return process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
 }
 
+async function getServerCookies(): Promise<string> {
+	const { cookies } = await import("next/headers");
+	const cookieStore = await cookies();
+	return cookieStore.toString();
+}
+
 async function request(path: string, init?: RequestInit): Promise<Response> {
+	const isServer = typeof window === "undefined";
+	const cookieHeader = isServer ? await getServerCookies() : undefined;
+
 	const response = await fetch(`${getBaseUrl()}${path}`, {
 		...init,
 		headers: {
 			"Content-Type": "application/json",
+			...(cookieHeader ? { Cookie: cookieHeader } : {}),
 			...init?.headers,
 		},
 	});
