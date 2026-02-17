@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
+import { isProduction } from "@/lib/core/env";
 
 export async function GET() {
+	if (isProduction()) {
+		return NextResponse.json({ error: "Not found" }, { status: 404 });
+	}
 	return NextResponse.json({
 		tags: [
 			{ tagId: 1, tagName: "서버", count: 6 },
