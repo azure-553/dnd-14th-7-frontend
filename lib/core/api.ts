@@ -5,7 +5,7 @@ function getBaseUrl() {
 	return process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
 }
 
-async function request<T>(path: string, init?: RequestInit): Promise<T> {
+async function request(path: string, init?: RequestInit): Promise<Response> {
 	const response = await fetch(`${getBaseUrl()}${path}`, {
 		...init,
 		headers: {
@@ -18,34 +18,34 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 		throw new Error(`${response.status} ${response.statusText}`);
 	}
 
-	return response.json();
+	return response;
 }
 
 export const api = {
 	get: <T>(path: string, options?: RequestOptions) =>
-		request<T>(path, { ...options, method: "GET" }),
+		request(path, { ...options, method: "GET" }).then((r) => r.json() as T),
 
 	post: <T>(path: string, body: unknown, options?: RequestOptions) =>
-		request<T>(path, {
+		request(path, {
 			...options,
 			method: "POST",
 			body: JSON.stringify(body),
-		}),
+		}).then((r) => r.json() as T),
 
 	put: <T>(path: string, body: unknown, options?: RequestOptions) =>
-		request<T>(path, {
+		request(path, {
 			...options,
 			method: "PUT",
 			body: JSON.stringify(body),
-		}),
+		}).then((r) => r.json() as T),
 
 	patch: <T>(path: string, body: unknown, options?: RequestOptions) =>
-		request<T>(path, {
+		request(path, {
 			...options,
 			method: "PATCH",
 			body: JSON.stringify(body),
-		}),
+		}).then((r) => r.json() as T),
 
-	delete: <T>(path: string, options?: RequestOptions) =>
-		request<T>(path, { ...options, method: "DELETE" }),
+	delete: (path: string, options?: RequestOptions) =>
+		request(path, { ...options, method: "DELETE" }).then(() => {}),
 };
