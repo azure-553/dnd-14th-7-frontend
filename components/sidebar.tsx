@@ -1,38 +1,25 @@
 "use client";
 
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { PenSquare, Trash2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { Button } from "@/components/ui/button";
-import { getTags, type Tag } from "@/lib/api/tags";
-import { getUser } from "@/lib/api/user";
+import {
+	type Tag,
+	tagsQueryOptions,
+	userQueryOptions,
+} from "@/lib/queries/user";
 
 function Sidebar() {
-	const [userName, setUserName] = useState("");
-	const [tags, setTags] = useState<Tag[]>([]);
-
-	useEffect(() => {
-		const fetchData = async () => {
-			const user = await getUser();
-			if (user) {
-				setUserName(user.name);
-			}
-			const tagsData = await getTags();
-			setTags(tagsData);
-		};
-		fetchData();
-	}, []);
-
 	return (
-		<div className="fixed left-0 top-0 flex h-full w-[260px] flex-col gap-[32px] bg-[var(--dnd-bg-alternative)] p-[24px] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.08),0px_1px_2px_0px_rgba(0,0,0,0.12)]">
+		<div className="fixed left-0 top-0 flex h-full w-[260px] flex-col gap-[32px] bg-dnd-bg-alternative p-[24px] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.08),0px_1px_2px_0px_rgba(0,0,0,0.12)]">
 			<div className="flex w-full items-center justify-between">
-				<div className="flex flex-1 items-center gap-[8px]">
-					<div className="flex size-[32px] shrink-0 items-center justify-center overflow-hidden rounded-[160px] bg-gray-200">
-						<div className="size-full bg-gray-300" />
-					</div>
-					<p className="flex-1 whitespace-pre-wrap font-[family-name:var(--font-pretendard)] text-[18px] font-medium leading-[1.445] tracking-[-0.0036px] text-[var(--dnd-label-neutral)]">
-						{userName || "..."}
-					</p>
-				</div>
+				<ErrorBoundary fallback={<SidebarError />}>
+					<Suspense fallback={<SidebarFallback />}>
+						<SidebarUserProfile />
+					</Suspense>
+				</ErrorBoundary>
 				<Button
 					variant="ghost"
 					size="icon"
@@ -95,12 +82,11 @@ function Sidebar() {
 					<p className="w-full overflow-hidden text-ellipsis whitespace-nowrap font-[family-name:var(--font-pretendard)] text-[12px] font-medium leading-[1.5] tracking-[0.0912px] text-[var(--dnd-label-alternative)]">
 						태그
 					</p>
-
-					<div className="flex w-full flex-col items-start gap-[2px]">
-						{tags.map((tag) => (
-							<SidebarTag key={tag.label} label={tag.label} count={tag.count} />
-						))}
-					</div>
+					<ErrorBoundary fallback={<SidebarError />}>
+						<Suspense fallback={<SidebarFallback />}>
+							<SidebarTagList />
+						</Suspense>
+					</ErrorBoundary>
 				</div>
 
 				<Button
@@ -119,23 +105,58 @@ function Sidebar() {
 	);
 }
 
-interface SidebarTagProps {
-	label: string;
-	count: number;
+function SidebarUserProfile() {
+	const { data: user } = useSuspenseQuery(userQueryOptions());
+
+	return (
+		<div className="flex flex-1 items-center gap-[8px]">
+			<div className="flex size-[32px] shrink-0 items-center justify-center overflow-hidden rounded-[160px] bg-gray-200">
+				<div className="size-full bg-gray-300" />
+			</div>
+			<p className="flex-1 whitespace-pre-wrap font-pretendard text-[18px] font-medium leading-[1.445] tracking-[-0.0036px] text-dnd-label-neutral">
+				{user.nickname}
+			</p>
+		</div>
+	);
 }
 
-function SidebarTag({ label, count }: SidebarTagProps) {
+function SidebarTagList() {
+	const { data: tags } = useSuspenseQuery(tagsQueryOptions());
+
+	return (
+		<div className="flex w-full flex-col items-start gap-[2px]">
+			{tags.map((tag) => (
+				<SidebarTag key={tag.tagId} tag={tag} />
+			))}
+		</div>
+	);
+}
+
+function SidebarTag({ tag }: { tag: Tag }) {
 	return (
 		<Button
 			variant="text-secondary"
 			className="w-full justify-start gap-[8px] px-[8px] py-[8px] h-auto"
 		>
-			<span className="text-[16px] text-[var(--dnd-label-alternative)]">#</span>
-			<div className="flex items-center gap-[4px] font-[family-name:var(--font-pretendard)] text-[16px] font-medium leading-[1.5] text-[var(--dnd-label-neutral)]">
-				<span>{label}</span>
-				<span className="text-[var(--dnd-label-alternative)]">{count}</span>
-			</div>
+			<span className="text-[16px] text-dnd-label-alternative">#</span>
+			<span className="font-[family-name:var(--font-pretendard)] text-[16px] font-medium leading-[1.5] text-[var(--dnd-label-neutral)]">
+				{tag.tagName} ({tag.count})
+			</span>
 		</Button>
+	);
+}
+
+function SidebarFallback() {
+	return (
+		<div className="flex-1 animate-pulse rounded bg-gray-200 h-[20px]" />
+	);
+}
+
+function SidebarError() {
+	return (
+		<p className="text-[14px] text-dnd-label-alternative">
+			불러오지 못했습니다
+		</p>
 	);
 }
 

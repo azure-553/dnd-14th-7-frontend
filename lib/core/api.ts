@@ -1,7 +1,12 @@
 type RequestOptions = Omit<RequestInit, "method" | "body">;
 
+function getBaseUrl() {
+	if (typeof window !== "undefined") return "";
+	return process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
+}
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
-	const response = await fetch(path, {
+	const response = await fetch(`${getBaseUrl()}${path}`, {
 		...init,
 		headers: {
 			"Content-Type": "application/json",
