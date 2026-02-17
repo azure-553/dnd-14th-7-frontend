@@ -71,8 +71,8 @@ function SidebarTag({ tag }: { tag: Tag }) {
 			variant="text-secondary"
 			className="w-full justify-start gap-[8px] px-[8px] py-[8px] h-auto"
 		>
-			<span className="text-[16px] text-dnd-label-alternative">#</span>
-			<span className="text-[16px] font-medium leading-normal text-dnd-label-neutral">
+			<span className="typo-body-1 text-dnd-label-alternative">#</span>
+			<span className="typo-body-1 font-medium text-dnd-label-neutral">
 				{tag.tagName} ({tag.count})
 			</span>
 		</Button>
