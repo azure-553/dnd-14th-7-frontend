@@ -1,38 +1,25 @@
 "use client";
 
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { PenSquare, Trash2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { Button } from "@/components/ui/button";
-import { getTags, type Tag } from "@/lib/api/tags";
-import { getUser } from "@/lib/api/user";
+import {
+	type Tag,
+	tagsQueryOptions,
+	userQueryOptions,
+} from "@/lib/queries/user";
 
 function Sidebar() {
-	const [userName, setUserName] = useState("");
-	const [tags, setTags] = useState<Tag[]>([]);
-
-	useEffect(() => {
-		const fetchData = async () => {
-			const user = await getUser();
-			if (user) {
-				setUserName(user.name);
-			}
-			const tagsData = await getTags();
-			setTags(tagsData);
-		};
-		fetchData();
-	}, []);
-
 	return (
-		<div className="fixed left-0 top-0 flex h-full w-[260px] flex-col gap-[32px] bg-[var(--dnd-bg-alternative)] p-[24px] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.08),0px_1px_2px_0px_rgba(0,0,0,0.12)]">
+		<div className="fixed left-0 top-0 flex h-full w-[260px] flex-col gap-[32px] bg-dnd-bg-alternative p-[24px] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.08),0px_1px_2px_0px_rgba(0,0,0,0.12)]">
 			<div className="flex w-full items-center justify-between">
-				<div className="flex flex-1 items-center gap-[8px]">
-					<div className="flex size-[32px] shrink-0 items-center justify-center overflow-hidden rounded-[160px] bg-gray-200">
-						<div className="size-full bg-gray-300" />
-					</div>
-					<p className="flex-1 whitespace-pre-wrap font-[family-name:var(--font-pretendard)] text-[18px] font-medium leading-[1.445] tracking-[-0.0036px] text-[var(--dnd-label-neutral)]">
-						{userName || "..."}
-					</p>
-				</div>
+				<ErrorBoundary fallback={<SidebarError />}>
+					<Suspense fallback={<SidebarFallback />}>
+						<SidebarUserProfile />
+					</Suspense>
+				</ErrorBoundary>
 				<Button
 					variant="ghost"
 					size="icon"
@@ -75,32 +62,31 @@ function Sidebar() {
 						fillOpacity="0.88"
 					/>
 				</svg>
-				<span className="font-[family-name:var(--font-pretendard)] text-[18px] font-semibold leading-[1.445] tracking-[-0.0036px] text-[var(--dnd-label-neutral)]">
+				<span className="text-[18px] font-semibold leading-[1.445] tracking-[-0.0036px] text-dnd-label-neutral">
 					홈
 				</span>
 			</Button>
 
 			<div className="flex w-full flex-col gap-[32px]">
 				<Button
-					className="h-auto w-full flex-row items-center justify-center gap-[4px] rounded-[8px] py-[8px] bg-white border border-[var(--dnd-line-normal)] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.08),0px_1px_2px_0px_rgba(0,0,0,0.12)] hover:bg-[var(--dnd-bg-alternative)]"
+					className="h-auto w-full flex-row items-center justify-center gap-[4px] rounded-[8px] py-[8px] bg-white border border-dnd-line-normal shadow-[0px_0px_1px_0px_rgba(0,0,0,0.08),0px_1px_2px_0px_rgba(0,0,0,0.12)] hover:bg-dnd-bg-alternative"
 					variant="ghost"
 				>
-					<PenSquare className="size-[16px] text-[var(--dnd-label-neutral)]" />
-					<span className="font-[family-name:var(--font-pretendard)] text-[14px] font-medium leading-[1.429] tracking-[0.0145em] text-[var(--dnd-label-neutral)]">
+					<PenSquare className="size-[16px] text-dnd-label-neutral" />
+					<span className="text-[14px] font-medium leading-[1.429] tracking-[0.0145em] text-dnd-label-neutral">
 						새 페이지 만들기
 					</span>
 				</Button>
 
 				<div className="flex w-full flex-col gap-[8px]">
-					<p className="w-full overflow-hidden text-ellipsis whitespace-nowrap font-[family-name:var(--font-pretendard)] text-[12px] font-medium leading-[1.5] tracking-[0.0912px] text-[var(--dnd-label-alternative)]">
+					<p className="w-full overflow-hidden text-ellipsis whitespace-nowrap text-[12px] font-medium leading-normal tracking-[0.0912px] text-dnd-label-alternative">
 						태그
 					</p>
-
-					<div className="flex w-full flex-col items-start gap-[2px]">
-						{tags.map((tag) => (
-							<SidebarTag key={tag.label} label={tag.label} count={tag.count} />
-						))}
-					</div>
+					<ErrorBoundary fallback={<SidebarError />}>
+						<Suspense fallback={<SidebarFallback />}>
+							<SidebarTagList />
+						</Suspense>
+					</ErrorBoundary>
 				</div>
 
 				<Button
@@ -108,9 +94,9 @@ function Sidebar() {
 					className="w-full justify-start gap-[8px] px-[8px] py-[8px] h-auto mt-auto"
 				>
 					<div className="flex h-[24px] w-[20px] items-center justify-center">
-						<Trash2 className="size-[20px] text-[var(--dnd-label-neutral)]" />
+						<Trash2 className="size-[20px] text-dnd-label-neutral" />
 					</div>
-					<span className="font-[family-name:var(--font-pretendard)] text-[16px] font-medium leading-[1.5] text-[var(--dnd-label-neutral)]">
+					<span className="text-[16px] font-medium leading-normal text-dnd-label-neutral">
 						휴지통
 					</span>
 				</Button>
@@ -119,23 +105,56 @@ function Sidebar() {
 	);
 }
 
-interface SidebarTagProps {
-	label: string;
-	count: number;
+function SidebarUserProfile() {
+	const { data: user } = useSuspenseQuery(userQueryOptions());
+
+	return (
+		<div className="flex flex-1 items-center gap-[8px]">
+			<div className="flex size-[32px] shrink-0 items-center justify-center overflow-hidden rounded-[160px] bg-gray-200">
+				<div className="size-full bg-gray-300" />
+			</div>
+			<p className="flex-1 whitespace-pre-wrap text-[18px] font-medium leading-[1.445] tracking-[-0.0036px] text-dnd-label-neutral">
+				{user.nickname}
+			</p>
+		</div>
+	);
 }
 
-function SidebarTag({ label, count }: SidebarTagProps) {
+function SidebarTagList() {
+	const { data: tags } = useSuspenseQuery(tagsQueryOptions());
+
+	return (
+		<div className="flex w-full flex-col items-start gap-[2px]">
+			{tags.map((tag) => (
+				<SidebarTag key={tag.tagId} tag={tag} />
+			))}
+		</div>
+	);
+}
+
+function SidebarTag({ tag }: { tag: Tag }) {
 	return (
 		<Button
 			variant="text-secondary"
 			className="w-full justify-start gap-[8px] px-[8px] py-[8px] h-auto"
 		>
-			<span className="text-[16px] text-[var(--dnd-label-alternative)]">#</span>
-			<div className="flex items-center gap-[4px] font-[family-name:var(--font-pretendard)] text-[16px] font-medium leading-[1.5] text-[var(--dnd-label-neutral)]">
-				<span>{label}</span>
-				<span className="text-[var(--dnd-label-alternative)]">{count}</span>
-			</div>
+			<span className="text-[16px] text-dnd-label-alternative">#</span>
+			<span className="text-[16px] font-medium leading-normal text-dnd-label-neutral">
+				{tag.tagName} ({tag.count})
+			</span>
 		</Button>
+	);
+}
+
+function SidebarFallback() {
+	return <div className="flex-1 animate-pulse rounded bg-gray-200 h-[20px]" />;
+}
+
+function SidebarError() {
+	return (
+		<p className="text-[14px] text-dnd-label-alternative">
+			불러오지 못했습니다
+		</p>
 	);
 }
 
