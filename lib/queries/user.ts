@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { type MutationOptions, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/core/api";
 
 export interface User {
@@ -33,10 +33,25 @@ export const userQueryOptions = () =>
 	queryOptions({
 		queryKey: userKeys.profile(),
 		queryFn: getUser,
+		retry: false,
 	});
 
 export const tagsQueryOptions = () =>
 	queryOptions({
 		queryKey: userKeys.tags(),
 		queryFn: getTags,
+		retry: false,
 	});
+
+const postLogin = () => api.post("/api/mock/auth/login", {});
+const postLogout = () => api.post("/api/mock/auth/logout", {});
+
+export const loginMutationOptions = (): MutationOptions => ({
+	mutationFn: postLogin,
+	onSuccess: () => window.location.reload(),
+});
+
+export const logoutMutationOptions = (): MutationOptions => ({
+	mutationFn: postLogout,
+	onSuccess: () => window.location.reload(),
+});
