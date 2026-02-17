@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server";
 
 export async function GET() {
-	if (process.env.NODE_ENV === "production") {
-		return NextResponse.json({ error: "Not found" }, { status: 404 });
-	}
-	return NextResponse.json([
-		{ label: "로깅", count: 6 },
-		{ label: "서버", count: 6 },
-		{ label: "시스템", count: 6 },
-		{ label: "코드", count: 6 },
-	]);
+	return NextResponse.json({
+		tags: [
+			{ tagId: 1, tagName: "서버", count: 6 },
+			{ tagId: 2, tagName: "로그", count: 3 },
+			{ tagId: 3, tagName: "시스템", count: 2 },
+			{ tagId: 4, tagName: "코드", count: 6 },
+		],
+	});
 }
