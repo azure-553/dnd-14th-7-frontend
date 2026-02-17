@@ -3,5 +3,5 @@
 #!/bin/sh
 cd ../
 mkdir output
-cp -R ./team-repository-name/* ./output
-cp -R ./output ./team-repository-name/
+cp -R ./dnd-14th-7-frontend/* ./output
+cp -R ./output ./dnd-14th-7-frontend/
