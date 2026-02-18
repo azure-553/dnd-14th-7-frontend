@@ -1,4 +1,4 @@
-import { type MutationOptions } from "@tanstack/react-query";
+import type { MutationOptions } from "@tanstack/react-query";
 import { api } from "@/lib/core/api";
 
 interface CreateInsightRequest {
