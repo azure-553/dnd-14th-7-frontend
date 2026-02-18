@@ -1,7 +1,9 @@
+import { InsightInput } from "@/components/insight-input";
+
 export default function DashboardPage() {
 	return (
 		<div className="flex flex-col items-center justify-center min-h-screen gap-[40px] px-[240px]">
-			<h1>대시보드</h1>
+			<InsightInput />
 		</div>
 	);
 }
