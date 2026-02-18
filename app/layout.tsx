@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { Sidebar } from "@/components/sidebar";
 import { Providers } from "./providers";
 
 const pretendard = localFont({
@@ -24,12 +23,7 @@ export default function RootLayout({
 	return (
 		<html lang="ko" className={pretendard.variable} suppressHydrationWarning>
 			<body className="antialiased">
-				<Providers>
-					<div className="flex min-h-screen bg-dnd-bg-normal">
-						<Sidebar />
-						<main className="flex-1 ml-[260px]">{children}</main>
-					</div>
-				</Providers>
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	);
