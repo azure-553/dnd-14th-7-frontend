@@ -23,7 +23,7 @@ export function InsightInput() {
 				trailingContent={
 					<Button
 						variant="solid"
-						size="dnd-small"
+						size="dnd-large"
 						disabled={value.length === 0}
 					>
 						인사이트 생성
