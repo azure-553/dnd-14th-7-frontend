@@ -9,7 +9,7 @@ export interface User {
 export interface Tag {
 	tagId: number;
 	tagName: string;
-	count: number;
+	insightCount: number;
 }
 
 interface TagsResponse {
