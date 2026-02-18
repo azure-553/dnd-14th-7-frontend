@@ -1,5 +1,10 @@
 import { cookies } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
+import {
+	AUTH_COOKIE_KEYS,
+	accessTokenCookieOptions,
+	refreshTokenCookieOptions,
+} from "@/lib/auth/cookies";
 
 export async function GET(request: NextRequest) {
 	const { searchParams } = request.nextUrl;
@@ -12,21 +17,16 @@ export async function GET(request: NextRequest) {
 
 	const cookieStore = await cookies();
 
-	cookieStore.set("accessToken", accessToken, {
-		path: "/",
-		httpOnly: true,
-		secure: process.env.NODE_ENV === "production",
-		sameSite: "lax",
-		maxAge: 60 * 30,
-	});
-
-	cookieStore.set("refreshToken", refreshToken, {
-		path: "/",
-		httpOnly: true,
-		secure: process.env.NODE_ENV === "production",
-		sameSite: "lax",
-		maxAge: 60 * 60 * 24 * 7,
-	});
+	cookieStore.set(
+		AUTH_COOKIE_KEYS.ACCESS_TOKEN,
+		accessToken,
+		accessTokenCookieOptions,
+	);
+	cookieStore.set(
+		AUTH_COOKIE_KEYS.REFRESH_TOKEN,
+		refreshToken,
+		refreshTokenCookieOptions,
+	);
 
 	return NextResponse.redirect(new URL("/login-success", request.url));
 }

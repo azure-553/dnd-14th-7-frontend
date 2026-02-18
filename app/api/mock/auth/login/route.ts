@@ -1,5 +1,10 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import {
+	AUTH_COOKIE_KEYS,
+	accessTokenCookieOptions,
+	refreshTokenCookieOptions,
+} from "@/lib/auth/cookies";
 import { isProduction } from "@/lib/core/env";
 
 export async function POST() {
@@ -8,16 +13,16 @@ export async function POST() {
 	}
 
 	const cookieStore = await cookies();
-	cookieStore.set("accessToken", "mock-access-token", {
-		path: "/",
-		httpOnly: true,
-		maxAge: 60 * 30,
-	});
-	cookieStore.set("refreshToken", "mock-refresh-token", {
-		path: "/",
-		httpOnly: true,
-		maxAge: 60 * 60 * 24 * 7,
-	});
+	cookieStore.set(
+		AUTH_COOKIE_KEYS.ACCESS_TOKEN,
+		"mock-access-token",
+		accessTokenCookieOptions,
+	);
+	cookieStore.set(
+		AUTH_COOKIE_KEYS.REFRESH_TOKEN,
+		"mock-refresh-token",
+		refreshTokenCookieOptions,
+	);
 
 	return NextResponse.json({ success: true });
 }
