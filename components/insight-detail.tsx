@@ -210,7 +210,7 @@ function MainInsightBox({ insightPieces }: { insightPieces: InsightPiece[] }) {
 	return (
 		<div className="flex flex-col gap-3">
 			<span className="typo-headline-2 font-bold text-[var(--dnd-label-neutral)]">
-				인사이트
+				인사이트 <span className="text-[var(--dnd-primary)]">{insightPieces.length}</span>
 			</span>
 			<div className="rounded-[32px] p-6 flex flex-col gap-4 bg-dnd-bg-insight-box">
 				{insightPieces.map((piece, index) => (
