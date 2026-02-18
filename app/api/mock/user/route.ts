@@ -2,15 +2,13 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { isProduction } from "@/lib/core/env";
 
-const MOCK_AUTH_COOKIE = "mock-auth";
-
 export async function GET() {
 	if (isProduction()) {
 		return NextResponse.json({ error: "Not found" }, { status: 404 });
 	}
 
 	const cookieStore = await cookies();
-	const isLoggedIn = cookieStore.get(MOCK_AUTH_COOKIE)?.value === "true";
+	const isLoggedIn = !!cookieStore.get("accessToken")?.value;
 
 	if (!isLoggedIn) {
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
