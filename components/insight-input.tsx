@@ -1,9 +1,16 @@
 "use client";
 
+import { overlay } from "overlay-kit";
 import { useState } from "react";
-
+import { LoginModal } from "@/components/login-modal";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+
+function openLoginModal() {
+	return overlay.open(({ isOpen, close }) => (
+		<LoginModal isOpen={isOpen} onClose={close} />
+	));
+}
 
 export function InsightInput() {
 	const [value, setValue] = useState("");
@@ -25,6 +32,7 @@ export function InsightInput() {
 						variant="solid"
 						size="dnd-large"
 						disabled={value.length === 0}
+						onClick={openLoginModal}
 					>
 						인사이트 생성
 					</Button>

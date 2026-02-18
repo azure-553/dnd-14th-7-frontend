@@ -1,8 +1,7 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { AUTH_COOKIE_KEYS } from "@/lib/auth/cookies";
 import { isProduction } from "@/lib/core/env";
-
-const MOCK_AUTH_COOKIE = "mock-auth";
 
 export async function POST() {
 	if (isProduction()) {
@@ -10,7 +9,8 @@ export async function POST() {
 	}
 
 	const cookieStore = await cookies();
-	cookieStore.delete(MOCK_AUTH_COOKIE);
+	cookieStore.delete(AUTH_COOKIE_KEYS.ACCESS_TOKEN);
+	cookieStore.delete(AUTH_COOKIE_KEYS.REFRESH_TOKEN);
 
 	return NextResponse.json({ success: true });
 }
