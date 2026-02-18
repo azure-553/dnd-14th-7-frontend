@@ -73,7 +73,7 @@ function SidebarTag({ tag }: { tag: Tag }) {
 		>
 			<span className="typo-body-1 text-dnd-label-alternative">#</span>
 			<span className="typo-body-1 font-medium text-dnd-label-neutral">
-				{tag.tagName} ({tag.count})
+				{tag.tagName} ({tag.insightCount})
 			</span>
 		</Button>
 	);
@@ -85,7 +85,7 @@ function SidebarUserProfileFallback() {
 	return (
 		<button
 			type="button"
-			onClick={() => login()}
+			onClick={() => login}
 			className="flex flex-1 cursor-pointer items-center gap-[8px]"
 		>
 			<div className="flex size-[32px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-dnd-fill-strong" />
