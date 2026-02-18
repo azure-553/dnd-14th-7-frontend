@@ -24,6 +24,7 @@ const meta: Meta<typeof Button> = {
 				"solid",
 				"solid-secondary",
 				"solid-assistive",
+				"solid-white",
 				// DND Outlined
 				"outlined",
 				"outlined-secondary",
@@ -46,6 +47,12 @@ const meta: Meta<typeof Button> = {
 				"dnd-small",
 				"dnd-medium",
 				"dnd-large",
+				"dnd-xl",
+				"dnd-xxl",
+				"dnd-xxxl",
+				"dnd-icon-small",
+				"dnd-icon-medium",
+				"dnd-icon-large",
 			],
 		},
 		disabled: {
@@ -86,9 +93,18 @@ export const ShadcnVariants: Story = {
 export const DNDSolid: Story = {
 	render: () => (
 		<div className="flex flex-wrap gap-4">
-			<Button variant="solid">Solid</Button>
-			<Button variant="solid-secondary">Solid Secondary</Button>
-			<Button variant="solid-assistive">Solid Assistive</Button>
+			<Button variant="solid" size="dnd-large">
+				Solid
+			</Button>
+			<Button variant="solid-secondary" size="dnd-large">
+				Secondary
+			</Button>
+			<Button variant="solid-assistive" size="dnd-large">
+				Assistive
+			</Button>
+			<Button variant="solid-white" size="dnd-large">
+				White
+			</Button>
 		</div>
 	),
 };
@@ -128,6 +144,15 @@ export const DNDSizes: Story = {
 			<Button variant="solid" size="dnd-large">
 				Large
 			</Button>
+			<Button variant="solid" size="dnd-xl">
+				XL
+			</Button>
+			<Button variant="solid" size="dnd-xxl">
+				XXL
+			</Button>
+			<Button variant="solid" size="dnd-xxxl">
+				XXXL
+			</Button>
 		</div>
 	),
 };
@@ -136,14 +161,17 @@ export const DNDSizes: Story = {
 export const Disabled: Story = {
 	render: () => (
 		<div className="flex flex-wrap gap-4">
-			<Button variant="solid" disabled>
+			<Button variant="solid" size="dnd-large" disabled>
 				Solid Disabled
 			</Button>
-			<Button variant="outlined" disabled>
-				Outlined Disabled
+			<Button variant="solid-secondary" size="dnd-large" disabled>
+				Secondary Disabled
 			</Button>
-			<Button variant="text" disabled>
-				Text Disabled
+			<Button variant="solid-assistive" size="dnd-large" disabled>
+				Assistive Disabled
+			</Button>
+			<Button variant="solid-white" size="dnd-large" disabled>
+				White Disabled
 			</Button>
 		</div>
 	),
@@ -153,13 +181,13 @@ export const Disabled: Story = {
 export const Loading: Story = {
 	render: () => (
 		<div className="flex flex-wrap gap-4">
-			<Button variant="solid" loading>
+			<Button variant="solid" size="dnd-large" loading>
 				Loading
 			</Button>
-			<Button variant="outlined" loading>
+			<Button variant="solid-secondary" size="dnd-large" loading>
 				Loading
 			</Button>
-			<Button variant="text" loading>
+			<Button variant="solid-assistive" size="dnd-large" loading>
 				Loading
 			</Button>
 		</div>
@@ -170,19 +198,22 @@ export const Loading: Story = {
 export const IconButtons: Story = {
 	render: () => (
 		<div className="flex flex-wrap items-center gap-4">
-			<Button variant="solid" size="icon" aria-label="확인">
+			<Button variant="solid" size="dnd-icon-small" aria-label="확인">
 				<Check />
 			</Button>
-			<Button variant="solid" size="icon-sm" aria-label="확인">
+			<Button variant="solid" size="dnd-icon-medium" aria-label="확인">
 				<Check />
 			</Button>
-			<Button variant="solid" size="icon-xs" aria-label="확인">
+			<Button variant="solid" size="dnd-icon-large" aria-label="확인">
 				<Check />
 			</Button>
-			<Button variant="outlined" size="icon" aria-label="확인">
+			<Button variant="solid-secondary" size="dnd-icon-large" aria-label="확인">
 				<Check />
 			</Button>
-			<Button variant="text" size="icon" aria-label="확인">
+			<Button variant="solid-assistive" size="dnd-icon-large" aria-label="확인">
+				<Check />
+			</Button>
+			<Button variant="solid-white" size="dnd-icon-large" aria-label="확인">
 				<Check />
 			</Button>
 		</div>
@@ -194,6 +225,7 @@ const DND_VARIANTS = [
 	{ value: "solid", label: "Solid" },
 	{ value: "solid-secondary", label: "Solid Secondary" },
 	{ value: "solid-assistive", label: "Solid Assistive" },
+	{ value: "solid-white", label: "Solid White" },
 	{ value: "outlined", label: "Outlined" },
 	{ value: "outlined-secondary", label: "Outlined Secondary" },
 	{ value: "outlined-assistive", label: "Outlined Assistive" },
@@ -206,6 +238,9 @@ const DND_SIZES = [
 	{ value: "dnd-small", label: "Small" },
 	{ value: "dnd-medium", label: "Medium" },
 	{ value: "dnd-large", label: "Large" },
+	{ value: "dnd-xl", label: "XL" },
+	{ value: "dnd-xxl", label: "XXL" },
+	{ value: "dnd-xxxl", label: "XXXL" },
 ] as const;
 
 export const AllDNDVariants: Story = {

@@ -45,6 +45,7 @@
 	--color-dnd-bg-alternative: var(--dnd-bg-alternative);
 	--color-dnd-bg-elevated: var(--dnd-bg-elevated);
 	--color-dnd-bg-elevated-alternative: var(--dnd-bg-elevated-alternative);
+	--color-dnd-bg-mint: var(--dnd-bg-mint);
 
 	/* DND Design System - Interaction */
 	--color-dnd-interaction-inactive: var(--dnd-interaction-inactive);
@@ -159,6 +160,7 @@
 	--dnd-bg-alternative: #f7f7f8;
 	--dnd-bg-elevated: #ffffff;
 	--dnd-bg-elevated-alternative: #f7f7f8;
+	--dnd-bg-mint: #e1f5f3;
 
 	/* DND Design System - Interaction */
 	--dnd-interaction-inactive: #989ba2;
