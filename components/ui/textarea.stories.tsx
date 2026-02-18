@@ -59,8 +59,9 @@ export const WithTrailingButton: Story = {
 				defaultValue="값이 입력된 상태입니다."
 				showCharacterCount
 				maxLength={2000}
-				trailingButton="텍스트"
-				onTrailingButtonClick={() => alert("버튼 클릭!")}
+				trailingContent={
+					<button type="button" className="font-semibold typo-body-1 text-dnd-primary px-1 py-1" onClick={() => alert("버튼 클릭!")}>텍스트</button>
+				}
 				description="메시지에 마침표를 찍어요."
 			/>
 		</div>
@@ -103,7 +104,9 @@ export const Disabled: Story = {
 				disabled
 				showCharacterCount
 				maxLength={2000}
-				trailingButton="텍스트"
+				trailingContent={
+					<button type="button" className="font-semibold typo-body-1 text-dnd-primary px-1 py-1 opacity-50 cursor-not-allowed">텍스트</button>
+				}
 				description="메시지에 마침표를 찍어요."
 			/>
 		</div>
@@ -160,7 +163,9 @@ export const AllStates: Story = {
 					defaultValue="값이 입력된 상태입니다."
 					showCharacterCount
 					maxLength={2000}
-					trailingButton="텍스트"
+					trailingContent={
+						<button type="button" className="font-semibold typo-body-1 text-dnd-primary px-1 py-1">텍스트</button>
+					}
 					description="메시지에 마침표를 찍어요."
 				/>
 				<Textarea
@@ -187,7 +192,9 @@ export const AllStates: Story = {
 					errorMessage="에러 메시지를 나타내요."
 					showCharacterCount
 					maxLength={2000}
-					trailingButton="텍스트"
+					trailingContent={
+						<button type="button" className="font-semibold typo-body-1 text-dnd-primary px-1 py-1">텍스트</button>
+					}
 				/>
 			</div>
 		</div>
