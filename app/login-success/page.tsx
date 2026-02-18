@@ -4,13 +4,15 @@ import { Check } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
+const REDIRECT_DELAY_MS = 1000;
+
 export default function LoginSuccessPage() {
 	const router = useRouter();
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			router.replace("/dashboard");
-		}, 1000);
+		}, REDIRECT_DELAY_MS);
 
 		return () => clearTimeout(timer);
 	}, [router]);
