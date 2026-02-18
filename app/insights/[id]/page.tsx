@@ -1,4 +1,4 @@
-import { InsightDetailSection } from "@/components/insight/insight-detail";
+import { InsightDetailSection } from "@/components/insight-detail";
 
 interface PageProps {
 	params: Promise<{ id: string }>;
