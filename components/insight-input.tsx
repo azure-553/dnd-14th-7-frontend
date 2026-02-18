@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { insightCreationMutationOptions } from "@/lib/queries/insight";
 
 export function InsightInput() {
+	const router = useRouter();
 	const [value, setValue] = useState("");
 	const { mutate: createInsight, isPending } = useMutation(
 		insightCreationMutationOptions(),
@@ -22,6 +24,7 @@ export function InsightInput() {
 				onSuccess: (data) => {
 					console.log("Insight created successfully:", data);
 					setValue("");
+					router.push(`/insights/${data.insightId}`);
 				},
 				onError: (error) => {
 					console.error("Failed to create insight:", error);

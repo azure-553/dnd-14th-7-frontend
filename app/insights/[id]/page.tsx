@@ -1,13 +1,16 @@
-export default async function DashboardPage({
-	params,
-}: Readonly<{
+import { InsightDetailSection } from "@/components/insight/insight-detail";
+
+interface PageProps {
 	params: Promise<{ id: string }>;
-}>) {
+}
+
+export default async function InsightDetailPage({ params }: PageProps) {
 	const { id } = await params;
+	const insightId = Number(id);
 
 	return (
-		<div className="flex flex-col items-center justify-center min-h-screen gap-[40px] px-[240px]">
-			<h1>{id} 페이지</h1>
-		</div>
+		<main className="min-h-screen bg-[var(--dnd-bg-normal)]">
+			<InsightDetailSection insightId={insightId} />
+		</main>
 	);
 }

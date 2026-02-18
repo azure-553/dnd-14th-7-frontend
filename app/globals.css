@@ -45,6 +45,7 @@
 	--color-dnd-bg-alternative: var(--dnd-bg-alternative);
 	--color-dnd-bg-elevated: var(--dnd-bg-elevated);
 	--color-dnd-bg-elevated-alternative: var(--dnd-bg-elevated-alternative);
+	--color-dnd-bg-insight-box: var(--dnd-bg-insight-box);
 
 	/* DND Design System - Interaction */
 	--color-dnd-interaction-inactive: var(--dnd-interaction-inactive);
@@ -159,6 +160,7 @@
 	--dnd-bg-alternative: #f7f7f8;
 	--dnd-bg-elevated: #ffffff;
 	--dnd-bg-elevated-alternative: #f7f7f8;
+	--dnd-bg-insight-box: #e1f5f3;
 
 	/* DND Design System - Interaction */
 	--dnd-interaction-inactive: #989ba2;
@@ -238,6 +240,17 @@
 	--card-foreground: var(--dnd-label-normal);
 	--popover: var(--dnd-bg-normal);
 	--popover-foreground: var(--dnd-label-normal);
+
+	/* Tag Colors */
+	--dnd-tag-brown: #d37940;
+	--dnd-tag-red: #fb5782;
+	--dnd-tag-orange: #ff7640;
+	--dnd-tag-yellow: #ffb520;
+	--dnd-tag-green: #56ca99;
+	--dnd-tag-teal: #20cbdd;
+	--dnd-tag-blue: #4da1f7;
+	--dnd-tag-purple: #895ef6;
+	--dnd-tag-pink: #ff61c7;
 }
 
 @layer base {
@@ -355,5 +368,64 @@
 		font-size: var(--font-size-caption-2);
 		line-height: var(--line-height-caption-2);
 		letter-spacing: var(--letter-spacing-caption-2);
+	}
+
+	/* Tag Colors */
+	.dnd-tag-brown {
+		color: var(--dnd-tag-brown);
+		background-color: color-mix(in srgb, var(--dnd-tag-brown), transparent 90%);
+		border: 1px solid currentColor;
+	}
+	.dnd-tag-red {
+		color: var(--dnd-tag-red);
+		background-color: color-mix(in srgb, var(--dnd-tag-red), transparent 90%);
+		border: 1px solid currentColor;
+	}
+	.dnd-tag-orange {
+		color: var(--dnd-tag-orange);
+		background-color: color-mix(
+			in srgb,
+			var(--dnd-tag-orange),
+			transparent 90%
+		);
+		border: 1px solid currentColor;
+	}
+	.dnd-tag-yellow {
+		color: var(--dnd-tag-yellow);
+		background-color: color-mix(
+			in srgb,
+			var(--dnd-tag-yellow),
+			transparent 90%
+		);
+		border: 1px solid currentColor;
+	}
+	.dnd-tag-green {
+		color: var(--dnd-tag-green);
+		background-color: color-mix(in srgb, var(--dnd-tag-green), transparent 90%);
+		border: 1px solid currentColor;
+	}
+	.dnd-tag-teal {
+		color: var(--dnd-tag-teal);
+		background-color: color-mix(in srgb, var(--dnd-tag-teal), transparent 90%);
+		border: 1px solid currentColor;
+	}
+	.dnd-tag-blue {
+		color: var(--dnd-tag-blue);
+		background-color: color-mix(in srgb, var(--dnd-tag-blue), transparent 90%);
+		border: 1px solid currentColor;
+	}
+	.dnd-tag-purple {
+		color: var(--dnd-tag-purple);
+		background-color: color-mix(
+			in srgb,
+			var(--dnd-tag-purple),
+			transparent 90%
+		);
+		border: 1px solid currentColor;
+	}
+	.dnd-tag-pink {
+		color: var(--dnd-tag-pink);
+		background-color: color-mix(in srgb, var(--dnd-tag-pink), transparent 90%);
+		border: 1px solid currentColor;
 	}
 }
