@@ -5,8 +5,13 @@ import {
 	accessTokenCookieOptions,
 	refreshTokenCookieOptions,
 } from "@/lib/auth/cookies";
+import { isProduction } from "@/lib/core/env";
 
 export async function GET(request: NextRequest) {
+	if (isProduction()) {
+		return NextResponse.redirect(new URL("/", request.url));
+	}
+
 	const { searchParams } = request.nextUrl;
 	const accessToken = searchParams.get("accessToken");
 	const refreshToken = searchParams.get("refreshToken");
