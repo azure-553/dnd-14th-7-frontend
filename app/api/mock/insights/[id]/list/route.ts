@@ -9,7 +9,7 @@ export async function GET(
 		return new NextResponse(null, { status: 404 });
 	}
 
-	const { id } = await params;
+	const { id: _id } = await params;
 
 	const insightPieces = [
 		{

@@ -26,7 +26,7 @@ export function InsightDetailSection({ insightId }: InsightDetailSectionProps) {
 
 function InsightDetailSkeleton() {
 	return (
-		<div className="flex flex-col gap-8 w-full max-w-3xl mx-auto p-6 animate-pulse">
+		<div className="flex flex-col gap-8 w-full p-[80px] animate-pulse">
 			<div className="flex justify-between items-start">
 				<div className="flex flex-col gap-4 w-full">
 					<div className="h-10 w-2/3 bg-[var(--dnd-fill-strong)] rounded-md" />
@@ -71,12 +71,23 @@ function InsightDetailContent({ insightId }: { insightId: number }) {
 	);
 
 	return (
-		<div className="flex flex-col gap-6 w-full max-w-3xl mx-auto p-[80px]">
-			<InsightHeader data={data} />
-			<InitialThoughtBox initialThought={data.initialThought} />
-			<MainInsightBox insightPieces={piecesData.insightPieces} />
-			<MemoSection />
-			<LinkSection />
+		<div className="flex gap-10 justify-center p-[80px]">
+			<div className="w-full flex flex-col gap-6">
+				<InsightHeader data={data} />
+				<InitialThoughtBox initialThought={data.initialThought} />
+				<MainInsightBox insightPieces={piecesData.insightPieces} />
+				<MemoSection />
+				<LinkSection />
+			</div>
+			<RightPanel />
+		</div>
+	);
+}
+
+function RightPanel() {
+	return (
+		<div className="w-[360px] h-screen sticky top-[80px] bg-red-100/50 border border-red-200 rounded-xl flex items-center justify-center text-red-500 font-bold">
+			오른쪽 패널 영역
 		</div>
 	);
 }
