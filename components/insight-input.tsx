@@ -1,12 +1,34 @@
 "use client";
 
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { insightCreationMutationOptions } from "@/lib/queries/insight";
 
 export function InsightInput() {
 	const [value, setValue] = useState("");
+	const { mutate: createInsight, isPending } = useMutation(
+		insightCreationMutationOptions(),
+	);
+
+	const handleSubmit = () => {
+		if (!value.trim()) return;
+
+		createInsight(
+			{ memo: value },
+			{
+				onSuccess: (data) => {
+					console.log("Insight created successfully:", data);
+					setValue("");
+				},
+				onError: (error) => {
+					console.error("Failed to create insight:", error);
+				},
+			},
+		);
+	};
 
 	return (
 		<section className="flex flex-col items-start gap-[32px] w-full max-w-[960px]">
@@ -20,13 +42,15 @@ export function InsightInput() {
 				resize="none"
 				value={value}
 				onChange={(e) => setValue(e.target.value)}
+				disabled={isPending}
 				trailingContent={
 					<Button
 						variant="solid"
 						size="dnd-small"
-						disabled={value.length === 0}
+						disabled={value.length === 0 || isPending}
+						onClick={handleSubmit}
 					>
-						인사이트 생성
+						{isPending ? "생성 중..." : "인사이트 생성"}
 					</Button>
 				}
 			/>
