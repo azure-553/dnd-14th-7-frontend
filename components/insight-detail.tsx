@@ -9,6 +9,7 @@ import {
 	insightDetailQueryOptions,
 	insightPiecesQueryOptions,
 } from "@/lib/queries/insight";
+import { formatDate } from "@/lib/utils/date";
 
 interface InsightDetailSectionProps {
 	insightId: number;
@@ -104,24 +105,10 @@ function RightPanel() {
 }
 
 function InsightHeader({ data }: { data: GetInsightResponse }) {
-	const formatDate = (dateString: string) => {
-		const date = new Date(dateString);
-		const year = date.getFullYear();
-		const month = String(date.getMonth() + 1).padStart(2, "0");
-		const day = String(date.getDate()).padStart(2, "0");
-		const weekday = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()];
-
-		return { year, month, day, weekday, date };
-	};
-
-	const { year, month, day, weekday, date } = formatDate(data.createdDate);
-	const hours = date.getHours();
-	const ampm = hours >= 12 ? "오후" : "오전";
-	const formattedHours = String(hours % 12 || 12).padStart(2, "0");
-	const minutes = String(date.getMinutes()).padStart(2, "0");
+	const { year, month, day, weekday, ampm, formattedHours, minutes } =
+		formatDate(data.createdDate);
 
 	const createdDateStr = `${year}.${month}.${day} ${weekday} ${ampm} ${formattedHours}:${minutes}`;
-
 	const modifiedDateStr = `${year}.${month}.${day} ${weekday} (수정)`;
 
 	const getTagStyle = (tagId: number) => {
@@ -198,19 +185,18 @@ function MainInsightBox({ insightPieces }: { insightPieces: InsightPiece[] }) {
 		}
 	};
 
-	const formatDate = (dateString: string) => {
-		const date = new Date(dateString);
-		const year = date.getFullYear();
-		const month = String(date.getMonth() + 1).padStart(2, "0");
-		const day = String(date.getDate()).padStart(2, "0");
-		const weekday = date.toLocaleDateString("ko-KR", { weekday: "short" });
+	const getFormattedDate = (dateString: string) => {
+		const { year, month, day, weekday } = formatDate(dateString);
 		return `${year}.${month}.${day} ${weekday}`;
 	};
 
 	return (
 		<div className="flex flex-col gap-3">
 			<span className="typo-headline-2 font-bold text-[var(--dnd-label-neutral)]">
-				인사이트 <span className="text-[var(--dnd-primary)]">{insightPieces.length}</span>
+				인사이트{" "}
+				<span className="text-[var(--dnd-primary)]">
+					{insightPieces.length}
+				</span>
 			</span>
 			<div className="rounded-[32px] p-6 flex flex-col gap-4 bg-dnd-bg-insight-box">
 				{insightPieces.map((piece, index) => (
@@ -225,7 +211,7 @@ function MainInsightBox({ insightPieces }: { insightPieces: InsightPiece[] }) {
 							<div className="flex items-center gap-2 typo-caption-1 text-[var(--dnd-label-alternative)]">
 								<span>{getLabel(piece.createdType)}</span>
 								<span className="w-[1px] h-3 bg-[var(--dnd-line-normal)]" />
-								<span>{formatDate(piece.createdDate)}</span>
+								<span>{getFormattedDate(piece.createdDate)}</span>
 							</div>
 						</div>
 						<p className="typo-headline-2 text-[var(--dnd-label-strong)]">
