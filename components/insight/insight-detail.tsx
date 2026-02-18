@@ -26,40 +26,51 @@ export function InsightDetailSection({ insightId }: InsightDetailSectionProps) {
 
 function InsightDetailSkeleton() {
 	return (
-		<div className="flex flex-col gap-8 w-full p-[80px] animate-pulse">
-			<div className="flex justify-between items-start">
-				<div className="flex flex-col gap-4 w-full">
-					<div className="h-10 w-2/3 bg-[var(--dnd-fill-strong)] rounded-md" />
-					<div className="h-4 w-1/3 bg-[var(--dnd-fill-normal)] rounded-md" />
-					<div className="flex gap-2 mt-2">
-						<div className="h-7 w-16 bg-[var(--dnd-fill-normal)] rounded-full" />
-						<div className="h-7 w-16 bg-[var(--dnd-fill-normal)] rounded-full" />
-						<div className="h-7 w-16 bg-[var(--dnd-fill-normal)] rounded-full" />
+		<div className="flex gap-10 justify-center p-[80px] animate-pulse">
+			<div className="w-full flex flex-col gap-6">
+				<div className="flex justify-between items-start">
+					<div className="flex flex-col gap-6 w-full">
+						<div className="h-10 w-2/3 bg-[var(--dnd-fill-strong)] rounded-md" />
+						<div className="flex flex-col gap-4">
+							<div className="h-5 w-1/3 bg-[var(--dnd-fill-normal)] rounded-md" />
+							<div className="flex gap-2">
+								<div className="h-7 w-16 bg-[var(--dnd-fill-normal)] rounded-[10px]" />
+								<div className="h-7 w-16 bg-[var(--dnd-fill-normal)] rounded-[10px]" />
+								<div className="h-7 w-16 bg-[var(--dnd-fill-normal)] rounded-[10px]" />
+							</div>
+						</div>
+					</div>
+					<div className="w-6 h-6 bg-[var(--dnd-fill-normal)] rounded-full shrink-0" />
+				</div>
+
+				<div className="bg-[var(--dnd-bg-alternative)] rounded-3xl p-6 h-[72px] w-full flex items-center gap-4">
+					<div className="h-6 w-16 bg-[var(--dnd-fill-normal)] rounded-[4px]" />
+					<div className="h-6 w-2/3 bg-[var(--dnd-fill-normal)] rounded-md" />
+				</div>
+
+				<div className="flex flex-col gap-3">
+					<div className="h-8 w-24 bg-[var(--dnd-fill-normal)] rounded-md" />
+					<div className="bg-[var(--dnd-bg-insight-box)] rounded-[32px] p-6 gap-4 flex flex-col">
+						<div className="bg-white rounded-[24px] p-6 h-32 w-full" />
 					</div>
 				</div>
-				<div className="w-6 h-6 bg-[var(--dnd-fill-normal)] rounded-full" />
-			</div>
 
-			<div className="bg-[var(--dnd-bg-alternative)] rounded-xl p-6 h-20 w-full" />
+				<div className="flex flex-col gap-3">
+					<div className="h-5 w-10 bg-[var(--dnd-fill-normal)] rounded-md" />
+					<div className="h-[80px] w-full bg-[var(--dnd-fill-normal)] rounded-xl border border-[var(--dnd-line-normal)]" />
+				</div>
 
-			<div className="flex flex-col gap-2">
-				<div className="h-5 w-20 bg-[var(--dnd-fill-normal)] rounded-md" />
-				<div className="bg-[var(--dnd-fill-alternative)] rounded-xl p-8 h-40 w-full" />
-			</div>
-
-			<div className="flex flex-col gap-2">
-				<div className="h-5 w-10 bg-[var(--dnd-fill-normal)] rounded-md" />
-				<div className="h-24 w-full bg-[var(--dnd-fill-normal)] rounded-lg" />
-			</div>
-
-			<div className="flex flex-col gap-2">
-				<div className="h-5 w-10 bg-[var(--dnd-fill-normal)] rounded-md" />
-				<div className="flex gap-3">
-					<div className="h-12 flex-[1] bg-[var(--dnd-fill-normal)] rounded-lg" />
-					<div className="h-12 flex-[2] bg-[var(--dnd-fill-normal)] rounded-lg" />
-					<div className="h-12 w-24 bg-[var(--dnd-fill-normal)] rounded-lg" />
+				<div className="flex flex-col gap-3">
+					<div className="h-5 w-10 bg-[var(--dnd-fill-normal)] rounded-md" />
+					<div className="flex gap-3">
+						<div className="h-[46px] flex-[1] bg-[var(--dnd-fill-normal)] rounded-xl border border-[var(--dnd-line-normal)]" />
+						<div className="h-[46px] flex-[2] bg-[var(--dnd-fill-normal)] rounded-xl border border-[var(--dnd-line-normal)]" />
+						<div className="h-[46px] w-[86px] bg-[var(--dnd-fill-normal)] rounded-xl" />
+					</div>
 				</div>
 			</div>
+
+			<div className="w-[360px] h-screen sticky top-[80px] bg-[var(--dnd-fill-alternative)] rounded-xl" />
 		</div>
 	);
 }
@@ -145,7 +156,7 @@ function InsightHeader({ data }: { data: GetInsightResponse }) {
 						{data.tags.map((tag) => (
 							<span
 								key={tag.tagId}
-								className={`rounded-[10px] px-[11px] py-[7px] typo-caption-1 font-medium ${getTagStyle(tag.tagId)}`}
+								className={`rounded-[10px] px-[11px] py-[7px] typo-caption-1 font-bold ${getTagStyle(tag.tagId)}`}
 							>
 								{tag.tagName}
 							</span>
