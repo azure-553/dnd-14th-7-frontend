@@ -105,11 +105,11 @@ function RightPanel() {
 }
 
 function InsightHeader({ data }: { data: GetInsightResponse }) {
-	const { year, month, day, weekday, ampm, formattedHours, minutes } =
-		formatDate(data.createdDate);
+	const createdDate = formatDate(data.createdDate);
+	const updatedDate = formatDate(data.updatedDate);
 
-	const createdDateStr = `${year}.${month}.${day} ${weekday} ${ampm} ${formattedHours}:${minutes}`;
-	const modifiedDateStr = `${year}.${month}.${day} ${weekday} (수정)`;
+	const createdDateStr = `${createdDate.year}.${createdDate.month}.${createdDate.day} ${createdDate.weekday} ${createdDate.ampm} ${createdDate.formattedHours}:${createdDate.minutes}`;
+	const modifiedDateStr = `${updatedDate.year}.${updatedDate.month}.${updatedDate.day} ${updatedDate.weekday} (수정)`;
 
 	const getTagStyle = (tagId: number) => {
 		const colors = [
