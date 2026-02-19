@@ -85,7 +85,7 @@ function SidebarUserProfileFallback() {
 	return (
 		<button
 			type="button"
-			onClick={() => login}
+			onClick={() => login()}
 			className="flex flex-1 cursor-pointer items-center gap-[8px]"
 		>
 			<div className="flex size-[32px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-dnd-fill-strong" />

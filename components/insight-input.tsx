@@ -2,11 +2,18 @@
 
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { overlay } from "overlay-kit";
 import { useState } from "react";
-
+import { LoginModal } from "@/components/login-modal";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { insightCreationMutationOptions } from "@/lib/queries/insight";
+
+function openLoginModal() {
+	return overlay.open(({ isOpen, close }) => (
+		<LoginModal isOpen={isOpen} onClose={close} />
+	));
+}
 
 export function InsightInput() {
 	const router = useRouter();
@@ -49,9 +56,9 @@ export function InsightInput() {
 				trailingContent={
 					<Button
 						variant="solid"
-						size="dnd-small"
-						disabled={value.length === 0 || isPending}
-						onClick={handleSubmit}
+						size="dnd-large"
+						disabled={value.length === 0}
+						onClick={openLoginModal}
 					>
 						{isPending ? "생성 중..." : "인사이트 생성"}
 					</Button>
