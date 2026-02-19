@@ -1,10 +1,13 @@
 "use client";
 
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { overlay } from "overlay-kit";
 import { useState } from "react";
 import { LoginModal } from "@/components/login-modal";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { insightCreationMutationOptions } from "@/lib/queries/insight";
 
 function openLoginModal() {
 	return overlay.open(({ isOpen, close }) => (
@@ -13,7 +16,29 @@ function openLoginModal() {
 }
 
 export function InsightInput() {
+	const router = useRouter();
 	const [value, setValue] = useState("");
+	const { mutate: createInsight, isPending } = useMutation(
+		insightCreationMutationOptions(),
+	);
+
+	const handleSubmit = () => {
+		if (!value.trim()) return;
+
+		createInsight(
+			{ memo: value },
+			{
+				onSuccess: (data) => {
+					console.log("Insight created successfully:", data);
+					setValue("");
+					router.push(`/insights/${data.insightId}`);
+				},
+				onError: (error) => {
+					console.error("Failed to create insight:", error);
+				},
+			},
+		);
+	};
 
 	return (
 		<section className="flex flex-col items-start gap-[32px] w-full max-w-[960px]">
@@ -27,6 +52,7 @@ export function InsightInput() {
 				resize="none"
 				value={value}
 				onChange={(e) => setValue(e.target.value)}
+				disabled={isPending}
 				trailingContent={
 					<Button
 						variant="solid"
@@ -34,7 +60,7 @@ export function InsightInput() {
 						disabled={value.length === 0}
 						onClick={openLoginModal}
 					>
-						인사이트 생성
+						{isPending ? "생성 중..." : "인사이트 생성"}
 					</Button>
 				}
 			/>
