@@ -23,14 +23,12 @@ export function InsightQnAPanel({ insightId }: InsightQnAPanelProps) {
 
 	return (
 		<div className="w-[360px] h-[calc(100vh-100px)] sticky top-[80px] rounded-[32px] shadow-sm bg-[var(--dnd-bg-question)] flex flex-col overflow-hidden border border-[var(--dnd-line-normal)]">
-			{/* Suggested Questions Section */}
 			<div
 				className={cn(
 					"flex flex-col transition-all duration-300 ease-in-out",
 					mode === "questions" ? "flex-1 min-h-0" : "flex-none",
 				)}
 			>
-				{/* Header - Always visible, clickable to switch back if in answers mode */}
 				<div
 					className={cn(
 						"px-[32px] py-[16px] flex justify-between items-center bg-[var(--dnd-bg-question)] rounded-t-[32px]",
@@ -47,15 +45,19 @@ export function InsightQnAPanel({ insightId }: InsightQnAPanelProps) {
 					<HistoryIcon />
 				</div>
 
-				{/* Content - Visible only in 'questions' mode */}
-				{mode === "questions" && (
-					<div className="p-6 flex-1 overflow-y-auto relative no-scrollbar">
-						<div className="flex flex-col gap-2 pb-8">
+				<div
+					className={cn(
+						"relative no-scrollbar transition-all duration-300 ease-in-out",
+						mode === "questions"
+							? "flex-1 overflow-y-auto p-6 opacity-100"
+							: "flex-none h-0 overflow-hidden px-6 py-0 opacity-0 pointer-events-none"
+					)}
+				>
+					<div className="flex flex-col gap-2 pb-8 h-max">
 							{data.questions.map((question) => (
 								<QuestionItem key={question.questionId} question={question} />
 							))}
 
-							{/* Actions */}
 							<div className="flex flex-col gap-4 pt-4 relative group items-start">
 								<button
 									type="button"
@@ -78,10 +80,8 @@ export function InsightQnAPanel({ insightId }: InsightQnAPanelProps) {
 							</div>
 						</div>
 					</div>
-				)}
 			</div>
 
-			{/* Answer Cards Section */}
 			<div
 				className={cn(
 					"flex flex-col transition-all duration-300 ease-in-out rounded-t-[32px] overflow-hidden",
@@ -90,7 +90,6 @@ export function InsightQnAPanel({ insightId }: InsightQnAPanelProps) {
 						: "flex-none shadow-[0_-4px_10px_rgba(0,0,0,0.05)] bg-white", // Collapsed style
 				)}
 			>
-				{/* Header */}
 				<div
 					className={cn(
 						"px-[32px] py-[16px] flex justify-between items-center border-b border-[var(--dnd-line-normal)] cursor-pointer rounded-t-[32px]",
@@ -112,16 +111,20 @@ export function InsightQnAPanel({ insightId }: InsightQnAPanelProps) {
 					<ChevronsUpDown size={24} />
 				</div>
 
-				{/* Content - Visible only in 'answers' mode */}
-				{mode === "answers" && (
-					<div className="px-[32px] py-[16px] flex-1 overflow-y-auto bg-[var(--dnd-bg-alternative)]">
-						<div className="flex flex-col gap-6">
-							{data.answerCards.map((card) => (
-								<AnswerCardItem key={card.answerId} card={card} />
-							))}
-						</div>
+				<div
+					className={cn(
+						"transition-all duration-300 ease-in-out bg-[var(--dnd-bg-alternative)]",
+						mode === "answers"
+							? "flex-1 overflow-y-auto px-[32px] py-[16px] opacity-100"
+							: "flex-none overflow-hidden h-0 px-[32px] py-0 opacity-0 pointer-events-none"
+					)}
+				>
+					<div className="flex flex-col gap-6 h-max">
+						{data.answerCards.map((card) => (
+							<AnswerCardItem key={card.answerId} card={card} />
+						))}
 					</div>
-				)}
+				</div>
 			</div>
 		</div>
 	);
@@ -182,6 +185,29 @@ function AnswerCardItem({ card }: { card: InsightAnswerCard }) {
 						</div>
 					)}
 				</div>
+			</div>
+		</div>
+	);
+}
+
+export function InsightQnAPanelSkeleton() {
+	return (
+		<div className="w-[360px] h-[calc(100vh-100px)] sticky top-[80px] rounded-[32px] bg-[var(--dnd-bg-question)] flex flex-col border border-[var(--dnd-line-normal)]">
+			<div className="flex-1 flex flex-col">
+				<div className="px-[32px] py-[16px] flex justify-between items-center rounded-t-[32px]">
+					<div className="h-6 w-24 bg-[var(--dnd-fill-strong)] rounded-md" />
+					<div className="w-6 h-6 bg-[var(--dnd-fill-normal)] rounded-full" />
+				</div>
+				<div className="p-6 flex-1 flex flex-col gap-2">
+					<div className="h-10 w-full bg-white rounded-full" />
+					<div className="h-10 w-3/4 bg-white rounded-full" />
+					<div className="h-10 w-5/6 bg-white rounded-full" />
+					<div className="mt-4 h-10 w-[140px] bg-white rounded-lg border border-[var(--dnd-line-strong)]" />
+				</div>
+			</div>
+			<div className="h-[60px] bg-white rounded-t-[32px] border-b border-[var(--dnd-line-normal)] shadow-[0_-4px_10px_rgba(0,0,0,0.05)] flex items-center justify-between px-[32px]">
+				<div className="h-6 w-20 bg-[var(--dnd-fill-strong)] rounded-md" />
+				<div className="w-6 h-6 bg-[var(--dnd-fill-normal)] rounded-md" />
 			</div>
 		</div>
 	);

@@ -71,12 +71,13 @@ function InsightDetailSkeleton() {
 				</div>
 			</div>
 
-			<div className="w-[360px] h-screen sticky top-[80px] bg-[var(--dnd-fill-alternative)] rounded-xl" />
+			{/* Q&A Panel Skeleton */}
+			<InsightQnAPanelSkeleton />
 		</div>
 	);
 }
 
-import { InsightQnAPanel } from "./insight-qna-panel";
+import { InsightQnAPanel, InsightQnAPanelSkeleton } from "./insight-qna-panel";
 
 function InsightDetailContent({ insightId }: { insightId: number }) {
 	const { data } = useSuspenseQuery(insightDetailQueryOptions(insightId));
