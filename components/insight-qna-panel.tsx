@@ -4,8 +4,9 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { HistoryIcon } from "@/components/ui/icons/HistoryIcon";
-import { Sparkle } from "@/components/ui/icons/Sparkle";
 import { KebabIcon } from "@/components/ui/icons/KebabIcon";
+import { QuestionIcon } from "@/components/ui/icons/QuestionIcon";
+import { Sparkle } from "@/components/ui/icons/Sparkle";
 import {
 	type InsightAnswerCard,
 	type InsightQuestion,
@@ -150,12 +151,16 @@ function AnswerCardItem({ card }: { card: InsightAnswerCard }) {
 	const dateStr = `${year}.${month}.${day} ${weekday}`;
 
 	return (
-		<div className="bg-[var(--dnd-bg-normal)] rounded-[20px] p-6 flex flex-col gap-4 shadow-sm">
+		<div
+			className={cn(
+				"rounded-[20px] p-6 flex flex-col gap-4 shadow-sm",
+				card.isSaved ? "bg-[var(--dnd-bg-mint)]" : "bg-[var(--dnd-bg-normal)]",
+			)}
+		>
 			<div className="flex gap-3 items-center">
 				<div className="w-[34px] h-[34px] bg-[var(--dnd-bg-mint)] rounded-[8px] flex items-center justify-center shrink-0">
-					<span className="font-['Pretendard'] font-bold text-[18px] text-[var(--dnd-primary-heavy)]">
-						Q
-					</span>
+					<QuestionIcon />
+
 				</div>
 				<h3 className="typo-headline-1 font-bold text-[var(--dnd-label-normal)] py-1">
 					{card.questionContent}
@@ -190,7 +195,7 @@ function AnswerCardItem({ card }: { card: InsightAnswerCard }) {
 
 export function InsightQnAPanelSkeleton() {
 	return (
-		<div className="w-[360px] h-[calc(100vh-100px)] sticky top-[80px] rounded-[32px] bg-[var(--dnd-bg-question)] flex flex-col border border-[var(--dnd-line-normal)]">
+		<div className="w-[360px] h-[calc(100vh-100px)] sticky top-[80px] rounded-[32px] shadow-sm bg-[var(--dnd-bg-question)] flex flex-col overflow-hidden border border-[var(--dnd-line-normal)]">
 			<div className="flex-1 flex flex-col">
 				<div className="px-[32px] py-[16px] flex justify-between items-center rounded-t-[32px]">
 					<div className="h-6 w-24 bg-[var(--dnd-fill-strong)] rounded-md" />
