@@ -1,10 +1,12 @@
-import { type MutationOptions, queryOptions } from "@tanstack/react-query";
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/core/api";
+
+export type Position = "DEV" | "DESIGN" | "PROMOTER" | "OTHER";
 
 export interface User {
 	nickname: string;
 	email: string;
-	position: "DEV" | "DESIGN" | "PROMOTER" | "OTHER" | "NONE";
+	position: Position | "NONE";
 }
 
 export interface Tag {
@@ -44,6 +46,12 @@ export const tagsQueryOptions = () =>
 		retry: false,
 	});
 
+const postUserPosition = (position: Position) =>
+	api.post("/api/v1/users/position", { position });
+
+export const updatePositionMutationOptions = () =>
+	mutationOptions({ mutationFn: postUserPosition });
+
 const postLogout = () => api.post("/api/mock/auth/logout", {});
 
 export function redirectToGoogleLogin() {
@@ -54,7 +62,8 @@ export function redirectToGoogleLogin() {
 	window.location.href = new URL("/oauth2/authorization/google", backendUrl).href;
 }
 
-export const logoutMutationOptions = (): MutationOptions => ({
-	mutationFn: postLogout,
-	onSuccess: () => window.location.reload(),
-});
+export const logoutMutationOptions = () =>
+	mutationOptions({
+		mutationFn: postLogout,
+		onSuccess: () => window.location.reload(),
+	});

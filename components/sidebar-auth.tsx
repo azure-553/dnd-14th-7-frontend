@@ -2,8 +2,9 @@
 
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { CircleAlert } from "lucide-react";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { PositionSelectModal } from "@/components/position-select-modal";
 import { Button } from "@/components/ui/button";
 import {
 	logoutMutationOptions,
@@ -17,6 +18,7 @@ export function SidebarUserProfileSection() {
 	return (
 		<ErrorBoundary fallbackRender={() => <SidebarUserProfileFallback />}>
 			<Suspense fallback={<SidebarUserProfileSkeleton />}>
+				<SidebarPositionSetup />
 				<SidebarUserProfile />
 			</Suspense>
 		</ErrorBoundary>
@@ -30,6 +32,18 @@ export function SidebarTagListSection() {
 				<SidebarTagList />
 			</Suspense>
 		</ErrorBoundary>
+	);
+}
+
+function SidebarPositionSetup() {
+	const { data: user } = useSuspenseQuery(userQueryOptions());
+	const [dismissed, setDismissed] = useState(false);
+
+	return (
+		<PositionSelectModal
+			isOpen={user.position === "NONE" && !dismissed}
+			onClose={() => setDismissed(true)}
+		/>
 	);
 }
 
