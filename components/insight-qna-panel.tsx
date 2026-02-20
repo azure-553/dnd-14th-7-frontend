@@ -1,7 +1,7 @@
 "use client";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { ChevronsUpDown, Sparkles } from "lucide-react";
+import { ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { HistoryIcon } from "@/components/ui/icons/HistoryIcon";
 import { Sparkle } from "@/components/ui/icons/Sparkle";
@@ -22,7 +22,7 @@ export function InsightQnAPanel({ insightId }: InsightQnAPanelProps) {
 	const [mode, setMode] = useState<"questions" | "answers">("questions");
 
 	return (
-		<div className="w-[360px] h-[calc(100vh-100px)] sticky top-[80px] rounded-[32px] shadow-sm bg-[var(--dnd-bg-alternative)] flex flex-col overflow-hidden border border-[var(--dnd-line-normal)]">
+		<div className="w-[360px] h-[calc(100vh-100px)] sticky top-[80px] rounded-[32px] shadow-sm bg-[var(--dnd-bg-question)] flex flex-col overflow-hidden border border-[var(--dnd-line-normal)]">
 			{/* Suggested Questions Section */}
 			<div
 				className={cn(
@@ -33,8 +33,8 @@ export function InsightQnAPanel({ insightId }: InsightQnAPanelProps) {
 				{/* Header - Always visible, clickable to switch back if in answers mode */}
 				<div
 					className={cn(
-						"px-[32px] py-[16px] flex justify-between items-center",
-						mode === "answers" && "cursor-pointer",
+						"px-[32px] py-[16px] flex justify-between items-center bg-[var(--dnd-bg-question)] rounded-t-[32px]",
+						mode === "answers" && "cursor-pointer transition-all",
 					)}
 					onClick={() => setMode("questions")}
 					onKeyDown={(e) => e.key === "Enter" && setMode("questions")}
@@ -49,22 +49,24 @@ export function InsightQnAPanel({ insightId }: InsightQnAPanelProps) {
 
 				{/* Content - Visible only in 'questions' mode */}
 				{mode === "questions" && (
-					<div className="px-8 pb-8 flex-1 overflow-y-auto relative no-scrollbar">
-						<div className="flex flex-col gap-4 pb-8">
+					<div className="p-6 flex-1 overflow-y-auto relative no-scrollbar">
+						<div className="flex flex-col gap-2 pb-8">
 							{data.questions.map((question) => (
 								<QuestionItem key={question.questionId} question={question} />
 							))}
 
 							{/* Actions */}
-							<div className="flex flex-col gap-4 pt-4 relative group">
+							<div className="flex flex-col gap-4 pt-4 relative group items-start">
 								<button
 									type="button"
-									className="bg-white border border-[var(--dnd-line-strong)] rounded-lg py-2 px-3 flex items-center gap-1 shadow-sm hover:bg-gray-50 transition-colors"
+									className="bg-white border border-[var(--dnd-line-strong)] rounded-lg py-2 px-3 shadow-sm hover:bg-gray-50 transition-colors"
 								>
-									<Sparkle />
-									<span className="typo-caption-1 font-medium text-[var(--dnd-label-neutral)]">
-										새로운 질문 받기
-									</span>
+									<div className="flex items-center justify-center gap-1">
+										<Sparkle />
+										<span className="typo-caption-1 font-medium text-[var(--dnd-label-neutral)]">
+											새로운 질문 받기
+										</span>
+									</div>
 								</button>
 
 								<div className="absolute top-full mt-2 left-0 right-0 z-10 bg-[var(--dnd-label-normal)] backdrop-blur-md rounded-lg p-2.5 text-[var(--dnd-bg-normal)] typo-body-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto">
@@ -82,15 +84,18 @@ export function InsightQnAPanel({ insightId }: InsightQnAPanelProps) {
 			{/* Answer Cards Section */}
 			<div
 				className={cn(
-					"flex flex-col bg-white transition-all duration-300 ease-in-out",
+					"flex flex-col transition-all duration-300 ease-in-out rounded-t-[32px] overflow-hidden",
 					mode === "answers"
 						? "flex-1 min-h-0 bg-[var(--dnd-bg-alternative)]" // Expanded style
-						: "flex-none rounded-t-[32px] shadow-[0_-4px_10px_rgba(0,0,0,0.05)]", // Collapsed style
+						: "flex-none shadow-[0_-4px_10px_rgba(0,0,0,0.05)] bg-white", // Collapsed style
 				)}
 			>
 				{/* Header */}
 				<div
-					className="px-[32px] py-[16px] flex justify-between items-center border-b border-[var(--dnd-line-normal)] bg-white cursor-pointer rounded-t-[32px]"
+					className={cn(
+						"px-[32px] py-[16px] flex justify-between items-center border-b border-[var(--dnd-line-normal)] cursor-pointer rounded-t-[32px]",
+						mode === "questions" ? "bg-white" : "bg-[var(--dnd-bg-alternative)]"
+					)}
 					onClick={() =>
 						setMode(mode === "questions" ? "answers" : "questions")
 					}
@@ -109,7 +114,7 @@ export function InsightQnAPanel({ insightId }: InsightQnAPanelProps) {
 
 				{/* Content - Visible only in 'answers' mode */}
 				{mode === "answers" && (
-					<div className="px-[32px] py-[16px] flex-1 overflow-y-auto bg-[var(--dnd-bg-normal-alternative)]">
+					<div className="px-[32px] py-[16px] flex-1 overflow-y-auto bg-[var(--dnd-bg-alternative)]">
 						<div className="flex flex-col gap-6">
 							{data.answerCards.map((card) => (
 								<AnswerCardItem key={card.answerId} card={card} />

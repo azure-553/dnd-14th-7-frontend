@@ -47,6 +47,7 @@
 	--color-dnd-bg-elevated-alternative: var(--dnd-bg-elevated-alternative);
 	--color-dnd-bg-insight-box: var(--dnd-bg-insight-box);
 	--color-dnd-bg-mint: var(--dnd-bg-mint);
+	--color-dnd-bg-question: var(--dnd-bg-question);
 
 	/* DND Design System - Interaction */
 	--color-dnd-interaction-inactive: var(--dnd-interaction-inactive);
@@ -163,6 +164,7 @@
 	--dnd-bg-elevated-alternative: #f7f7f8;
 	--dnd-bg-insight-box: #e1f5f3;
 	--dnd-bg-mint: #e1f5f3;
+	--dnd-bg-question: #EBEBEB;
 
 	/* DND Design System - Interaction */
 	--dnd-interaction-inactive: #989ba2;
