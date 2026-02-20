@@ -47,7 +47,11 @@ export const tagsQueryOptions = () =>
 const postLogout = () => api.post("/api/mock/auth/logout", {});
 
 export function redirectToGoogleLogin() {
-	window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/oauth2/authorization/google`;
+	const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+	if (!backendUrl) {
+		throw new Error("NEXT_PUBLIC_BACKEND_URL is not defined");
+	}
+	window.location.href = new URL("/oauth2/authorization/google", backendUrl).href;
 }
 
 export const logoutMutationOptions = (): MutationOptions => ({

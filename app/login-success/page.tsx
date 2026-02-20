@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { saveAuthTokens } from "./actions";
 import { LoginSuccessView } from "./login-success-view";
 
 interface PageProps {
@@ -9,9 +10,8 @@ export default async function LoginSuccessPage({ searchParams }: PageProps) {
 	const { accessToken, refreshToken } = await searchParams;
 
 	if (accessToken && refreshToken) {
-		redirect(
-			`/api/auth/token?accessToken=${accessToken}&refreshToken=${refreshToken}`,
-		);
+		await saveAuthTokens(accessToken, refreshToken);
+		redirect("/login-success");
 	}
 
 	return <LoginSuccessView />;

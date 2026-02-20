@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { VisuallyHidden } from "radix-ui";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { redirectToGoogleLogin } from "@/lib/queries/user";
 
 export interface LoginModalProps {
 	isOpen: boolean;
@@ -12,7 +13,7 @@ export interface LoginModalProps {
 export function LoginModal({ isOpen, onClose }: LoginModalProps) {
 	const handleGoogleLogin = () => {
 		onClose();
-		window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/oauth2/authorization/google`;
+		redirectToGoogleLogin();
 	};
 
 	return (
