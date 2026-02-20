@@ -4,6 +4,7 @@ import { api } from "@/lib/core/api";
 export interface User {
 	nickname: string;
 	email: string;
+	position: "DEV" | "DESIGN" | "PROMOTER" | "OTHER" | "NONE";
 }
 
 export interface Tag {
