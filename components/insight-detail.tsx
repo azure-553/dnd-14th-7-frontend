@@ -76,6 +76,8 @@ function InsightDetailSkeleton() {
 	);
 }
 
+import { InsightQnAPanel } from "./insight-qna-panel";
+
 function InsightDetailContent({ insightId }: { insightId: number }) {
 	const { data } = useSuspenseQuery(insightDetailQueryOptions(insightId));
 	const { data: piecesData } = useSuspenseQuery(
@@ -83,23 +85,17 @@ function InsightDetailContent({ insightId }: { insightId: number }) {
 	);
 
 	return (
-		<div className="flex gap-10 justify-center p-[80px]">
-			<div className="w-full flex flex-col gap-6">
+		<div className="flex gap-[80px] justify-center pl-[80px] pr-[24px]">
+			<div className="w-full flex flex-col gap-6 pt-[80px] pb-[80px]">
 				<InsightHeader data={data} />
 				<InitialThoughtBox initialThought={data.initialThought} />
 				<MainInsightBox insightPieces={piecesData.insightPieces} />
 				<MemoSection />
 				<LinkSection />
 			</div>
-			<RightPanel />
-		</div>
-	);
-}
-
-function RightPanel() {
-	return (
-		<div className="w-[360px] h-screen sticky top-[80px] bg-red-100/50 border border-red-200 rounded-xl flex items-center justify-center text-red-500 font-bold">
-			오른쪽 패널 영역
+			<div className="pt-[24px] pb-[24px]">
+				<InsightQnAPanel insightId={insightId} />
+			</div>
 		</div>
 	);
 }
