@@ -43,13 +43,11 @@ export const tagsQueryOptions = () =>
 		retry: false,
 	});
 
-const postLogin = () => api.post("/api/mock/auth/login", {});
 const postLogout = () => api.post("/api/mock/auth/logout", {});
 
-export const loginMutationOptions = (): MutationOptions => ({
-	mutationFn: postLogin,
-	onSuccess: () => window.location.reload(),
-});
+export function redirectToGoogleLogin() {
+	window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/oauth2/authorization/google`;
+}
 
 export const logoutMutationOptions = (): MutationOptions => ({
 	mutationFn: postLogout,

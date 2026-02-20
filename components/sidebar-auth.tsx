@@ -6,8 +6,8 @@ import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { Button } from "@/components/ui/button";
 import {
-	loginMutationOptions,
 	logoutMutationOptions,
+	redirectToGoogleLogin,
 	type Tag,
 	tagsQueryOptions,
 	userQueryOptions,
@@ -80,12 +80,10 @@ function SidebarTag({ tag }: { tag: Tag }) {
 }
 
 function SidebarUserProfileFallback() {
-	const { mutate: login } = useMutation(loginMutationOptions());
-
 	return (
 		<button
 			type="button"
-			onClick={() => login()}
+			onClick={redirectToGoogleLogin}
 			className="flex flex-1 cursor-pointer items-center gap-[8px]"
 		>
 			<div className="flex size-[32px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-dnd-fill-strong" />
@@ -106,8 +104,6 @@ function SidebarUserProfileSkeleton() {
 }
 
 function SidebarTagListFallback() {
-	const { mutate: login } = useMutation(loginMutationOptions());
-
 	return (
 		<div className="flex w-full flex-col gap-[4px] rounded-[16px] bg-white p-[16px]">
 			<CircleAlert className="size-[24px] text-dnd-label-alternative" />
@@ -118,7 +114,7 @@ function SidebarTagListFallback() {
 			<Button
 				variant="ghost"
 				className="mt-[12px] h-auto w-full rounded-[10px] bg-[#e1f5f3] px-[20px] py-[9px] hover:bg-[#d0eeeb]"
-				onClick={() => login()}
+				onClick={redirectToGoogleLogin}
 			>
 				<span className="typo-body-2 font-semibold text-dnd-primary-strong">
 					로그인
