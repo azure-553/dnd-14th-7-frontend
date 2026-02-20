@@ -5,6 +5,7 @@ import { ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { HistoryIcon } from "@/components/ui/icons/HistoryIcon";
 import { Sparkle } from "@/components/ui/icons/Sparkle";
+import { KebabIcon } from "@/components/ui/icons/KebabIcon";
 import {
 	type InsightAnswerCard,
 	type InsightQuestion,
@@ -12,6 +13,7 @@ import {
 } from "@/lib/queries/insight";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/utils/date";
+
 
 interface InsightQnAPanelProps {
 	insightId: number;
@@ -148,39 +150,35 @@ function AnswerCardItem({ card }: { card: InsightAnswerCard }) {
 	const dateStr = `${year}.${month}.${day} ${weekday}`;
 
 	return (
-		<div className="bg-[var(--dnd-bg-mint-2)] rounded-[20px] p-5 flex flex-col gap-3">
-			<div className="flex gap-3 items-start">
-				<div className="w-[34px] h-[34px] bg-[var(--dnd-bg-mint)] rounded-[8px] flex items-center justify-center shrink-0 mt-0.5">
-					<span className="font-['Pretendard'] font-bold text-[16px] text-[#51CCBD]">
+		<div className="bg-[var(--dnd-bg-normal)] rounded-[20px] p-6 flex flex-col gap-4 shadow-sm">
+			<div className="flex gap-3 items-center">
+				<div className="w-[34px] h-[34px] bg-[var(--dnd-bg-mint)] rounded-[8px] flex items-center justify-center shrink-0">
+					<span className="font-['Pretendard'] font-bold text-[18px] text-[var(--dnd-primary-heavy)]">
 						Q
 					</span>
 				</div>
-				<h3 className="typo-headline-2 font-bold text-[var(--dnd-label-normal)] leading-[1.4] py-1">
+				<h3 className="typo-headline-1 font-bold text-[var(--dnd-label-normal)] py-1">
 					{card.questionContent}
 				</h3>
 			</div>
 
-			<div className="bg-white rounded-[16px] p-5 flex flex-col gap-6">
+			<div className="bg-[var(--dnd-bg-alternative)] rounded-[16px] p-4 flex flex-col gap-6">
 				<p className="typo-body-1 text-[var(--dnd-label-normal)] whitespace-pre-wrap leading-[1.6]">
 					{card.answerContent}
 				</p>
 
-				<div className="flex justify-between items-center">
-					<span className="typo-caption-1 text-[var(--dnd-label-assistive)]">
+				<div className="flex justify-between items-center gap-[8px]">
+					<span className="typo-label-1 font-normal text-[var(--dnd-label-alternative)]">
 						{dateStr}
 					</span>
 
 					{card.isSaved && (
-						<div className="flex items-center gap-2">
+						<div className="flex items-center gap-[8px]">
 							<span className="typo-caption-1 font-medium text-[var(--dnd-primary)]">
 								인사이트 저장됨
 							</span>
 							<button type="button" className="p-0.5">
-								<div className="w-6 h-6 bg-[#FEEAEB] rounded flex items-center justify-center gap-[2px]">
-									<div className="w-[3px] h-[3px] rounded-full bg-[#FF5E67]" />
-									<div className="w-[3px] h-[3px] rounded-full bg-[#FF5E67]" />
-									<div className="w-[3px] h-[3px] rounded-full bg-[#FF5E67]" />
-								</div>
+								<KebabIcon />
 							</button>
 						</div>
 					)}
