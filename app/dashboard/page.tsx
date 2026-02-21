@@ -1,7 +1,51 @@
+"use client";
+
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import { InsightDetailSection } from "@/components/insight-detail";
+import { InsightInput } from "@/components/insight-input";
+import { useDashboardTabs } from "./_hooks/use-dashboard-tabs";
+
+function HomePage() {
+	return (
+		<div className="flex min-h-screen flex-col items-center justify-center gap-[40px] px-[240px]">
+			<p className="text-dnd-label-alternative">홈 화면</p>
+		</div>
+	);
+}
+
+function NewInsightPage() {
+	return (
+		<div className="flex min-h-screen flex-col items-center justify-center gap-[40px] px-[240px]">
+			<InsightInput />
+		</div>
+	);
+}
+
+function DashboardContent() {
+	const { activeTab } = useDashboardTabs();
+
+	switch (activeTab) {
+		case "home":
+			return <HomePage />;
+		case "new":
+			return <NewInsightPage />;
+		default: {
+			const insightId = Number(activeTab);
+			if (Number.isNaN(insightId)) {
+				throw new Error(`유효하지 않은 탭: ${activeTab}`);
+			}
+			return <InsightDetailSection insightId={insightId} />;
+		}
+	}
+}
+
 export default function DashboardPage() {
 	return (
-		<div className="flex flex-col items-center justify-center min-h-screen gap-[40px] px-[240px]">
-			<h1>대시보드</h1>
-		</div>
+		<ErrorBoundary fallback={<div>잘못된 페이지입니다.</div>}>
+			<Suspense>
+				<DashboardContent />
+			</Suspense>
+		</ErrorBoundary>
 	);
 }
