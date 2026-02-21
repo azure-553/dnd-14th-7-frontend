@@ -1,5 +1,5 @@
 import type { MutationOptions } from "@tanstack/react-query";
-import { queryOptions } from "@tanstack/react-query";
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/core/api";
 
 interface CreateInsightRequest {
@@ -13,11 +13,7 @@ interface CreateInsightResponse {
 const createInsight = (data: CreateInsightRequest) =>
 	api.post<CreateInsightResponse>("/api/mock/insights", data);
 
-export const insightCreationMutationOptions = (): MutationOptions<
-	CreateInsightResponse,
-	unknown,
-	CreateInsightRequest
-> => ({
+export const insightCreationMutationOptions = () => mutationOptions({
 	mutationFn: createInsight,
 });
 
