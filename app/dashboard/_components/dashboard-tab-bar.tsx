@@ -18,35 +18,15 @@ export function DashboardTabBar() {
 				<Home className="size-[20px] text-dnd-primary" />
 			</button>
 
-			<div className="flex flex-1 items-stretch overflow-x-auto">
+			<div role="tablist" className="flex flex-1 items-stretch overflow-x-auto">
 				{openTabs.map((tabId) => (
-					<div
+					<TabItem
 						key={tabId}
-						role="tab"
-						tabIndex={0}
-						aria-selected={activeTab === tabId}
-						className={`flex h-[56px] w-[224px] shrink-0 cursor-pointer items-center gap-[8px] border-r border-[#e1e2e4] px-[16px] transition-colors ${
-							activeTab === tabId
-								? "bg-white"
-								: "bg-dnd-bg-mint hover:bg-white/60"
-						}`}
-						onClick={() => navigate(tabId)}
-						onKeyDown={(e) => e.key === "Enter" && navigate(tabId)}
-					>
-						<span className="min-w-0 flex-1 truncate text-[17px] font-medium leading-[1.41] text-dnd-label-neutral">
-							{tabId === "new" ? "새 페이지" : `인사이트 ${tabId}`}
-						</span>
-						<button
-							type="button"
-							onClick={(e) => {
-								e.stopPropagation();
-								closeTab(tabId);
-							}}
-							className="shrink-0 rounded p-[2px] text-dnd-label-alternative hover:bg-black/10"
-						>
-							<X className="size-[14px]" />
-						</button>
-					</div>
+						tabId={tabId}
+						isActive={activeTab === tabId}
+						onNavigate={navigate}
+						onClose={closeTab}
+					/>
 				))}
 			</div>
 
@@ -60,3 +40,38 @@ export function DashboardTabBar() {
 	);
 }
 
+interface TabItemProps {
+	tabId: string;
+	isActive: boolean;
+	onNavigate: (tabId: string) => void;
+	onClose: (tabId: string) => void;
+}
+
+function TabItem({ tabId, isActive, onNavigate, onClose }: TabItemProps) {
+	return (
+		<div
+			role="tab"
+			tabIndex={0}
+			aria-selected={isActive}
+			className={`flex h-[56px] w-[224px] shrink-0 cursor-pointer items-center gap-[8px] border-r border-[#e1e2e4] px-[16px] transition-colors ${
+				isActive ? "bg-white" : "bg-dnd-bg-mint hover:bg-white/60"
+			}`}
+			onClick={() => onNavigate(tabId)}
+			onKeyDown={(e) => e.key === "Enter" && onNavigate(tabId)}
+		>
+			<span className="min-w-0 flex-1 truncate text-[17px] font-medium leading-[1.41] text-dnd-label-neutral">
+				{tabId === "new" ? "새 페이지" : `인사이트 ${tabId}`}
+			</span>
+			<button
+				type="button"
+				onClick={(e) => {
+					e.stopPropagation();
+					onClose(tabId);
+				}}
+				className="shrink-0 rounded p-[2px] text-dnd-label-alternative hover:bg-black/10"
+			>
+				<X className="size-[14px]" />
+			</button>
+		</div>
+	);
+}

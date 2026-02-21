@@ -53,5 +53,14 @@ export function useDashboardTabs() {
 		[router, openTabs, activeTab],
 	);
 
-	return { activeTab, openTabs, navigate, openTab, closeTab } as const;
+	const replaceTab = useCallback(
+		(oldTabId: string, newTabId: string) => {
+			const newTabs = openTabs.map((t) => (t === oldTabId ? newTabId : t));
+			if (!newTabs.includes(newTabId)) newTabs.push(newTabId);
+			router.push(buildUrl(newTabId, newTabs));
+		},
+		[router, openTabs],
+	);
+
+	return { activeTab, openTabs, navigate, openTab, closeTab, replaceTab } as const;
 }
