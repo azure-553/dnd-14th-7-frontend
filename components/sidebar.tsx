@@ -54,6 +54,7 @@ function Sidebar() {
 			<Button
 				variant="text-secondary"
 				className="w-full justify-start gap-[8px] px-[8px] py-[8px] h-auto"
+				onClick={() => router.push("/dashboard")}
 			>
 				<Home className="size-[16px] text-dnd-label-neutral" />
 				<span className="typo-headline-1 font-semibold text-dnd-label-neutral">
@@ -65,7 +66,7 @@ function Sidebar() {
 				<Button
 					className="h-auto w-full flex-row items-center justify-center gap-[4px] rounded-[8px] py-[8px] bg-white border border-dnd-line-normal shadow-dnd-normal hover:bg-dnd-bg-alternative"
 					variant="ghost"
-					onClick={() => router.push("/insights/new")}
+					onClick={() => router.push("/dashboard/new")}
 				>
 					<PenSquare className="size-[16px] text-dnd-label-neutral" />
 					<span className="typo-label-1 font-medium text-dnd-label-neutral">

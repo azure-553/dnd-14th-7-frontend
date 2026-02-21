@@ -1,4 +1,4 @@
-import { InsightDetailSection } from "@/components/insight-detail";
+import { redirect } from "next/navigation";
 
 interface PageProps {
 	params: Promise<{ id: string }>;
@@ -6,11 +6,5 @@ interface PageProps {
 
 export default async function InsightDetailPage({ params }: PageProps) {
 	const { id } = await params;
-	const insightId = Number(id);
-
-	return (
-		<main className="min-h-screen bg-[var(--dnd-bg-normal)]">
-			<InsightDetailSection insightId={insightId} />
-		</main>
-	);
+	redirect(`/dashboard?tabs=${id}&tab=${id}`);
 }
