@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { VisuallyHidden } from "radix-ui";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { redirectToGoogleLogin } from "@/lib/queries/user";
 
 export interface LoginModalProps {
 	isOpen: boolean;
@@ -12,9 +13,7 @@ export interface LoginModalProps {
 export function LoginModal({ isOpen, onClose }: LoginModalProps) {
 	const handleGoogleLogin = () => {
 		onClose();
-		// TODO: google login 페이지로 이동 추가 필요
-		window.location.href =
-			"/api/auth/token?accessToken=mock-access-token&refreshToken=mock-refresh-token"; // 임시 처리
+		redirectToGoogleLogin();
 	};
 
 	return (

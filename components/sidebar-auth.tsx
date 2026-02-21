@@ -2,12 +2,13 @@
 
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { CircleAlert } from "lucide-react";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { PositionSelectModal } from "@/components/position-select-modal";
 import { Button } from "@/components/ui/button";
 import {
-	loginMutationOptions,
 	logoutMutationOptions,
+	redirectToGoogleLogin,
 	type Tag,
 	tagsQueryOptions,
 	userQueryOptions,
@@ -17,6 +18,7 @@ export function SidebarUserProfileSection() {
 	return (
 		<ErrorBoundary fallbackRender={() => <SidebarUserProfileFallback />}>
 			<Suspense fallback={<SidebarUserProfileSkeleton />}>
+				<SidebarPositionSetup />
 				<SidebarUserProfile />
 			</Suspense>
 		</ErrorBoundary>
@@ -30,6 +32,18 @@ export function SidebarTagListSection() {
 				<SidebarTagList />
 			</Suspense>
 		</ErrorBoundary>
+	);
+}
+
+function SidebarPositionSetup() {
+	const { data: user } = useSuspenseQuery(userQueryOptions());
+	const [dismissed, setDismissed] = useState(false);
+
+	return (
+		<PositionSelectModal
+			isOpen={user.position === "NONE" && !dismissed}
+			onClose={() => setDismissed(true)}
+		/>
 	);
 }
 
@@ -80,12 +94,10 @@ function SidebarTag({ tag }: { tag: Tag }) {
 }
 
 function SidebarUserProfileFallback() {
-	const { mutate: login } = useMutation(loginMutationOptions());
-
 	return (
 		<button
 			type="button"
-			onClick={() => login()}
+			onClick={redirectToGoogleLogin}
 			className="flex flex-1 cursor-pointer items-center gap-[8px]"
 		>
 			<div className="flex size-[32px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-dnd-fill-strong" />
@@ -106,8 +118,6 @@ function SidebarUserProfileSkeleton() {
 }
 
 function SidebarTagListFallback() {
-	const { mutate: login } = useMutation(loginMutationOptions());
-
 	return (
 		<div className="flex w-full flex-col gap-[4px] rounded-[16px] bg-white p-[16px]">
 			<CircleAlert className="size-[24px] text-dnd-label-alternative" />
@@ -118,7 +128,7 @@ function SidebarTagListFallback() {
 			<Button
 				variant="ghost"
 				className="mt-[12px] h-auto w-full rounded-[10px] bg-[#e1f5f3] px-[20px] py-[9px] hover:bg-[#d0eeeb]"
-				onClick={() => login()}
+				onClick={redirectToGoogleLogin}
 			>
 				<span className="typo-body-2 font-semibold text-dnd-primary-strong">
 					로그인
