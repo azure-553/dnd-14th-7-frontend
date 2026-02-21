@@ -18,5 +18,6 @@ export async function GET() {
 	return NextResponse.json({
 		nickname: "심미진",
 		email: "mijin.sim@example.com",
+		position: "NONE",
 	});
 }
