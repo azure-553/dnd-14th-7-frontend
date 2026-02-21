@@ -1,7 +1,6 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { overlay } from "overlay-kit";
 import { useState } from "react";
 import { LoginModal } from "@/components/login-modal";
@@ -15,8 +14,11 @@ function openLoginModal() {
 	));
 }
 
-export function InsightInput() {
-	const router = useRouter();
+interface InsightInputProps {
+	onSuccess?: (insightId: number) => void;
+}
+
+export function InsightInput({ onSuccess }: InsightInputProps) {
 	const [value, setValue] = useState("");
 	const { mutate: createInsight, isPending } = useMutation(
 		insightCreationMutationOptions(),
@@ -29,9 +31,8 @@ export function InsightInput() {
 			{ memo: value },
 			{
 				onSuccess: (data) => {
-					console.log("Insight created successfully:", data);
 					setValue("");
-					router.push(`/insights/${data.insightId}`);
+					onSuccess?.(data.insightId);
 				},
 				onError: (error) => {
 					console.error("Failed to create insight:", error);

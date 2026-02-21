@@ -1,9 +1,9 @@
 "use client";
 
-import { Home, PenSquare, Trash2 } from "lucide-react";
+import { PenSquare, Trash2 } from "lucide-react";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useDashboardTabs } from "../_hooks/use-dashboard-tabs";
 
 const SidebarUserProfileSection = dynamic(
 	() =>
@@ -21,8 +21,8 @@ const SidebarTagListSection = dynamic(
 	{ ssr: false },
 );
 
-function Sidebar() {
-	const router = useRouter();
+export function Sidebar() {
+	const { openTab } = useDashboardTabs();
 
 	return (
 		<div className="fixed left-0 top-0 flex h-full w-[260px] flex-col gap-[32px] bg-dnd-bg-alternative p-[24px] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.08),0px_1px_2px_0px_rgba(0,0,0,0.12)]">
@@ -51,21 +51,11 @@ function Sidebar() {
 				</Button>
 			</div>
 
-			<Button
-				variant="text-secondary"
-				className="w-full justify-start gap-[8px] px-[8px] py-[8px] h-auto"
-			>
-				<Home className="size-[16px] text-dnd-label-neutral" />
-				<span className="typo-headline-1 font-semibold text-dnd-label-neutral">
-					홈
-				</span>
-			</Button>
-
 			<div className="flex w-full flex-col gap-[32px]">
 				<Button
 					className="h-auto w-full flex-row items-center justify-center gap-[4px] rounded-[8px] py-[8px] bg-white border border-dnd-line-normal shadow-dnd-normal hover:bg-dnd-bg-alternative"
 					variant="ghost"
-					onClick={() => router.push("/insights/new")}
+					onClick={() => openTab("new")}
 				>
 					<PenSquare className="size-[16px] text-dnd-label-neutral" />
 					<span className="typo-label-1 font-medium text-dnd-label-neutral">
@@ -96,4 +86,3 @@ function Sidebar() {
 	);
 }
 
-export { Sidebar };
