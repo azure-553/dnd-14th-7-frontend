@@ -1,17 +1,13 @@
-import { Suspense } from "react";
-import { TabBar } from "@/components/insight/tab-bar";
+import { InsightInput } from "@/components/insight-input";
+import { TopNavigation } from "@/components/top-navigation";
 
 export default function Page() {
 	return (
-		<div className="flex flex-col w-full h-full bg-white">
-			<Suspense fallback={<div className="h-[40px] w-full bg-[#E0F5F6]" />}>
-				<TabBar />
-			</Suspense>
-			<div className="flex-1 p-6">
-				<div className="flex h-full items-center justify-center text-[var(--dnd-label-assistive)]">
-					Select a tab to view insights
-				</div>
-			</div>
+		<div className="min-h-screen bg-[linear-gradient(180deg,rgba(242,250,249,0.15)_3.5%,rgb(242,250,249)_35.4%),white]">
+			<TopNavigation />
+			<main className="flex flex-col items-center gap-[40px] px-[240px] pt-[60px]">
+				<InsightInput />
+			</main>
 		</div>
 	);
 }

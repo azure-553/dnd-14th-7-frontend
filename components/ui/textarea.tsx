@@ -16,10 +16,8 @@ export interface TextareaProps
 	errorMessage?: string;
 	/** Show character counter */
 	showCharacterCount?: boolean;
-	/** Trailing button text */
-	trailingButton?: string;
-	/** Trailing button click handler */
-	onTrailingButtonClick?: () => void;
+	/** Custom trailing content (e.g. button) rendered at bottom-right */
+	trailingContent?: React.ReactNode;
 	/** Resize behavior */
 	resize?: "normal" | "vertical" | "none";
 }
@@ -32,8 +30,7 @@ function Textarea({
 	errorMessage,
 	showCharacterCount,
 	maxLength,
-	trailingButton,
-	onTrailingButtonClick,
+	trailingContent,
 	resize = "vertical",
 	disabled,
 	value,
@@ -57,9 +54,9 @@ function Textarea({
 	};
 
 	const displayMessage = error ? errorMessage : description;
-	// error일 때 trailingButton 없으면 느낌표 아이콘 표시
-	const showErrorIcon = error && !trailingButton && !disabled;
-	const showBottom = showCharacterCount || trailingButton || showErrorIcon;
+	// error일 때 trailingContent 없으면 느낌표 아이콘 표시
+	const showErrorIcon = error && !trailingContent && !disabled;
+	const showBottom = showCharacterCount || trailingContent || showErrorIcon;
 
 	const resizeClass = {
 		normal: "resize",
@@ -111,7 +108,7 @@ function Textarea({
 					onFocus={() => setIsFocused(true)}
 					onBlur={() => setIsFocused(false)}
 					className={cn(
-						"min-h-[80px] px-1 bg-transparent border-none outline-none",
+						"min-h-[80px] flex-1 px-1 bg-transparent border-none outline-none",
 						"typo-body-1-reading text-dnd-label-normal placeholder:text-dnd-label-assistive",
 						resizeClass,
 						disabled &&
@@ -122,7 +119,7 @@ function Textarea({
 
 				{/* Bottom */}
 				{showBottom && (
-					<div className="flex items-center justify-between backdrop-blur-[32px]">
+					<div className="flex items-end justify-between backdrop-blur-[32px]">
 						{/* Character Counter */}
 						<div className="flex-1">
 							{showCharacterCount && (
@@ -133,21 +130,8 @@ function Textarea({
 							)}
 						</div>
 
-						{/* Trailing Button */}
-						{trailingButton && (
-							<button
-								type="button"
-								onClick={onTrailingButtonClick}
-								disabled={disabled}
-								className={cn(
-									"font-semibold typo-body-1 text-dnd-primary px-1 py-1 transition-colors",
-									"hover:opacity-80",
-									disabled && "text-dnd-label-assistive cursor-not-allowed",
-								)}
-							>
-								{trailingButton}
-							</button>
-						)}
+						{/* Trailing Content */}
+						{trailingContent}
 
 						{/* Error Icon */}
 						{showErrorIcon && (

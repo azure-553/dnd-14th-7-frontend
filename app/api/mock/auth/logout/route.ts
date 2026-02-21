@@ -3,21 +3,14 @@ import { NextResponse } from "next/server";
 import { AUTH_COOKIE_KEYS } from "@/lib/auth/cookies";
 import { isProduction } from "@/lib/core/env";
 
-export async function GET() {
+export async function POST() {
 	if (isProduction()) {
 		return NextResponse.json({ error: "Not found" }, { status: 404 });
 	}
 
 	const cookieStore = await cookies();
-	const isLoggedIn = !!cookieStore.get(AUTH_COOKIE_KEYS.ACCESS_TOKEN)?.value;
+	cookieStore.delete(AUTH_COOKIE_KEYS.ACCESS_TOKEN);
+	cookieStore.delete(AUTH_COOKIE_KEYS.REFRESH_TOKEN);
 
-	if (!isLoggedIn) {
-		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-	}
-
-	return NextResponse.json({
-		nickname: "심미진",
-		email: "mijin.sim@example.com",
-		position: "NONE",
-	});
+	return NextResponse.json({ success: true });
 }

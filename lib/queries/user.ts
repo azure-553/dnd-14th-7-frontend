@@ -1,15 +1,18 @@
-import { queryOptions } from "@tanstack/react-query";
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/core/api";
+
+export type Position = "DEV" | "DESIGN" | "PROMOTER" | "OTHER";
 
 export interface User {
 	nickname: string;
 	email: string;
+	position: Position | "NONE";
 }
 
 export interface Tag {
 	tagId: number;
 	tagName: string;
-	count: number;
+	insightCount: number;
 }
 
 interface TagsResponse {
@@ -49,10 +52,36 @@ export const userQueryOptions = () =>
 	queryOptions({
 		queryKey: userKeys.profile(),
 		queryFn: getUser,
+		retry: false,
 	});
 
 export const tagsQueryOptions = () =>
 	queryOptions({
 		queryKey: userKeys.tags(),
 		queryFn: getTags,
+		retry: false,
+	});
+
+const postUserPosition = (position: Position) =>
+	api.post("/api/v1/users/position", { position });
+
+export const updatePositionMutationOptions = () =>
+	mutationOptions({ mutationFn: postUserPosition });
+
+const postLogout = () => api.post("/api/mock/auth/logout", {});
+
+export function redirectToGoogleLogin() {
+	const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+	if (!backendUrl) {
+		throw new Error("NEXT_PUBLIC_BACKEND_URL is not defined");
+	}
+	const url = new URL("/oauth2/authorization/google", backendUrl);
+	url.searchParams.set("redirectUri", window.location.origin);
+	window.location.href = url.href;
+}
+
+export const logoutMutationOptions = () =>
+	mutationOptions({
+		mutationFn: postLogout,
+		onSuccess: () => window.location.reload(),
 	});

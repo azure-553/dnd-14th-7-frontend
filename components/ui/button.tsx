@@ -24,11 +24,13 @@ const buttonVariants = cva(
 				link: "text-primary underline-offset-4 hover:underline disabled:opacity-50",
 				// DND Solid
 				solid:
-					"bg-dnd-primary text-dnd-static-white hover:bg-dnd-primary-strong active:bg-dnd-primary-heavy disabled:bg-dnd-interaction-disable disabled:text-dnd-label-disable",
+					"font-semibold bg-dnd-primary text-dnd-static-white hover:bg-dnd-primary-strong active:bg-dnd-primary-heavy disabled:bg-dnd-interaction-disable disabled:text-dnd-label-assistive",
 				"solid-secondary":
-					"bg-dnd-fill-strong text-dnd-label-normal hover:bg-dnd-fill-strong/80 active:bg-dnd-fill-strong/60 disabled:bg-dnd-interaction-disable disabled:text-dnd-label-disable",
+					"font-semibold bg-dnd-bg-mint text-dnd-primary-strong hover:bg-dnd-bg-mint/80 active:bg-dnd-bg-mint/60 disabled:bg-dnd-interaction-disable disabled:text-dnd-label-assistive",
 				"solid-assistive":
-					"bg-dnd-bg-normal text-dnd-label-normal border border-dnd-line-normal hover:bg-dnd-fill-alternative active:bg-dnd-fill-normal disabled:bg-dnd-interaction-disable disabled:text-dnd-label-disable disabled:border-transparent",
+					"font-medium bg-dnd-bg-alternative text-dnd-label-neutral hover:bg-dnd-fill-normal active:bg-dnd-fill-strong disabled:bg-dnd-interaction-disable disabled:text-dnd-label-assistive",
+				"solid-white":
+					"font-medium bg-dnd-bg-normal text-dnd-label-neutral hover:bg-dnd-fill-normal active:bg-dnd-fill-strong disabled:bg-dnd-interaction-disable disabled:text-dnd-label-assistive",
 				// DND Outlined
 				outlined:
 					"bg-transparent border border-dnd-primary text-dnd-primary hover:bg-dnd-primary/5 active:bg-dnd-primary/10 disabled:bg-transparent disabled:border-dnd-line-neutral disabled:text-dnd-label-disable",
@@ -51,9 +53,16 @@ const buttonVariants = cva(
 				"icon-sm": "h-8 w-8",
 				"icon-xs": "h-6 w-6 [&_svg:not([class*='size-'])]:size-3.5",
 				// DND sizes
-				"dnd-small": "h-10 px-4 typo-label-1",
-				"dnd-medium": "h-12 px-5 typo-body-2",
-				"dnd-large": "h-14 px-6 typo-body-1",
+				"dnd-small": "h-8 px-3.5 rounded-lg gap-1 typo-label-2",
+				"dnd-medium": "h-10 px-5 rounded-[10px] gap-[5px] typo-body-2",
+				"dnd-large": "h-12 px-7 rounded-xl gap-1.5 typo-body-1",
+				"dnd-xl": "h-[54px] px-9 rounded-xl gap-1.5 typo-headline-2",
+				"dnd-xxl": "h-16 px-11 rounded-xl gap-1.5 typo-headline-1",
+				"dnd-xxxl": "h-[72px] px-13 rounded-xl gap-1.5 typo-heading-2",
+				// DND icon-only sizes
+				"dnd-icon-small": "size-8 rounded-lg",
+				"dnd-icon-medium": "size-10 rounded-[10px]",
+				"dnd-icon-large": "size-12 rounded-xl",
 			},
 		},
 		defaultVariants: {
