@@ -1,33 +1,40 @@
 "use client";
 
 import { Home, Search, X } from "lucide-react";
-import { useDashboardTabs } from "../_hooks/use-dashboard-tabs";
+import { useTabs } from "@/hooks/use-tabs";
+import { serializeTab } from "@/lib/tabs/tab-utils";
+import type { Tab } from "@/lib/tabs/tab-utils";
 
 export function DashboardTabBar() {
-	const { activeTab, openTabs, navigate, closeTab } = useDashboardTabs();
+	const { state, dispatch } = useTabs();
+	const currentTabKey = serializeTab(state.currentTab);
 
 	return (
 		<div className="fixed left-[260px] top-0 right-0 z-10 flex h-[56px] items-center border-b border-[#e1e2e4] bg-dnd-bg-mint">
 			<button
 				type="button"
-				onClick={() => navigate("home")}
+				onClick={() => dispatch({ type: 'activate', tab: { type: 'home' } })}
 				className={`flex h-full shrink-0 items-center justify-center border-r border-[#e1e2e4] px-[16px] transition-colors ${
-					activeTab === "home" ? "bg-white" : "bg-dnd-bg-mint hover:bg-white/60"
+					currentTabKey === "home" ? "bg-white" : "bg-dnd-bg-mint hover:bg-white/60"
 				}`}
 			>
 				<Home className="size-[20px] text-dnd-primary" />
 			</button>
 
 			<div role="tablist" className="flex flex-1 items-stretch overflow-x-auto">
-				{openTabs.map((tabId) => (
-					<TabItem
-						key={tabId}
-						tabId={tabId}
-						isActive={activeTab === tabId}
-						onNavigate={navigate}
-						onClose={closeTab}
-					/>
-				))}
+				{state.openTabs.map((tab: Tab) => {
+					if (tab.type === 'home') return null; // Home is rendered outside
+					const tabKey = serializeTab(tab);
+					return (
+						<TabItem
+							key={tabKey}
+							tab={tab}
+							isActive={currentTabKey === tabKey}
+							onNavigate={(t) => dispatch({ type: 'activate', tab: t })}
+							onClose={(t) => dispatch({ type: 'remove', tab: t })}
+						/>
+					);
+				})}
 			</div>
 
 			<button
@@ -41,13 +48,13 @@ export function DashboardTabBar() {
 }
 
 interface TabItemProps {
-	tabId: string;
+	tab: Tab;
 	isActive: boolean;
-	onNavigate: (tabId: string) => void;
-	onClose: (tabId: string) => void;
+	onNavigate: (tab: Tab) => void;
+	onClose: (tab: Tab) => void;
 }
 
-function TabItem({ tabId, isActive, onNavigate, onClose }: TabItemProps) {
+function TabItem({ tab, isActive, onNavigate, onClose }: TabItemProps) {
 	return (
 		<div
 			role="tab"
@@ -56,17 +63,17 @@ function TabItem({ tabId, isActive, onNavigate, onClose }: TabItemProps) {
 			className={`flex h-[56px] w-[224px] shrink-0 cursor-pointer items-center gap-[8px] border-r border-[#e1e2e4] px-[16px] transition-colors ${
 				isActive ? "bg-white" : "bg-dnd-bg-mint hover:bg-white/60"
 			}`}
-			onClick={() => onNavigate(tabId)}
-			onKeyDown={(e) => e.key === "Enter" && onNavigate(tabId)}
+			onClick={() => onNavigate(tab)}
+			onKeyDown={(e) => e.key === "Enter" && onNavigate(tab)}
 		>
 			<span className="min-w-0 flex-1 truncate text-[17px] font-medium leading-[1.41] text-dnd-label-neutral">
-				{tabId === "new" ? "새 페이지" : `인사이트 ${tabId}`}
+				{tab.type === "new" ? "새 페이지" : tab.type === "insight" ? `인사이트 ${tab.id}` : tab.type === "tag" ? `태그 ${tab.name}` : ''}
 			</span>
 			<button
 				type="button"
 				onClick={(e) => {
 					e.stopPropagation();
-					onClose(tabId);
+					onClose(tab);
 				}}
 				className="shrink-0 rounded p-[2px] text-dnd-label-alternative hover:bg-black/10"
 			>
