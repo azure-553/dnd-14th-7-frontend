@@ -59,7 +59,9 @@ export function redirectToGoogleLogin() {
 	if (!backendUrl) {
 		throw new Error("NEXT_PUBLIC_BACKEND_URL is not defined");
 	}
-	window.location.href = new URL("/oauth2/authorization/google", backendUrl).href;
+	const url = new URL("/oauth2/authorization/google", backendUrl);
+	url.searchParams.set("redirectUri", window.location.origin);
+	window.location.href = url.href;
 }
 
 export const logoutMutationOptions = () =>
