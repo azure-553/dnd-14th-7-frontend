@@ -7,6 +7,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { InsightDetailSection } from "@/components/insight-detail";
 import { InsightInput } from "@/components/insight-input";
 import { LoginModal } from "@/components/login-modal";
+import { HttpError } from "@/lib/core/error";
 import { insightCreationMutationOptions } from "@/lib/queries/insight";
 import { useDashboardTabs } from "./_hooks/use-dashboard-tabs";
 
@@ -26,9 +27,7 @@ function NewInsightPage() {
 			replaceTab("new", String(data.insightId));
 		},
 		onError: (error) => {
-			const isUnauthorized =
-				error instanceof Error && error.message.startsWith("401");
-			if (isUnauthorized) {
+			if (error instanceof HttpError && error.status === 401) {
 				overlay.open(({ isOpen, close }) => (
 					<LoginModal isOpen={isOpen} onClose={close} />
 				));
