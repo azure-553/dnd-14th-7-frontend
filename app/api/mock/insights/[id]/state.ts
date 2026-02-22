@@ -108,31 +108,32 @@ export const answerCards = globalForMock.answerCards;
 
 export function addInsightPieceFromAnswer(answerId: number) {
 	const card = globalForMock.answerCards?.find((c) => c.answerId === answerId);
+	if (!card) return;
+
 	const id = globalForMock.nextPieceId ?? 125;
 	globalForMock.nextPieceId = id + 1;
 	globalForMock.insightPieces?.push({
 		insightPieceId: id,
-		content: card?.answerContent ?? "",
+		content: card.answerContent,
 		createdType: "ANSWER",
 		createdDate: new Date().toISOString(),
 	});
-
 }
 
 export function answerQuestion(questionId: number, content: string) {
 	const question = globalForMock.questions?.find(
 		(q) => q.questionId === questionId,
 	);
-	if (question) {
-		question.status = "COMPLETED";
-	}
+	if (!question) return;
+
+	question.status = "COMPLETED";
 
 	const answerId = globalForMock.nextAnswerId ?? 3;
 	globalForMock.nextAnswerId = answerId + 1;
 	globalForMock.answerCards?.push({
 		answerId,
 		questionId,
-		questionContent: question?.content ?? "",
+		questionContent: question.content,
 		answerContent: content,
 		isConverted: false,
 		createdDate: new Date().toISOString(),

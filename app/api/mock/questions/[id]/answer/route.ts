@@ -13,6 +13,13 @@ export async function POST(
 	const { id } = await params;
 	const questionId = Number(id);
 
+	if (Number.isNaN(questionId)) {
+		return NextResponse.json(
+			{ message: "Invalid question ID" },
+			{ status: 400 },
+		);
+	}
+
 	if (questionId === 999) {
 		return NextResponse.json({ message: "Not Found" }, { status: 404 });
 	}
