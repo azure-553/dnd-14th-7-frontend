@@ -73,9 +73,10 @@ export function QuestionItem({
 		<button
 			type="button"
 			onClick={onClick}
+			disabled={disabled}
 			className={cn(
 				"bg-white rounded-[32px] px-4 py-2 text-left transition-colors shadow-sm",
-				disabled ? "opacity-40 pointer-events-none" : "hover:bg-gray-50",
+				disabled ? "opacity-40" : "hover:bg-gray-50",
 			)}
 		>
 			<span className="typo-headline-1 font-semibold text-[var(--dnd-label-normal)] text-[18px]">

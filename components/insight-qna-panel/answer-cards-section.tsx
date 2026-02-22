@@ -33,21 +33,20 @@ export function AnswerCardsSection({
 					: "flex-none shadow-[0_-4px_10px_rgba(0,0,0,0.05)] bg-white",
 			)}
 		>
-			<div
+			<button
+				type="button"
 				className={cn(
-					"px-[32px] py-[16px] flex justify-between items-center border-b border-[var(--dnd-line-normal)] cursor-pointer rounded-t-[32px]",
+					"w-full px-[32px] py-[16px] flex justify-between items-center border-b border-[var(--dnd-line-normal)] cursor-pointer rounded-t-[32px]",
 					mode === "questions" ? "bg-white" : "bg-[var(--dnd-bg-alternative)]",
 				)}
 				onClick={onToggleMode}
-				onKeyDown={(e) => e.key === "Enter" && onToggleMode()}
-				tabIndex={0}
-				role="button"
+				aria-expanded={mode === "answers"}
 			>
 				<h2 className="typo-headline-2 font-medium text-[var(--dnd-label-normal)]">
 					답변카드
 				</h2>
 				<ChevronsUpDown size={24} />
-			</div>
+			</button>
 
 			<div
 				className={cn(
@@ -106,7 +105,7 @@ function AnswerCardItem({ card }: AnswerCardItemProps) {
 							<span className="typo-caption-1 font-medium text-[var(--dnd-primary)]">
 								인사이트 저장됨
 							</span>
-							<button type="button" className="p-0.5">
+							<button type="button" className="p-0.5" aria-label="답변카드 메뉴">
 								<KebabIcon />
 							</button>
 						</div>

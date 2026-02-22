@@ -108,7 +108,7 @@ function AnswerForm({ question, insightId, onCancel }: AnswerFormProps) {
 								content: answerText,
 							})
 						}
-						disabled={isPending || answerText.length === 0}
+						disabled={isPending || !answerText.trim()}
 						className="px-4 py-2 rounded-[12px] bg-[var(--dnd-primary)] text-white typo-body-2 font-medium hover:opacity-90 transition-opacity disabled:opacity-40"
 					>
 						{isPending ? "제출 중..." : "완료"}
