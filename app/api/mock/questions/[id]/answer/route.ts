@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { answerQuestion } from "@/app/api/mock/insights/[id]/state";
 import { isProduction } from "@/lib/core/env";
 
 export async function POST(
@@ -10,8 +11,9 @@ export async function POST(
 	}
 
 	const { id } = await params;
+	const questionId = Number(id);
 
-	if (id === "999") {
+	if (questionId === 999) {
 		return NextResponse.json({ message: "Not Found" }, { status: 404 });
 	}
 
@@ -24,5 +26,11 @@ export async function POST(
 		);
 	}
 
-	return NextResponse.json({}, { status: 200 });
+	answerQuestion(questionId, body.content);
+
+	console.log(
+		`[Mock] 질문 ${questionId}에 답변 등록: ${body.content.slice(0, 30)}...`,
+	);
+
+	return NextResponse.json(null, { status: 200 });
 }
