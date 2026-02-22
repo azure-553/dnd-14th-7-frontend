@@ -38,12 +38,6 @@ export function reduceTab(state: TabState, action: TabAction): TabState {
           newCurrentTab = { type: 'home' };
         }
       }
-      if (newOpenTabs.length === 0) {
-        return {
-          openTabs: [{ type: 'home' }],
-          currentTab: { type: 'home' },
-        };
-      }
 
       return {
         openTabs: newOpenTabs,

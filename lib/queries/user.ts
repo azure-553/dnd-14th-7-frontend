@@ -37,14 +37,6 @@ export const getUser = async () => {
 };
 
 export const getTags = async (): Promise<Tag[]> => {
-	if (typeof window === "undefined") {
-		return [
-			{ tagId: 1, tagName: "서버", insightCount: 6 },
-			{ tagId: 2, tagName: "로그", insightCount: 3 },
-			{ tagId: 3, tagName: "시스템", insightCount: 2 },
-			{ tagId: 4, tagName: "코드", insightCount: 6 },
-		];
-	}
 	const data = await api.get<TagsResponse>("/api/mock/tags");
 	return data.tags;
 };
