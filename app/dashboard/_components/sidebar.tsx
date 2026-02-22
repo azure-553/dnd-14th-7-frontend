@@ -57,8 +57,8 @@ export function Sidebar() {
 					variant="ghost"
 					onClick={() => {
 						dispatch(
-							{ type: 'add', tab: { type: 'new' } },
-							{ type: 'activate', tab: { type: 'new' } }
+							{ type: 'add', tab: 'new' },
+							{ type: 'activate', tab: 'new' }
 						);
 					}}
 				>
@@ -78,6 +78,12 @@ export function Sidebar() {
 				<Button
 					variant="text-secondary"
 					className="w-full justify-start gap-[8px] px-[8px] py-[8px] h-auto mt-auto"
+					onClick={() => {
+						dispatch(
+							{ type: 'add', tab: 'trash' },
+							{ type: 'activate', tab: 'trash' }
+						);
+					}}
 				>
 					<div className="flex h-[24px] w-[20px] items-center justify-center">
 						<Trash2 className="size-[20px] text-dnd-label-neutral" />

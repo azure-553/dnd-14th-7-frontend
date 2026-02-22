@@ -1,23 +1,19 @@
-import { Tab, serializeTab } from './tab-utils';
-
 export interface TabState {
-  openTabs: Tab[];
-  currentTab: Tab;
+  openTabs: string[];
+  currentTab: string | null;
 }
 
 export type TabAction =
-  | { type: 'add'; tab: Tab }
-  | { type: 'remove'; tab: Tab }
-  | { type: 'activate'; tab: Tab }
-  | { type: 'replace'; targetTab: Tab; newTab: Tab };
+  | { type: 'add'; tab: string }
+  | { type: 'remove'; tab: string }
+  | { type: 'activate'; tab: string | null }
+  | { type: 'replace'; targetTab: string; newTab: string };
 
 export function reduceTab(state: TabState, action: TabAction): TabState {
   switch (action.type) {
     case 'add': {
-      const addedKey = serializeTab(action.tab);
-      const exists = state.openTabs.some(t => serializeTab(t) === addedKey);
-      
-      if (exists) return state;
+      if (action.tab === 'home' || !action.tab) return state;
+      if (state.openTabs.includes(action.tab)) return state;
 
       return {
         ...state,
@@ -26,16 +22,14 @@ export function reduceTab(state: TabState, action: TabAction): TabState {
     }
 
     case 'remove': {
-      const targetKey = serializeTab(action.tab);
-      const newOpenTabs = state.openTabs.filter(t => serializeTab(t) !== targetKey);
-      
+      const newOpenTabs = state.openTabs.filter(t => t !== action.tab);
       let newCurrentTab = state.currentTab;
 
-      if (serializeTab(state.currentTab) === targetKey) {
+      if (state.currentTab === action.tab) {
         if (newOpenTabs.length > 0) {
           newCurrentTab = newOpenTabs[newOpenTabs.length - 1];
         } else {
-          newCurrentTab = { type: 'home' };
+          newCurrentTab = null;
         }
       }
 
@@ -48,26 +42,28 @@ export function reduceTab(state: TabState, action: TabAction): TabState {
     case 'activate': {
       return {
         ...state,
-        currentTab: action.tab,
+        currentTab: action.tab === 'home' ? null : action.tab,
       };
     }
 
     case 'replace': {
-      const targetKey = serializeTab(action.targetTab);
+      if (action.newTab === 'home' || !action.newTab) {
+        return reduceTab(state, { type: 'remove', tab: action.targetTab });
+      }
+
       const replaced = state.openTabs.map(t => 
-        serializeTab(t) === targetKey ? action.newTab : t
+        t === action.targetTab ? action.newTab : t
       );
       
-      const seen = new Set();
+      const seen = new Set<string>();
       const newOpenTabs = replaced.filter(t => {
-        const key = serializeTab(t);
-        if (seen.has(key)) return false;
-        seen.add(key);
+        if (seen.has(t)) return false;
+        seen.add(t);
         return true;
       });
       
       let newCurrentTab = state.currentTab;
-      if (serializeTab(state.currentTab) === targetKey) {
+      if (state.currentTab === action.targetTab) {
         newCurrentTab = action.newTab;
       }
       
@@ -81,3 +77,4 @@ export function reduceTab(state: TabState, action: TabAction): TabState {
       return state;
   }
 }
+
