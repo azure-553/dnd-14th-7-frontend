@@ -1,20 +1,55 @@
 "use client";
 
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { overlay } from "overlay-kit";
 import { useState } from "react";
+import { LoginModal } from "@/components/login-modal";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { insightCreationMutationOptions } from "@/lib/queries/insight";
+import { userQueryOptions } from "@/lib/queries/user";
 
-interface InsightInputProps {
-	onSubmit: (memo: string) => void;
-	isPending?: boolean;
+function openLoginModal() {
+	return overlay.open(({ isOpen, close }) => (
+		<LoginModal isOpen={isOpen} onClose={close} />
+	));
 }
 
-export function InsightInput({ onSubmit, isPending = false }: InsightInputProps) {
+interface InsightInputProps {
+	onSuccess?: (insightId: number) => void;
+}
+
+export function InsightInput({ onSuccess }: InsightInputProps) {
+	const { data: user } = useQuery(userQueryOptions());
 	const [value, setValue] = useState("");
+	const { mutate: createInsight, isPending } = useMutation(
+		insightCreationMutationOptions(),
+	);
 
 	const handleSubmit = () => {
 		if (!value.trim()) return;
-		onSubmit(value);
+
+		createInsight(
+			{ memo: value },
+			{
+				onSuccess: (data) => {
+					setValue("");
+					onSuccess?.(data.insightId);
+				},
+				onError: (error) => {
+					console.error("Failed to create insight:", error);
+				},
+			},
+		);
+	};
+
+	const handleButtonClick = () => {
+		if (!user) {
+			openLoginModal();
+			return;
+		}
+		
+		handleSubmit();
 	};
 
 	return (
@@ -35,7 +70,7 @@ export function InsightInput({ onSubmit, isPending = false }: InsightInputProps)
 						variant="solid"
 						size="dnd-large"
 						disabled={value.length === 0}
-						onClick={handleSubmit}
+						onClick={handleButtonClick}
 					>
 						{isPending ? "생성 중..." : "인사이트 생성"}
 					</Button>
