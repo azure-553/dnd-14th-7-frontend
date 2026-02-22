@@ -17,24 +17,17 @@ export function InsightQnAPanel({ insightId }: InsightQnAPanelProps) {
 
 	return (
 		<div className="w-[360px] h-[calc(100vh-100px)] sticky top-[80px] rounded-[32px] shadow-sm bg-[var(--dnd-bg-question)] flex flex-col overflow-hidden border border-[var(--dnd-line-normal)]">
+			<QuestionSectionHeader onExpand={() => setMode("questions")} />
+
 			<div
 				className={cn(
-					"flex flex-col transition-all duration-300 ease-in-out",
-					mode === "questions" ? "flex-1 min-h-0" : "flex-none",
+					"relative no-scrollbar transition-all duration-300 ease-in-out",
+					mode === "questions"
+						? "flex-1 min-h-0 overflow-y-auto p-6 opacity-100"
+						: "flex-none h-0 overflow-hidden px-6 py-0 opacity-0 pointer-events-none",
 				)}
 			>
-				<QuestionSectionHeader onExpand={() => setMode("questions")} />
-
-				<div
-					className={cn(
-						"relative no-scrollbar transition-all duration-300 ease-in-out",
-						mode === "questions"
-							? "flex-1 overflow-y-auto p-6 opacity-100"
-							: "flex-none h-0 overflow-hidden px-6 py-0 opacity-0 pointer-events-none",
-					)}
-				>
-					<QuestionSection insightId={insightId} />
-				</div>
+				<QuestionSection insightId={insightId} />
 			</div>
 
 			<AnswerCardsSection
