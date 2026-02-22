@@ -59,6 +59,7 @@ export const insightPiecesQueryOptions = (id: number) =>
 		queryFn: () => getInsightPieces(id),
 	});
 
+
 export interface InsightQuestion {
 	questionId: number;
 	content: string;

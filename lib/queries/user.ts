@@ -25,7 +25,16 @@ export const userKeys = {
 	tags: () => [...userKeys.all, "tags"] as const,
 };
 
-export const getUser = () => api.get<User>("/api/mock/user");
+export const getUser = async () => {
+	if (typeof window === "undefined") {
+		return {
+			nickname: "심미진",
+			email: "mijin.sim@example.com",
+			position: "NONE",
+		};
+	}
+	return api.get<User>("/api/mock/user");
+};
 
 export const getTags = async (): Promise<Tag[]> => {
 	const data = await api.get<TagsResponse>("/api/mock/tags");

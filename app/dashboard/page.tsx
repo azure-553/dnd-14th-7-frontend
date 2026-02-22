@@ -1,15 +1,12 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
-import { overlay } from "overlay-kit";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { InsightDetailSection } from "@/components/insight-detail";
 import { InsightInput } from "@/components/insight-input";
-import { LoginModal } from "@/components/login-modal";
-import { HttpError } from "@/lib/core/error";
-import { insightCreationMutationOptions } from "@/lib/queries/insight";
-import { useDashboardTabs } from "./_hooks/use-dashboard-tabs";
+import { useDashboardTabs } from "@/hooks/use-dashboard-tabs";
+
+import { deserializeTab } from "@/lib/tabs/tab-utils";
 
 function HomePage() {
 	return (
@@ -20,48 +17,32 @@ function HomePage() {
 }
 
 function NewInsightPage() {
-	const { replaceTab } = useDashboardTabs();
-	const { mutate: createInsight, isPending } = useMutation({
-		...insightCreationMutationOptions(),
-		onSuccess: (data) => {
-			replaceTab("new", String(data.insightId));
-		},
-		onError: (error) => {
-			if (error instanceof HttpError && error.status === 401) {
-				overlay.open(({ isOpen, close }) => (
-					<LoginModal isOpen={isOpen} onClose={close} />
-				));
-				return;
-			}
-			console.error("Failed to create insight:", error);
-		},
-	});
+	const { dispatch } = useDashboardTabs();
 
 	return (
 		<div className="flex min-h-screen flex-col items-center justify-center gap-[40px] px-[240px]">
-			<InsightInput
-				onSubmit={(memo) => createInsight({ memo })}
-				isPending={isPending}
-			/>
+			<InsightInput onSuccess={(id) => dispatch({ type: 'replace', targetTab: 'new', newTab: `insight:${id}` })} />
 		</div>
 	);
 }
 
 function DashboardContent() {
-	const { activeTab } = useDashboardTabs();
+	const { state } = useDashboardTabs();
+	const currentTabObj = deserializeTab(state.currentTab);
 
-	switch (activeTab) {
+	switch (currentTabObj.type) {
 		case "home":
 			return <HomePage />;
 		case "new":
 			return <NewInsightPage />;
-		default: {
-			const insightId = Number(activeTab);
-			if (Number.isNaN(insightId)) {
-				throw new Error(`유효하지 않은 탭: ${activeTab}`);
-			}
-			return <InsightDetailSection insightId={insightId} />;
-		}
+		case "insight":
+			return <InsightDetailSection insightId={Number(currentTabObj.id)} />;
+		case "trash":
+			return <div className="p-4">휴지통 화면 (준비중)</div>;
+		case "tag":
+			return <div className="p-4">태그 {currentTabObj.name} 화면 (준비중)</div>;
+		default:
+			throw new Error(`유효하지 않은 탭 타입입니다.`);
 	}
 }
 
