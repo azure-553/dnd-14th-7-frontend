@@ -60,9 +60,17 @@ export function reduceTab(state: TabState, action: TabAction): TabState {
 
     case 'replace': {
       const targetKey = serializeTab(action.targetTab);
-      const newOpenTabs = state.openTabs.map(t => 
+      const replaced = state.openTabs.map(t => 
         serializeTab(t) === targetKey ? action.newTab : t
       );
+      
+      const seen = new Set();
+      const newOpenTabs = replaced.filter(t => {
+        const key = serializeTab(t);
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
       
       let newCurrentTab = state.currentTab;
       if (serializeTab(state.currentTab) === targetKey) {
