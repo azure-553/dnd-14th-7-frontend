@@ -74,7 +74,7 @@ function TabItem({ tab, isActive, onNavigate, onClose }: TabItemProps) {
 			onKeyDown={(e) => e.key === "Enter" && onNavigate(tab)}
 		>
 			<span className="min-w-0 flex-1 truncate text-[17px] font-medium leading-[1.41] text-dnd-label-neutral">
-				{tab.type === "new" ? "새 페이지" : tab.type === "insight" ? <InsightTabLabel insightId={Number(tab.id)} /> : tab.type === "tag" ? `태그 ${tab.name}` : ''}
+				{tab.type === "new" ? "새 페이지" : tab.type === "insight" ? <InsightTabLabel insightId={Number(tab.id)} /> : tab.type === "tag" ? `태그 ${tab.name}` : tab.type === "trash" ? "휴지통" : ''}
 			</span>
 			<button
 				type="button"
