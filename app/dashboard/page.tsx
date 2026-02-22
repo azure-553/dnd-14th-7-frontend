@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { InsightDetailSection } from "@/components/insight-detail";
 import { InsightInput } from "@/components/insight-input";
-import { useTabs } from "@/hooks/use-tabs";
+import { useDashboardTabs } from "@/hooks/use-dashboard-tabs";
 
 import { deserializeTab } from "@/lib/tabs/tab-utils";
 
@@ -17,7 +17,7 @@ function HomePage() {
 }
 
 function NewInsightPage() {
-	const { dispatch } = useTabs();
+	const { dispatch } = useDashboardTabs();
 
 	return (
 		<div className="flex min-h-screen flex-col items-center justify-center gap-[40px] px-[240px]">
@@ -27,7 +27,7 @@ function NewInsightPage() {
 }
 
 function DashboardContent() {
-	const { state } = useTabs();
+	const { state } = useDashboardTabs();
 	const currentTabObj = deserializeTab(state.currentTab);
 
 	switch (currentTabObj.type) {

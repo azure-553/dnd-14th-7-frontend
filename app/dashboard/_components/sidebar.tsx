@@ -3,7 +3,7 @@
 import { PenSquare, Trash2 } from "lucide-react";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
-import { useTabs } from "@/hooks/use-tabs";
+import { useDashboardTabs } from "@/hooks/use-dashboard-tabs";
 
 const SidebarUserProfileSection = dynamic(
 	() =>
@@ -22,7 +22,7 @@ const SidebarTagListSection = dynamic(
 );
 
 export function Sidebar() {
-	const { dispatch } = useTabs();
+	const { dispatch } = useDashboardTabs();
 
 	return (
 		<div className="fixed left-0 top-0 flex h-full w-[260px] flex-col gap-[32px] bg-dnd-bg-alternative p-[24px] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.08),0px_1px_2px_0px_rgba(0,0,0,0.12)]">

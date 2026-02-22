@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { TabAction, TabState, reduceTab } from '@/lib/tabs/tab-reducer';
 
-export function useTabs() {
+export function useDashboardTabs() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

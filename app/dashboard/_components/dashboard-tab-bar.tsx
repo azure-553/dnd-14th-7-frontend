@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { Home, Search, X } from "lucide-react";
-import { useTabs } from "@/hooks/use-tabs";
+import { useDashboardTabs } from "@/hooks/use-dashboard-tabs";
 import { insightDetailQueryOptions } from "@/lib/queries/insight";
 import type { Tab } from "@/lib/tabs/tab-utils";
 import { deserializeTab } from "@/lib/tabs/tab-utils";
@@ -13,7 +13,7 @@ function InsightTabLabel({ insightId }: { insightId: number }) {
 }
 
 export function DashboardTabBar() {
-	const { state, dispatch } = useTabs();
+	const { state, dispatch } = useDashboardTabs();
 	const currentTabKey = state.currentTab || "home";
 
 	return (
