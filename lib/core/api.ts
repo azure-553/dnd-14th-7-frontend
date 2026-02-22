@@ -1,3 +1,5 @@
+import { HttpError } from "./error";
+
 type RequestOptions = Omit<RequestInit, "method" | "body">;
 
 function getBaseUrl() {
@@ -9,6 +11,20 @@ async function getServerCookies(): Promise<string> {
 	const { cookies } = await import("next/headers");
 	const cookieStore = await cookies();
 	return cookieStore.toString();
+}
+
+let refreshPromise: Promise<boolean> | null = null;
+
+async function refreshAccessToken(): Promise<boolean> {
+	if (refreshPromise) return refreshPromise;
+
+	refreshPromise = fetch("/api/auth/refresh", { method: "POST" })
+		.then((res) => res.ok)
+		.finally(() => {
+			refreshPromise = null;
+		});
+
+	return refreshPromise;
 }
 
 async function request(path: string, init?: RequestInit): Promise<Response> {
@@ -24,8 +40,27 @@ async function request(path: string, init?: RequestInit): Promise<Response> {
 		},
 	});
 
+	if (response.status === 401 && !isServer) {
+		const refreshed = await refreshAccessToken();
+		if (refreshed) {
+			const retryResponse = await fetch(`${getBaseUrl()}${path}`, {
+				...init,
+				headers: {
+					"Content-Type": "application/json",
+					...init?.headers,
+				},
+			});
+
+			if (!retryResponse.ok) {
+				throw new HttpError(retryResponse.status, retryResponse.statusText);
+			}
+
+			return retryResponse;
+		}
+	}
+
 	if (!response.ok) {
-		throw new Error(`${response.status} ${response.statusText}`);
+		throw new HttpError(response.status, response.statusText);
 	}
 
 	return response;
