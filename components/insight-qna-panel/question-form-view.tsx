@@ -15,24 +15,24 @@ import {
 } from "@/lib/queries/insight";
 import { QuestionItem } from "./question-section";
 
-interface AnswerFormViewProps {
+interface QuestionFormViewProps {
 	selectedQuestionId: number;
 	onCancel: () => void;
 	insightId: number;
 }
 
-export function AnswerFormView({
+export function QuestionFormView({
 	selectedQuestionId,
 	onCancel,
 	insightId,
-}: AnswerFormViewProps) {
+}: QuestionFormViewProps) {
 	const { data } = useSuspenseQuery(insightQuestionsQueryOptions(insightId));
 
 	return (
 		<div className="flex flex-col gap-2 pb-8 h-max">
 			{data.questions.map((question) =>
 				selectedQuestionId === question.questionId ? (
-					<AnswerForm
+					<QuestionForm
 						key={question.questionId}
 						question={question}
 						insightId={insightId}
@@ -50,13 +50,13 @@ export function AnswerFormView({
 	);
 }
 
-interface AnswerFormProps {
+interface QuestionFormProps {
 	question: InsightQuestion;
 	insightId: number;
 	onCancel: () => void;
 }
 
-function AnswerForm({ question, insightId, onCancel }: AnswerFormProps) {
+function QuestionForm({ question, insightId, onCancel }: QuestionFormProps) {
 	const [answerText, setAnswerText] = useState("");
 	const queryClient = useQueryClient();
 
@@ -71,16 +71,18 @@ function AnswerForm({ question, insightId, onCancel }: AnswerFormProps) {
 	});
 
 	return (
-		<div className="bg-white rounded-[20px] p-5 flex flex-col gap-4 shadow-sm">
-			<div className="flex gap-3 items-center">
-				<div className="w-[34px] h-[34px] bg-[var(--dnd-bg-mint)] rounded-[8px] flex items-center justify-center shrink-0">
+		<div className="bg-[var(--dnd-bg-mint2)] rounded-[32px] p-[24px] flex flex-col gap-[16px] border border-[#ebebeb]">
+			{/* 질문 헤더 */}
+			<div className="flex gap-[16px] items-center">
+				<div className="p-[12px] bg-white rounded-[12px] flex items-center justify-center shrink-0">
 					<QuestionIcon />
 				</div>
-				<h3 className="typo-headline-1 font-bold text-[var(--dnd-label-normal)] py-1">
+				<h3 className="typo-headline-1 font-semibold text-[var(--dnd-label-normal)] flex-1">
 					{question.content}
 				</h3>
 			</div>
 
+			{/* 답변 입력 영역 */}
 			<Textarea
 				value={answerText}
 				onChange={(e) => setAnswerText(e.target.value)}
@@ -88,18 +90,7 @@ function AnswerForm({ question, insightId, onCancel }: AnswerFormProps) {
 				maxLength={200}
 				showCharacterCount
 				resize="none"
-			/>
-
-			<div className="flex justify-end">
-				<div className="flex gap-2">
-					<button
-						type="button"
-						onClick={onCancel}
-						disabled={isPending}
-						className="px-4 py-2 rounded-[12px] typo-body-2 font-medium text-[var(--dnd-label-neutral)] hover:bg-gray-100 transition-colors"
-					>
-						취소
-					</button>
+				trailingContent={
 					<button
 						type="button"
 						onClick={() =>
@@ -109,12 +100,12 @@ function AnswerForm({ question, insightId, onCancel }: AnswerFormProps) {
 							})
 						}
 						disabled={isPending || !answerText.trim()}
-						className="px-4 py-2 rounded-[12px] bg-[var(--dnd-primary)] text-white typo-body-2 font-medium hover:opacity-90 transition-opacity disabled:opacity-40"
+						className="px-7 py-3 rounded-[12px] bg-dnd-primary text-white typo-headline-2 font-semibold hover:opacity-90 transition-opacity disabled:opacity-40"
 					>
 						{isPending ? "제출 중..." : "완료"}
 					</button>
-				</div>
-			</div>
+				}
+			/>
 		</div>
 	);
 }

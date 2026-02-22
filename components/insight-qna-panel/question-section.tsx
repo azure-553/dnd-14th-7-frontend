@@ -6,7 +6,7 @@ import { Sparkle } from "@/components/ui/icons/Sparkle";
 import type { InsightQuestion } from "@/lib/queries/insight";
 import { insightQuestionsQueryOptions } from "@/lib/queries/insight";
 import { cn } from "@/lib/utils";
-import { AnswerFormView } from "./answer-form-view";
+import { QuestionFormView } from "./question-form-view";
 
 interface QuestionSectionProps {
 	insightId: number;
@@ -19,7 +19,7 @@ export function QuestionSection({ insightId }: QuestionSectionProps) {
 
 	if (selectedQuestionId !== null) {
 		return (
-			<AnswerFormView
+			<QuestionFormView
 				selectedQuestionId={selectedQuestionId}
 				onCancel={() => setSelectedQuestionId(null)}
 				insightId={insightId}
@@ -45,13 +45,15 @@ function QuestionList({ insightId, onSelectQuestion }: QuestionListProps) {
 
 	return (
 		<div className="flex flex-col gap-2 pb-8 h-max">
-			{data.questions.map((question) => (
-				<QuestionItem
-					key={question.questionId}
-					question={question}
-					onClick={() => onSelectQuestion(question.questionId)}
-				/>
-			))}
+			{data.questions
+				.filter((question) => question.status === "WAITING")
+				.map((question) => (
+					<QuestionItem
+						key={question.questionId}
+						question={question}
+						onClick={() => onSelectQuestion(question.questionId)}
+					/>
+				))}
 
 			<RefreshQuestionsButton />
 		</div>
