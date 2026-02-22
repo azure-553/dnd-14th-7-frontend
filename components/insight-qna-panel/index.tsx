@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { HistoryIcon } from "@/components/ui/icons/HistoryIcon";
 import { cn } from "@/lib/utils";
@@ -16,7 +17,7 @@ export function InsightQnAPanel({ insightId }: InsightQnAPanelProps) {
 	const [mode, setMode] = useState<QnAMode>("questions");
 
 	return (
-		<div className="w-[360px] h-[calc(100vh-100px)] sticky top-[80px] rounded-[32px] shadow-sm bg-[var(--dnd-bg-question)] flex flex-col overflow-hidden border border-[var(--dnd-line-normal)]">
+		<div className="w-[436px] h-[calc(100vh-100px)] sticky top-[80px] rounded-[32px] shadow-sm bg-[var(--dnd-bg-question)] flex flex-col overflow-hidden border border-[var(--dnd-line-normal)]">
 			<QuestionSectionHeader onExpand={() => setMode("questions")} />
 
 			<div
@@ -30,13 +31,32 @@ export function InsightQnAPanel({ insightId }: InsightQnAPanelProps) {
 				<QuestionSection insightId={insightId} />
 			</div>
 
-			<AnswerCardsSection
-				mode={mode}
-				onToggleMode={() =>
-					setMode(mode === "questions" ? "answers" : "questions")
-				}
-				insightId={insightId}
-			/>
+			<div
+				className={cn(
+					"flex flex-col transition-all duration-300 ease-in-out rounded-t-[32px] overflow-hidden",
+					mode === "answers"
+						? "flex-1 min-h-0 bg-[var(--dnd-bg-alternative)]"
+						: "flex-none shadow-[0_-4px_10px_rgba(0,0,0,0.05)] bg-white",
+				)}
+			>
+				<AnswerCardsSectionHeader
+					mode={mode}
+					onToggle={() =>
+						setMode(mode === "questions" ? "answers" : "questions")
+					}
+				/>
+
+				<div
+					className={cn(
+						"transition-all duration-300 ease-in-out bg-[var(--dnd-bg-alternative)]",
+						mode === "answers"
+							? "flex-1 overflow-y-auto p-[32px] opacity-100"
+							: "flex-none overflow-hidden h-0 p-0 opacity-0 pointer-events-none",
+					)}
+				>
+					<AnswerCardsSection insightId={insightId} />
+				</div>
+			</div>
 		</div>
 	);
 }
@@ -60,9 +80,36 @@ function QuestionSectionHeader({ onExpand }: QuestionSectionHeaderProps) {
 	);
 }
 
+interface AnswerCardsSectionHeaderProps {
+	mode: QnAMode;
+	onToggle: () => void;
+}
+
+function AnswerCardsSectionHeader({
+	mode,
+	onToggle,
+}: AnswerCardsSectionHeaderProps) {
+	return (
+		<button
+			type="button"
+			className={cn(
+				"w-full px-[32px] py-[16px] flex justify-between items-center border-b border-[var(--dnd-line-normal)] cursor-pointer rounded-t-[32px]",
+				mode === "questions" ? "bg-white" : "bg-[var(--dnd-bg-alternative)]",
+			)}
+			onClick={onToggle}
+			aria-expanded={mode === "answers"}
+		>
+			<h2 className="typo-headline-2 font-medium text-[var(--dnd-label-normal)]">
+				답변카드
+			</h2>
+			<ChevronsUpDown size={24} />
+		</button>
+	);
+}
+
 export function InsightQnAPanelSkeleton() {
 	return (
-		<div className="w-[360px] h-[calc(100vh-100px)] sticky top-[80px] rounded-[32px] shadow-sm bg-[var(--dnd-bg-question)] flex flex-col overflow-hidden border border-[var(--dnd-line-normal)]">
+		<div className="w-[436px] h-[calc(100vh-100px)] sticky top-[80px] rounded-[32px] shadow-sm bg-[var(--dnd-bg-question)] flex flex-col overflow-hidden border border-[var(--dnd-line-normal)]">
 			<div className="flex-1 flex flex-col">
 				<div className="px-[32px] py-[16px] flex justify-between items-center rounded-t-[32px]">
 					<div className="h-6 w-24 bg-[var(--dnd-fill-strong)] rounded-md" />

@@ -1,4 +1,3 @@
-import type { MutationOptions } from "@tanstack/react-query";
 import { mutationOptions, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/core/api";
 
@@ -13,9 +12,10 @@ interface CreateInsightResponse {
 const createInsight = (data: CreateInsightRequest) =>
 	api.post<CreateInsightResponse>("/api/mock/insights", data);
 
-export const insightCreationMutationOptions = () => mutationOptions({
-	mutationFn: createInsight,
-});
+export const insightCreationMutationOptions = () =>
+	mutationOptions({
+		mutationFn: createInsight,
+	});
 
 export interface Tag {
 	tagId: number;
@@ -63,7 +63,7 @@ export const insightPiecesQueryOptions = (id: number) =>
 export interface InsightQuestion {
 	questionId: number;
 	content: string;
-	status: "WAITING" | "COMPLETED";
+	status: "WAITING" | "COMPLETED" | "ARCHIVED";
 	createdDate: string;
 }
 
@@ -72,8 +72,8 @@ export interface InsightAnswerCard {
 	questionId: number;
 	questionContent: string;
 	answerContent: string;
+	isConverted: boolean;
 	createdDate: string;
-	isSaved?: boolean;
 }
 
 export interface GetInsightQuestionsResponse {
@@ -90,6 +90,16 @@ export const insightQuestionsQueryOptions = (id: number) =>
 		queryFn: () => getInsightQuestions(id),
 	});
 
+const convertAnswerToBlock = (insightId: number, answerId: number) =>
+	api.post<void>(`/api/mock/insights/${insightId}/answer-blocks`, {
+		answerId,
+	});
+
+export const convertAnswerToBlockMutationOptions = (insightId: number) =>
+	mutationOptions({
+		mutationFn: (answerId: number) => convertAnswerToBlock(insightId, answerId),
+	});
+
 interface AnswerQuestionRequest {
 	content: string;
 }
@@ -97,13 +107,8 @@ interface AnswerQuestionRequest {
 const answerQuestion = (questionId: number, data: AnswerQuestionRequest) =>
 	api.post<void>(`/api/mock/questions/${questionId}/answer`, data);
 
-export const answerQuestionMutationOptions = (
-	_insightId: number,
-): MutationOptions<
-	void,
-	unknown,
-	{ questionId: number; content: string }
-> => ({
-	mutationFn: ({ questionId, content }) =>
-		answerQuestion(questionId, { content }),
-});
+export const answerQuestionMutationOptions = (_insightId: number) =>
+	mutationOptions({
+		mutationFn: (data: { questionId: number; content: string }) =>
+			answerQuestion(data.questionId, { content: data.content }),
+	});
