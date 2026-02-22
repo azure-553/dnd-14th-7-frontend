@@ -1,9 +1,16 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import { Home, Search, X } from "lucide-react";
 import { useTabs } from "@/hooks/use-tabs";
+import { insightDetailQueryOptions } from "@/lib/queries/insight";
 import { serializeTab } from "@/lib/tabs/tab-utils";
 import type { Tab } from "@/lib/tabs/tab-utils";
+
+function InsightTabLabel({ insightId }: { insightId: number }) {
+	const { data, isLoading } = useQuery(insightDetailQueryOptions(insightId));
+	return <>{isLoading ? "불러오는 중..." : data?.title || "인사이트"}</>;
+}
 
 export function DashboardTabBar() {
 	const { state, dispatch } = useTabs();
@@ -67,7 +74,7 @@ function TabItem({ tab, isActive, onNavigate, onClose }: TabItemProps) {
 			onKeyDown={(e) => e.key === "Enter" && onNavigate(tab)}
 		>
 			<span className="min-w-0 flex-1 truncate text-[17px] font-medium leading-[1.41] text-dnd-label-neutral">
-				{tab.type === "new" ? "새 페이지" : tab.type === "insight" ? `인사이트 ${tab.id}` : tab.type === "tag" ? `태그 ${tab.name}` : ''}
+				{tab.type === "new" ? "새 페이지" : tab.type === "insight" ? <InsightTabLabel insightId={Number(tab.id)} /> : tab.type === "tag" ? `태그 ${tab.name}` : ''}
 			</span>
 			<button
 				type="button"
