@@ -20,7 +20,7 @@ interface InsightInputProps {
 }
 
 export function InsightInput({ onSuccess }: InsightInputProps) {
-	const { data: user } = useQuery(userQueryOptions());
+	const { data: user, isError } = useQuery(userQueryOptions());
 	const [value, setValue] = useState("");
 	const { mutate: createInsight, isPending } = useMutation(
 		insightCreationMutationOptions(),
@@ -44,7 +44,7 @@ export function InsightInput({ onSuccess }: InsightInputProps) {
 	};
 
 	const handleButtonClick = () => {
-		if (!user) {
+		if (isError || !user) {
 			openLoginModal();
 			return;
 		}
