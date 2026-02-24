@@ -18,7 +18,7 @@ export function HomeTagCard({
 	return (
 		<div
 			className={cn(
-				"flex flex-col w-[260px] h-[220px] p-[24px] bg-white rounded-[24px] border border-dnd-line-alternative shadow-dnd-normal shrink-0",
+				"flex flex-col w-[calc(25%-18px)] p-[24px] bg-white rounded-[24px] border border-dnd-line-alternative shadow-dnd-normal shrink-0",
 				className,
 			)}
 		>
@@ -27,7 +27,7 @@ export function HomeTagCard({
 				{name}
 			</h3>
 
-			<ul className="flex flex-col gap-[12px] flex-1">
+			<ul className="flex flex-col gap-[12px]">
 				{insights.slice(0, 3).map((insight) => (
 					<li
 						key={insight.id}
@@ -39,7 +39,7 @@ export function HomeTagCard({
 				))}
 			</ul>
 
-			<div className="flex justify-end mt-[16px]">
+			<div className="flex justify-end mt-auto">
 				<span className="typo-caption-1 text-dnd-label-alternative">
 					{totalCount}개
 				</span>
