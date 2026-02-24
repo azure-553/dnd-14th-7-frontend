@@ -17,9 +17,10 @@ function openLoginModal() {
 
 interface InsightInputProps {
 	onSuccess?: (insightId: number) => void;
+	titleClassName?: string;
 }
 
-export function InsightInput({ onSuccess }: InsightInputProps) {
+export function InsightInput({ onSuccess, titleClassName }: InsightInputProps) {
 	const { data: user, isError } = useQuery(userQueryOptions());
 	const [value, setValue] = useState("");
 	const { mutate: createInsight, isPending } = useMutation(
@@ -48,13 +49,17 @@ export function InsightInput({ onSuccess }: InsightInputProps) {
 			openLoginModal();
 			return;
 		}
-		
+
 		handleSubmit();
 	};
 
 	return (
 		<section className="flex flex-col items-start gap-[32px] w-full max-w-[960px]">
-			<h1 className="typo-title-2 font-medium text-dnd-label-strong">
+			<h1
+				className={`typo-title-2 font-medium text-dnd-label-strong ${
+					titleClassName || ""
+				}`}
+			>
 				지금 막 떠오른 생각을 한 줄로 적어보세요.
 			</h1>
 			<Textarea
