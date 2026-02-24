@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 export interface HomeTagCardProps {
@@ -23,7 +24,7 @@ export function HomeTagCard({
 			)}
 		>
 			<h3 className="typo-headline-1 font-semibold text-dnd-label-strong mb-[20px] flex items-center gap-[4px]">
-				<span className="text-dnd-primary">#</span>
+				<Image src="/hash-tag.svg" alt="#" width={24} height={24} />
 				{name}
 			</h3>
 

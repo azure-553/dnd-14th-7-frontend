@@ -59,9 +59,8 @@ function HomePage() {
 				titleClassName="text-center w-full"
 				onSuccess={(id) =>
 					dispatch({
-						type: "replace",
-						targetTab: "home",
-						newTab: `insight:${id}`,
+						type: "add",
+						tab: `insight:${id}`,
 					})
 				}
 			/>
