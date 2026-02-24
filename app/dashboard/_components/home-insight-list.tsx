@@ -33,7 +33,7 @@ export function HomeInsightList({
 		>
 			<div className="flex items-center">{header}</div>
 			<div className="flex items-center w-full">
-				<div 
+				<div
 					ref={scrollRef}
 					className="flex gap-[24px] items-center overflow-x-auto w-full min-w-0 pb-[20px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden snap-x snap-mandatory [&>*]:snap-start [&>*]:shrink-0"
 				>

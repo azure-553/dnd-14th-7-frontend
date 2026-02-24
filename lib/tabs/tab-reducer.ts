@@ -13,7 +13,7 @@ export function reduceTab(state: TabState, action: TabAction): TabState {
 	switch (action.type) {
 		case "add": {
 			if (action.tab === "home" || !action.tab) return state;
-			
+
 			if (state.openTabs.includes(action.tab)) {
 				return {
 					...state,

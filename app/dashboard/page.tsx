@@ -82,12 +82,7 @@ function HomePage() {
 						<HomeTitleHeader
 							title="태그"
 							icon={
-								<Image
-									src="/hash-tag.svg"
-									alt="#"
-									width={19}
-									height={19}
-								/>
+								<Image src="/hash-tag.svg" alt="#" width={19} height={19} />
 							}
 						/>
 					}

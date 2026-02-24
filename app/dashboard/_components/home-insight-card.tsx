@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { KebabIcon } from "@/components/ui/icons/KebabIcon";
 import { cn } from "@/lib/utils";
 
