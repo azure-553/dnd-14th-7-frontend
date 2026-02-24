@@ -20,9 +20,11 @@ export function DashboardTabBar() {
 		<div className="fixed left-[260px] top-0 right-0 z-10 flex h-[56px] items-center border-b border-[#e1e2e4] bg-dnd-bg-mint">
 			<button
 				type="button"
-				onClick={() => dispatch({ type: 'activate', tab: null })}
+				onClick={() => dispatch({ type: "activate", tab: null })}
 				className={`flex h-full shrink-0 items-center justify-center border-r border-[#e1e2e4] px-[16px] transition-colors ${
-					currentTabKey === "home" ? "bg-white" : "bg-dnd-bg-mint hover:bg-white/60"
+					currentTabKey === "home"
+						? "bg-white"
+						: "bg-dnd-bg-mint hover:bg-white/60"
 				}`}
 			>
 				<Home className="size-[20px] text-dnd-primary" />
@@ -37,8 +39,8 @@ export function DashboardTabBar() {
 							tabKey={tabKey}
 							tab={tab}
 							isActive={currentTabKey === tabKey}
-							onNavigate={(key) => dispatch({ type: 'activate', tab: key })}
-							onClose={(key) => dispatch({ type: 'remove', tab: key })}
+							onNavigate={(key) => dispatch({ type: "activate", tab: key })}
+							onClose={(key) => dispatch({ type: "remove", tab: key })}
 						/>
 					);
 				})}
@@ -75,7 +77,17 @@ function TabItem({ tabKey, tab, isActive, onNavigate, onClose }: TabItemProps) {
 			onKeyDown={(e) => e.key === "Enter" && onNavigate(tabKey)}
 		>
 			<span className="min-w-0 flex-1 truncate text-[17px] font-medium leading-[1.41] text-dnd-label-neutral">
-				{tab.type === "new" ? "새 페이지" : tab.type === "insight" ? <InsightTabLabel insightId={Number(tab.id)} /> : tab.type === "tag" ? `태그 ${tab.name}` : tab.type === "trash" ? "휴지통" : ''}
+				{tab.type === "new" ? (
+					"새 페이지"
+				) : tab.type === "insight" ? (
+					<InsightTabLabel insightId={Number(tab.id)} />
+				) : tab.type === "tag" ? (
+					`태그 ${tab.name}`
+				) : tab.type === "trash" ? (
+					"휴지통"
+				) : (
+					""
+				)}
 			</span>
 			<button
 				type="button"
