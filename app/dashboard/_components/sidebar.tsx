@@ -57,8 +57,8 @@ export function Sidebar() {
 					variant="ghost"
 					onClick={() => {
 						dispatch(
-							{ type: 'add', tab: 'new' },
-							{ type: 'activate', tab: 'new' }
+							{ type: "add", tab: "new" },
+							{ type: "activate", tab: "new" },
 						);
 					}}
 				>
@@ -80,8 +80,8 @@ export function Sidebar() {
 					className="w-full justify-start gap-[8px] px-[8px] py-[8px] h-auto mt-auto"
 					onClick={() => {
 						dispatch(
-							{ type: 'add', tab: 'trash' },
-							{ type: 'activate', tab: 'trash' }
+							{ type: "add", tab: "trash" },
+							{ type: "activate", tab: "trash" },
 						);
 					}}
 				>
@@ -96,4 +96,3 @@ export function Sidebar() {
 		</div>
 	);
 }
-
