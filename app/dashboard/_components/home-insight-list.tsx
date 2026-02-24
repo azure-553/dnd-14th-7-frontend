@@ -63,12 +63,12 @@ export function HomeToggleHeader({
 	onToggle: (latest: boolean) => void;
 }) {
 	return (
-		<div className="flex bg-dnd-bg-alternative rounded-full p-[4px]">
+		<div className="flex bg-dnd-bg-alternative rounded-[10px] p-[4px]">
 			<button
 				type="button"
 				onClick={() => onToggle(true)}
 				className={cn(
-					"px-[16px] py-[8px] rounded-full typo-label-1 font-semibold transition-all",
+					"px-[12px] py-[6px] rounded-[8px] typo-label-1 font-semibold transition-all",
 					isLatest
 						? "bg-white text-dnd-label-strong shadow-sm"
 						: "text-dnd-label-alternative hover:text-dnd-label-normal",
@@ -80,7 +80,7 @@ export function HomeToggleHeader({
 				type="button"
 				onClick={() => onToggle(false)}
 				className={cn(
-					"px-[16px] py-[8px] rounded-full typo-label-1 font-semibold transition-all",
+					"px-[12px] py-[6px] rounded-[8px] typo-label-1 font-semibold transition-all",
 					!isLatest
 						? "bg-white text-dnd-label-strong shadow-sm"
 						: "text-dnd-label-alternative hover:text-dnd-label-normal",
