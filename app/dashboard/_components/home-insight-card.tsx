@@ -1,3 +1,10 @@
+import Image from "next/image";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { KebabIcon } from "@/components/ui/icons/KebabIcon";
 import { cn } from "@/lib/utils";
 
@@ -30,13 +37,28 @@ export function HomeInsightCard({
 					<h3 className="typo-headline-1 font-semibold text-dnd-label-strong line-clamp-1">
 						{title}
 					</h3>
-					<button
-						type="button"
-						className="text-dnd-label-alternative p-1 hover:bg-dnd-bg-alternative rounded-full transition-colors"
-						aria-label="메뉴"
-					>
-						<KebabIcon />
-					</button>
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<button
+								type="button"
+								className="text-dnd-label-alternative p-1 hover:bg-dnd-bg-alternative rounded-full transition-colors"
+								aria-label="메뉴"
+							>
+								<KebabIcon />
+							</button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent
+							align="end"
+							className="p-0 border-dnd-line-alternative shadow-dnd-normal rounded-[12px] bg-white min-w-[200px]"
+						>
+							<DropdownMenuItem className="flex items-center gap-[12px] px-[12px] py-[8px] cursor-pointer rounded-[12px] focus:bg-dnd-bg-alternative hover:bg-dnd-bg-alternative">
+								<Image src="/trash.svg" alt="trash" width={18} height={21} />
+								<span className="typo-body-1 font-medium text-dnd-label-strong text-[16px]">
+									휴지통으로 이동
+								</span>
+							</DropdownMenuItem>
+						</DropdownMenuContent>
+					</DropdownMenu>
 				</div>
 				<span className="typo-caption-1 text-dnd-label-alternative">
 					{date}
